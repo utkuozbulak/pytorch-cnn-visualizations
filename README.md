@@ -30,62 +30,62 @@ Below, are some sample results for each operation.
 		</tr>
 		<tr>
 			<td width="19%" align="center"> Original Image </td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/examples/dog_car.png"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/examples/cat_dog.png"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/examples/spider.png"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/examples/dog_car.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/examples/cat_dog.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/examples/spider.png"> </td>
 		</tr>
 		<tr>
 			<td width="19%" align="center"> Colored Vanilla Backpropagation </td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/dog_car_Vanilla_BP_color.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/cat_dog_Vanilla_BP_color.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/spider_Vanilla_BP_color.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dog_car_Vanilla_BP_color.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/cat_dog_Vanilla_BP_color.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/spider_Vanilla_BP_color.jpg"> </td>
 		</tr>
 			<td width="19%" align="center"> Grayscale Vanilla Backpropagation </td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/dog_car_Vanilla_BP_gray.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/cat_dog_Vanilla_BP_gray.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/spider_Vanilla_BP_gray.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dog_car_Vanilla_BP_gray.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/cat_dog_Vanilla_BP_gray.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/spider_Vanilla_BP_gray.jpg"> </td>
 		</tr>
     <tr>
 			<td width="19%" align="center"> Colored Guided Backpropagation <br />  <br />  (GB)</td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/dog_car_Guided_BP_color.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/cat_dog_Guided_BP_color.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/spider_Guided_BP_color.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dog_car_Guided_BP_color.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/cat_dog_Guided_BP_color.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/spider_Guided_BP_color.jpg"> </td>
 		</tr>
     <tr>
 			<td width="19%" align="center"> Grayscale Guided Backpropagation <br />  <br /> (GB)</td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/dog_car_Guided_BP_gray.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/cat_dog_Guided_BP_gray.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/spider_Guided_BP_gray.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dog_car_Guided_BP_gray.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/cat_dog_Guided_BP_gray.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/spider_Guided_BP_gray.jpg"> </td>
 		</tr>
     <tr>
 			<td width="19%" align="center"> Gradient-weighted Class Activation Map <br />  <br /> (Grad-CAM)</td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/dog_car_Cam_Grayscale.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/cat_dog_Cam_Grayscale.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/spider_Cam_Grayscale.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dog_car_Cam_Grayscale.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/cat_dog_Cam_Grayscale.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/spider_Cam_Grayscale.jpg"> </td>
 		</tr>
     <tr>
 			<td width="19%" align="center"> Gradient-weighted Class Activation Heatmap <br />  <br /> (Grad-CAM)</td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/dog_car_Cam_Heatmap.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/cat_dog_Cam_Heatmap.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/spider_Cam_Heatmap.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dog_car_Cam_Heatmap.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/cat_dog_Cam_Heatmap.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/spider_Cam_Heatmap.jpg"> </td>
 		</tr>
     <tr>
 			<td width="19%" align="center"> Gradient-weighted Class Activation Heatmap on Image <br />  <br /> (Grad-CAM)</td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/dog_car_Cam_On_Image.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/cat_dog_Cam_On_Image.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/spider_Cam_On_Image.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dog_car_Cam_On_Image.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/cat_dog_Cam_On_Image.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/spider_Cam_On_Image.jpg"> </td>
 		</tr>
     <tr>
 			<td width="19%" align="center"> Colored Guided Gradient-weighted Class Activation Map <br />  <br /> (Guided-Grad-CAM)</td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/dog_car_GGrad_Cam.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/cat_dog_GGrad_Cam.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/spider_GGrad_Cam.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dog_car_GGrad_Cam.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/cat_dog_GGrad_Cam.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/spider_GGrad_Cam.jpg"> </td>
 		</tr>
     <tr>
 			<td width="19%" align="center"> Grayscale Guided Gradient-weighted Class Activation Map  <br />  <br /> (Guided-Grad-CAM)</td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/dog_car_GGrad_Cam_gray.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/cat_dog_GGrad_Cam_gray.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/spider_GGrad_Cam_gray.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dog_car_GGrad_Cam_gray.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/cat_dog_GGrad_Cam_gray.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/spider_GGrad_Cam_gray.jpg"> </td>
 		</tr>
 	</tbody>
 </table>
