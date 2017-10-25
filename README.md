@@ -12,11 +12,13 @@ This repo contains following CNN visualizations implemented in Pytorch:
 
 The code uses VGG19 as the model. It assumes that the model is separated into two sections; **features**, which contains the convolutional layers and **classifier**, which contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model which does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
 
-All images are pre-processed with mean and std of the ImageNet before being fed to the model.
+All images are pre-processed with mean and std of the ImageNet dataset before being fed to the model.
 
 I tried to comment on the code as much as possible, if you have any issues understanding it or porting the code don't hesitate to reach out. 
 
 Below, are some sample results for each operation.
+
+
 
 <table border=0 >
 	<tbody>
