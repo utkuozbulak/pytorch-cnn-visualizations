@@ -10,11 +10,11 @@ This repo contains following CNN visualizations implemented in Pytorch:
 * Gradient-weighted [3] Class Activation Mapping [2] 
 * Guided Gradient-weighted Class Activation Mapping [3]
 
-The code uses VGG19 as the model. It assumes that the model is separated into two sections; **features**, which contains the convolutional layers and **classifier**, which contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model which does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
+The code uses VGG19 as the model. It assumes that the model is separated into two sections; **features**, which contains the convolutional layers and **classifier**, that contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model that does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
 
 All images are pre-processed with mean and std of the ImageNet dataset before being fed to the model.
 
-I tried to comment on the code as much as possible, if you have any issues understanding it or porting the code don't hesitate to reach out. 
+I tried to comment on the code as much as possible, if you have any issues understanding it or porting it, don't hesitate to reach out. 
 
 Below, are some sample results for each operation.
 
