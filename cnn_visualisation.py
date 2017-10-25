@@ -1,15 +1,12 @@
-import torch
-from torch.autograd import Variable
-from torch.autograd import Function
-from torchvision import models
-from torchvision import utils
-import cv2  # Only needed for GradCam heatmap
-import numpy as np
-from collections import OrderedDict
-from torch.nn import ReLU
-from PIL import Image
-from scipy.misc import imresize
 import os
+import cv2
+import numpy as np
+
+import torch
+from torch.nn import ReLU
+from torch.autograd import Variable
+from torchvision import models
+
 
 class CamExtractor():
     """
@@ -80,22 +77,20 @@ class GradCam():
         # Get weights from gradients
         weights = np.mean(guided_gradients, axis=(1, 2))  # Take averages for each gradient
         # Create empty numpy array for cam
-        cam = np.ones(target.shape[1:], dtype=np.float32)
+        org_cam = np.ones(target.shape[1:], dtype=np.float32)
         # Multiply each weight with its conv output and then, sum
         for i, w in enumerate(weights):
-            cam += w * target[i, :, :]
-        cam = np.maximum(cam, 0)
-        cam = imresize(cam, (224, 224))
+            org_cam += w * target[i, :, :]
+        org_cam = cv2.resize(org_cam, (224, 224))
+        cam = np.maximum(org_cam, 0)
         cam = (cam - np.min(cam)) / (np.max(cam) - np.min(cam))  # Normalize between 0-1
         cam = np.uint8(cam * 255)  # Scale between 0-255 to visualize
-        return cam
-
-
+        return org_cam, cam
 
 
 class VanillaBackprop():
     """
-        Produces gradients generated with vanilla back propagation of the image
+        Produces gradients generated with vanilla back propagation from the image
     """
     def __init__(self, model, processed_im, target_class):
         self.model = model
@@ -113,7 +108,7 @@ class VanillaBackprop():
             self.gradients = grad_in[0]
 
         # Register hook to the first layer
-        first_layer = list(pretrained_model.features._modules.items())[0][1]
+        first_layer = list(self.model.features._modules.items())[0][1]
         first_layer.register_backward_hook(hook_function)
 
     def run(self):
@@ -134,7 +129,7 @@ class VanillaBackprop():
 
 class GuidedBackprop():
     """
-       Produces gradients generated with guided back propagation of the given image
+       Produces gradients generated with guided back propagation from the given image
     """
     def __init__(self, model, processed_im, target_index):
         self.model = model
@@ -152,7 +147,7 @@ class GuidedBackprop():
             self.gradients = grad_in[0]
 
         # Register hook to the first layer
-        first_layer = list(pretrained_model.features._modules.items())[0][1]
+        first_layer = list(self.model.features._modules.items())[0][1]
         first_layer.register_backward_hook(hook_function)
 
     def update_relus(self):
@@ -166,7 +161,7 @@ class GuidedBackprop():
             if isinstance(module, ReLU):
                 return (torch.clamp(grad_in[0], min=0.0),)
         # Loop through layers, hook up ReLUs with relu_hook_function
-        for pos, module in pretrained_model.features._modules.items():
+        for pos, module in self.model.features._modules.items():
             if isinstance(module, ReLU):
                 module.register_backward_hook(relu_hook_function)
 
@@ -186,7 +181,25 @@ class GuidedBackprop():
         return gradients_as_arr
 
 
-def save_gradient_pictures(gradient, file_name, org_img):
+def convert_to_grayscale(cv2im):
+    """
+        Converts 3d image to grayscale
+
+    Args:
+        cv2im (numpy arr): RGB image with shape (D,W,H)
+
+    returns:
+        grayscale_im (numpy_arr): Grayscale image with shape (1,W,D)
+    """
+    grayscale_im = np.sum(np.abs(cv2im), axis=0)
+    im_max = np.percentile(grayscale_im, 99)
+    im_min = np.min(grayscale_im)
+    grayscale_im = (np.clip((grayscale_im - im_min) / (im_max - im_min), 0, 1))
+    grayscale_im = np.expand_dims(grayscale_im, axis=0)
+    return grayscale_im
+
+
+def save_gradient_pictures(gradient, file_name):
     """
         Exports the original gradient image
 
@@ -194,14 +207,11 @@ def save_gradient_pictures(gradient, file_name, org_img):
         gradient (np arr): Numpy array of the gradient with shape (3, 224, 224)
         file_name (str): File name to be exported
     """
-    if org_img:
-        org_grad = gradient - gradient.min()
-    else:
-        org_grad = gradient + gradient.min()
-    org_grad /= org_grad.max()
-    org_grad = np.uint8(org_grad * 255).transpose(1, 2, 0)
+    gradient = gradient - gradient.min()
+    gradient /= gradient.max()
+    gradient = np.uint8(gradient * 255).transpose(1, 2, 0)
     path_to_file = os.path.join('results', file_name + '.jpg')
-    cv2.imwrite(path_to_file, org_grad)
+    cv2.imwrite(path_to_file, gradient)
 
 
 def save_class_activation_on_image(org_img, activation_map, file_name):
@@ -221,9 +231,10 @@ def save_class_activation_on_image(org_img, activation_map, file_name):
     path_to_file = os.path.join('results', file_name+'_Cam_Heatmap.jpg')
     cv2.imwrite(path_to_file, activation_heatmap)
     # Heatmap on picture
+    org_img = cv2.resize(org_img, (224, 224))
     img_with_heatmap = np.float32(activation_heatmap) + np.float32(org_img)
     img_with_heatmap = img_with_heatmap / np.max(img_with_heatmap)
-    path_to_file = os.path.join('results', file_name+'_Cam_OnImage.jpg')
+    path_to_file = os.path.join('results', file_name+'_Cam_On_Image.jpg')
     cv2.imwrite(path_to_file, np.uint8(255 * img_with_heatmap))
 
 
@@ -236,14 +247,13 @@ def preprocess_image(cv2im):
 
     returns:
         im_as_var (Pytorch variable): Variable that contains processed float tensor
-
     """
     # mean and std list for channels (Imagenet)
     mean = [0.485, 0.456, 0.406]
     std = [0.229, 0.224, 0.225]
     # Resize image
     im_as_arr = np.float32(cv2.resize(cv2im, (224, 224)))
-    im_as_arr = im_as_arr[..., ::-1]  # Convert BGR to RGB
+    im_as_arr = np.ascontiguousarray(im_as_arr[..., ::-1])
     im_as_arr = im_as_arr.transpose(2, 0, 1)  # Convert array to D,W,H
     # Normalize the channels
     for channel, _ in enumerate(im_as_arr):
@@ -259,158 +269,58 @@ def preprocess_image(cv2im):
     return im_as_var
 
 
+def guided_grad_cam(grad_cam_mask, guided_backprop_mask):
+    """
+        Guided grad cam is just pointwise multiplication of cam mask and
+        guided backprop mask
+
+    Args:
+        grad_cam_mask (np_arr): Class activation map mask
+        guided_backprop_mask (np_arr):Guided backprop mask
+    """
+    cam_gb = np.multiply(grad_cam_mask, guided_backprop_mask)
+    return cam_gb
+
 if __name__ == '__main__':
-    img_path = 'examples/both.png'
-    file_name = 'my_cat'
-    image_class = 282
+    example_list = [['examples/dog_car.png', 235],
+                    ['examples/cat_dog.png', 243],
+                    ['examples/spider.JPEG', 72]]
+    selected_example = 1
+    img_path = example_list[selected_example][0]
+    target_class = example_list[selected_example][1]
+    file_name = img_path[img_path.rfind('/')+1:img_path.rfind('.')]
     # Read image
     cv2im = cv2.imread(img_path, 1)
     # Process image
-    #prep_im = preprocess_image(cv2im)
-    # Load model
+    prep_img = preprocess_image(cv2im)
+    # Define model
+    pretrained_model = models.vgg19(pretrained=True)
 
-    mean = [0.485, 0.456, 0.406]
-    std = [0.229, 0.224, 0.225]
-    # Resize image
-    im_as_arr = np.float64(cv2.resize(cv2im, (224, 224)))
-    im_as_arr = im_as_arr[..., ::-1]  # Convert BGR to RGB
-    im_as_arr = im_as_arr.transpose(2, 0, 1)  # Convert array to D,W,H
-    # Normalize the channels
-
-    for channel, _ in enumerate(im_as_arr):
-        print('a')
-        im_as_arr[channel] /= 255
-        im_as_arr[channel] -= mean[channel]
-        im_as_arr[channel] /= std[channel]
-
-    # Convert to float tensor
-
-    PIL_img = Image.open(img_path)
-    PIL_img = PIL_img.resize((224, 224), Image.ANTIALIAS)
-    # Convert to np array
-    im_as_arr2 = np.array(PIL_img, dtype=np.float64)
-    # Transpose to obtain D-W-H
-    im_as_arr2 = im_as_arr2.transpose(2, 0, 1)
-    # Normalize the channels
-    for channel, _ in enumerate(im_as_arr):
-        print(channel)
-        im_as_arr2[channel] /= 255
-        im_as_arr2[channel] -= mean[channel]
-        im_as_arr2[channel] /= std[channel]
-    im_as_ten = torch.from_numpy(im_as_arr2).float()
-
-
-    """
-
-    pretrained_model=models.vgg19(pretrained=True)
-
-    gcv2 = GradCam(pretrained_model, target_layer = 35)
-    m = gcv2.generate_cam(prep_im, image_class)
-    save_class_activation_on_image(cv2im, m, file_name)
-
-
-    VBP = VanillaBackprop(pretrained_model, prep_im, image_class)
+    # Vanilla backprop
+    VBP = VanillaBackprop(pretrained_model, prep_img, target_class)
     vanilla_grads = VBP.run()
-    save_gradient_pictures(vanilla_grads,file_name + '_org_Vanilla_BP', True)
+    save_gradient_pictures(vanilla_grads, file_name + '_Vanilla_BP')
+    grayscale_vanilla_grads = convert_to_grayscale(vanilla_grads)
+    save_gradient_pictures(grayscale_vanilla_grads, file_name + '_Vanilla_BP_gray')
+    print('Vanilla backprop completed')
 
-
-    GBP = GuidedBackprop(pretrained_model, prep_im, image_class)
+    # Guided backprop
+    GBP = GuidedBackprop(pretrained_model, prep_img, target_class)
     guided_grads = GBP.run()
-    save_gradient_pictures(guided_grads, file_name + '_org_Guided_BP', True)
-    save_gradient_pictures(guided_grads, file_name + '_enhanced_Guided_BP', False)
-    """
+    save_gradient_pictures(guided_grads, file_name + '_Guided_BP_color')
+    grayscale_guided_grads = convert_to_grayscale(guided_grads)
+    save_gradient_pictures(grayscale_guided_grads, file_name + '_Guided_BP_gray')
+    print('Guided backprop completed')
 
+    # Grad cam
+    gcv2 = GradCam(pretrained_model, target_layer=35)
+    org_cam, cam = gcv2.generate_cam(prep_img, target_class)
+    save_class_activation_on_image(cv2im, cam, file_name)
+    print('Grad cam completed')
 
-    """
-    z = GBP(pretrained_model, prep_im, 999)
-    all_grads = z.run()ü
-
-    """
-    """
-
-    all_grads = all_grads.data.numpy()[0]
-    all_grads -= all_grads.min()
-    all_grads /= all_grads.max()
-    #all_grads = np.maximum(all_grads, 0)
-    # Normalize between 0 - 1
-    #all_grads = (all_grads - np.min(all_grads)) / (np.max(all_grads) - np.min(all_grads))
-    all_grads = all_grads.transpose(1,2,0)
-    show_cam_on_image(img, all_grads)
-    # If None, returns the map for the highest scoring category.
-    # Otherwise, targets the requested index.
-    """
-
-    """
-    gb_model = GuidedBackpropReLUModel(model=models.vgg19(pretrained=True),
-                                       use_cuda=False)
-
-    gb = gb_model(prep_im, index=282)
-    utils.save_image(torch.from_numpy(gb), 'gb.jpg')
-    """
-
-    """
-    cam_mask = np.zeros(gb.shape)
-    for i in range(0, gb.shape[0]):
-        cam_mask[i, :, :] = mask
-
-    cam_gb = np.multiply(cam_mask, gb)
-    utils.save_image(torch.from_numpy(cam_gb), 'cam_gb.jpg')
-    """
-
-
-"""
-class GuidedBackpropReLU(Function):
-
-    def forward(self, input):
-        positive_mask = (input > 0).type_as(input)
-        output = torch.addcmul(torch.zeros(input.size()).type_as(input), input, positive_mask)
-        self.save_for_backward(input, output)
-        return output
-
-    def backward(self, grad_output):
-        input, output = self.saved_tensors
-        grad_input = None
-
-        positive_mask_1 = (input > 0).type_as(grad_output)
-        positive_mask_2 = (grad_output > 0).type_as(grad_output)
-        grad_input = torch.addcmul(
-            torch.zeros(input.size()).type_as(input),
-            torch.addcmul(torch.zeros(input.size()).type_as(input), grad_output, positive_mask_1),
-            positive_mask_2)
-
-        return grad_input
-
-
-class GuidedBackpropReLUModel:
-    def __init__(self, model, use_cuda):
-        self.model = model
-        self.model.eval()
-
-    # replace ReLU with GuidedBackpropReLU
-        for idx, module in self.model.features._modules.items():
-            if module.__class__.__name__ == 'ReLU':
-                self.model.features._modules[idx] = GuidedBackpropReLU()
-
-    def forward(self, input):
-        return self.model(input)
-
-    def __call__(self, input, index=None):
-        output = self.forward(input)
-
-        if index == None:
-            index = np.argmax(output.data.numpy())
-
-        one_hot = np.zeros((1, output.size()[-1]), dtype=np.float32)
-        one_hot[0][index] = 1
-        one_hot = Variable(torch.from_numpy(one_hot), requires_grad=True)
-        one_hot = torch.sum(one_hot * output)
-
-        # self.model.features.zero_grad()
-        # self.model.classifier.zero_grad()
-        one_hot.backward(gradient=one_hot, retain_variables=True)
-
-        output = input.grad.data.numpy()
-        output = output[0,:,:,:]
-
-        return output
-"""
+    # Guided Grad cam
+    cam_gb = guided_grad_cam(cam, guided_grads)
+    save_gradient_pictures(cam_gb, file_name + '_GGrad_Cam')
+    grayscale_cam_gb = convert_to_grayscale(cam_gb)
+    save_gradient_pictures(grayscale_cam_gb, file_name + '_GGrad_Cam_gray')
+    print('Guided grad cam completed')
