@@ -6,9 +6,9 @@
 This repo contains following CNN visualizations implemented in Pytorch: 
 
 * Vanilla Backpropagation
-* Guided Backpropagation
-* Gradient-weighted Class Activation Mapping
-* Guided Gradient-weighted Class Activation Mapping
+* Guided Backpropagation [1]
+* Gradient-weighted [3] Class Activation Mapping [2] 
+* Guided Gradient-weighted Class Activation Mapping [3]
 
 The code uses VGG19 as the model. It assumes that the model is separated into two sections; **features**, which contains the convolutional layers and **classifier**, which contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model which does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
 
@@ -46,7 +46,7 @@ Below, are some sample results for each operation.
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/spider_Vanilla_BP_gray.jpg"> </td>
 		</tr>
     <tr>
-			<td width="19%" align="center"> Colored Vanilla Backpropagation <br />  <br />  (GB)</td>
+			<td width="19%" align="center"> Colored Guided Backpropagation <br />  <br />  (GB)</td>
 			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/dog_car_Guided_BP_color.jpg"> </td>
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/cat_dog_Guided_BP_color.jpg"> </td>
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualization/master/results/spider_Guided_BP_color.jpg"> </td>
@@ -89,4 +89,10 @@ Below, are some sample results for each operation.
 		</tr>
 	</tbody>
 </table>
+
+[1] J. T. Springenberg, A. Dosovitskiy, T. Brox, and M. Riedmiller. *Striving for Simplicity: The All Convolutional Net*, https://arxiv.org/abs/1412.6806
+
+[2] B. Zhou, A. Khosla, A. Lapedriza, A. Oliva, A. Torralba. *Learning Deep Features for Discriminative Localization*, https://arxiv.org/abs/1512.04150
+
+[3] R. R. Selvaraju, A. Das, R. Vedantam, M. Cogswell, D. Parikh, and D. Batra. *Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization*, https://arxiv.org/abs/1610.02391
 
