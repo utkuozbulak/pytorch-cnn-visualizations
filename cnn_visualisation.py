@@ -18,7 +18,6 @@ class CamExtractor():
         self.gradients = None
 
     def save_gradient(self, grad):
-        print('Hooked on the feeling!')
         self.gradients = grad
 
     def forward_pass_on_convolutions(self, x):
@@ -104,7 +103,6 @@ class VanillaBackprop():
 
     def hook_layers(self):
         def hook_function(module, grad_in, grad_out):
-            print('Hooked on the feeling!')
             self.gradients = grad_in[0]
 
         # Register hook to the first layer
@@ -143,7 +141,6 @@ class GuidedBackprop():
 
     def hook_layers(self):
         def hook_function(module, grad_in, grad_out):
-            print('Hooked on the feeling!')
             self.gradients = grad_in[0]
 
         # Register hook to the first layer
@@ -284,8 +281,8 @@ def guided_grad_cam(grad_cam_mask, guided_backprop_mask):
 if __name__ == '__main__':
     example_list = [['examples/dog_car.png', 235],
                     ['examples/cat_dog.png', 243],
-                    ['examples/spider.JPEG', 72]]
-    selected_example = 1
+                    ['examples/spider.png', 72]]
+    selected_example = 0
     img_path = example_list[selected_example][0]
     target_class = example_list[selected_example][1]
     file_name = img_path[img_path.rfind('/')+1:img_path.rfind('.')]
