@@ -282,7 +282,7 @@ if __name__ == '__main__':
     example_list = [['examples/dog_car.png', 235],
                     ['examples/cat_dog.png', 243],
                     ['examples/spider.png', 72]]
-    selected_example = 0
+    selected_example = 2
     img_path = example_list[selected_example][0]
     target_class = example_list[selected_example][1]
     file_name = img_path[img_path.rfind('/')+1:img_path.rfind('.')]
@@ -296,7 +296,7 @@ if __name__ == '__main__':
     # Vanilla backprop
     VBP = VanillaBackprop(pretrained_model, prep_img, target_class)
     vanilla_grads = VBP.run()
-    save_gradient_pictures(vanilla_grads, file_name + '_Vanilla_BP')
+    save_gradient_pictures(vanilla_grads, file_name + '_Vanilla_BP_color')
     grayscale_vanilla_grads = convert_to_grayscale(vanilla_grads)
     save_gradient_pictures(grayscale_vanilla_grads, file_name + '_Vanilla_BP_gray')
     print('Vanilla backprop completed')
