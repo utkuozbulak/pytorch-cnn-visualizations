@@ -9,7 +9,7 @@ from collections import OrderedDict
 from torch.nn import ReLU
 from PIL import Image
 from scipy.misc import imresize
-
+import os
 
 class CamExtractor():
     """
@@ -91,56 +91,6 @@ class GradCam():
         return cam
 
 
-def preprocess_image(PIL_img):
-    """
-        Processes image for CNNs
-
-    Args:
-        PIL_img (PIL_img): Image to process
-
-    returns:
-        im_as_var (Pytorch variable): Variable that contains processed float tensor
-
-    """
-    # mean and std list for channels (Imagenet)
-    mean = [0.485, 0.456, 0.406]
-    std = [0.229, 0.224, 0.225]
-    # Resize image
-    PIL_img = PIL_img.resize((224, 224), Image.ANTIALIAS)
-    # Convert to np array
-    im_as_arr = np.array(PIL_img, dtype=np.float)
-    # Transpose to obtain D-W-H
-    im_as_arr = im_as_arr.transpose(2, 0, 1)
-    # Normalize the channels
-    for channel, _ in enumerate(im_as_arr):
-        im_as_arr[channel] /= 255
-        im_as_arr[channel] -= mean[channel]
-        im_as_arr[channel] /= std[channel]
-    # Convert to float tensor
-    im_as_ten = torch.from_numpy(im_as_arr).float()
-    # Add one more channel to the beginning. Tensor shape = 1,3,224,224
-    im_as_ten.unsqueeze_(0)
-    # Convert to Pytorch variable
-    im_as_var = Variable(im_as_ten, requires_grad=True)
-    return im_as_var
-
-
-def save_class_activation_on_image(org_img, activation_map, file_name):
-    """
-        Saves cam activation map and activation map on the original image
-
-    Args:
-        org_img (PIL img): Original image
-        activation_map (numpy arr): activation map (grayscale) 0-255
-        file_name (str): File name of the exported image
-    """
-    cv2.imwrite(file_name+'_Cam_Grayscale.jpg', activation_map)
-    activation_heatmap = cv2.applyColorMap(activation_map, cv2.COLORMAP_HSV)
-    cv2.imwrite(file_name+'_Cam_Heatmap.jpg', activation_heatmap)
-
-    img_with_heatmap = np.float32(activation_heatmap) + np.float32(org_img)
-    img_with_heatmap = img_with_heatmap / np.max(img_with_heatmap)
-    cv2.imwrite(file_name+'_Cam_OnImage.jpg', np.uint8(255 * img_with_heatmap))
 
 
 class VanillaBackprop():
@@ -236,21 +186,7 @@ class GuidedBackprop():
         return gradients_as_arr
 
 
-def save_grad_black_background(gradient, file_name):
-    """
-        Exports the gradient image on top of black background
-
-    Args:
-        gradient (np arr): Numpy array of the gradient with shape (3, 224, 224)
-        file_name (str): File name to be exported
-    """
-    black_grad = np.maximum(gradient, 0)
-    black_grad /= np.max(black_grad)
-    black_grad = np.uint8(black_grad * 255).transpose(1, 2, 0)
-    cv2.imwrite(file_name+'_Black_.jpg', black_grad)
-
-
-def save_grad_original(gradient, file_name):
+def save_gradient_pictures(gradient, file_name, org_img):
     """
         Exports the original gradient image
 
@@ -258,43 +194,131 @@ def save_grad_original(gradient, file_name):
         gradient (np arr): Numpy array of the gradient with shape (3, 224, 224)
         file_name (str): File name to be exported
     """
-    org_grad = gradient - gradient.min()
+    if org_img:
+        org_grad = gradient - gradient.min()
+    else:
+        org_grad = gradient + gradient.min()
     org_grad /= org_grad.max()
-    org_grad = np.uint8(org_grad * 255).transpose(1,2,0)
-    cv2.imwrite(file_name+'_Org.jpg', org_grad)
+    org_grad = np.uint8(org_grad * 255).transpose(1, 2, 0)
+    path_to_file = os.path.join('results', file_name + '.jpg')
+    cv2.imwrite(path_to_file, org_grad)
 
 
-def guided_grad_cam(guided_prop, grad_cam):
-    pass
+def save_class_activation_on_image(org_img, activation_map, file_name):
+    """
+        Saves cam activation map and activation map on the original image
 
+    Args:
+        org_img (PIL img): Original image
+        activation_map (numpy arr): activation map (grayscale) 0-255
+        file_name (str): File name of the exported image
+    """
+    # Grayscale activation map
+    path_to_file = os.path.join('results', file_name+'_Cam_Grayscale.jpg')
+    cv2.imwrite(path_to_file, activation_map)
+    # Heatmap of activation map
+    activation_heatmap = cv2.applyColorMap(activation_map, cv2.COLORMAP_HSV)
+    path_to_file = os.path.join('results', file_name+'_Cam_Heatmap.jpg')
+    cv2.imwrite(path_to_file, activation_heatmap)
+    # Heatmap on picture
+    img_with_heatmap = np.float32(activation_heatmap) + np.float32(org_img)
+    img_with_heatmap = img_with_heatmap / np.max(img_with_heatmap)
+    path_to_file = os.path.join('results', file_name+'_Cam_OnImage.jpg')
+    cv2.imwrite(path_to_file, np.uint8(255 * img_with_heatmap))
+
+
+def preprocess_image(cv2im):
+    """
+        Processes image for CNNs
+
+    Args:
+        PIL_img (PIL_img): Image to process
+
+    returns:
+        im_as_var (Pytorch variable): Variable that contains processed float tensor
+
+    """
+    # mean and std list for channels (Imagenet)
+    mean = [0.485, 0.456, 0.406]
+    std = [0.229, 0.224, 0.225]
+    # Resize image
+    im_as_arr = np.float32(cv2.resize(cv2im, (224, 224)))
+    im_as_arr = im_as_arr[..., ::-1]  # Convert BGR to RGB
+    im_as_arr = im_as_arr.transpose(2, 0, 1)  # Convert array to D,W,H
+    # Normalize the channels
+    for channel, _ in enumerate(im_as_arr):
+        im_as_arr[channel] /= 255
+        im_as_arr[channel] -= mean[channel]
+        im_as_arr[channel] /= std[channel]
+    # Convert to float tensor
+    im_as_ten = torch.from_numpy(im_as_arr).float()
+    # Add one more channel to the beginning. Tensor shape = 1,3,224,224
+    im_as_ten.unsqueeze_(0)
+    # Convert to Pytorch variable
+    im_as_var = Variable(im_as_ten, requires_grad=True)
+    return im_as_var
 
 
 if __name__ == '__main__':
+    img_path = 'examples/both.png'
+    file_name = 'my_cat'
+    image_class = 282
+    # Read image
+    cv2im = cv2.imread(img_path, 1)
+    # Process image
+    #prep_im = preprocess_image(cv2im)
+    # Load model
 
-    imv2 = Image.open('examples/both.png')
-    prep_im = preprocess_image(imv2)
+    mean = [0.485, 0.456, 0.406]
+    std = [0.229, 0.224, 0.225]
+    # Resize image
+    im_as_arr = np.float64(cv2.resize(cv2im, (224, 224)))
+    im_as_arr = im_as_arr[..., ::-1]  # Convert BGR to RGB
+    im_as_arr = im_as_arr.transpose(2, 0, 1)  # Convert array to D,W,H
+    # Normalize the channels
+
+    for channel, _ in enumerate(im_as_arr):
+        print('a')
+        im_as_arr[channel] /= 255
+        im_as_arr[channel] -= mean[channel]
+        im_as_arr[channel] /= std[channel]
+
+    # Convert to float tensor
+
+    PIL_img = Image.open(img_path)
+    PIL_img = PIL_img.resize((224, 224), Image.ANTIALIAS)
+    # Convert to np array
+    im_as_arr2 = np.array(PIL_img, dtype=np.float64)
+    # Transpose to obtain D-W-H
+    im_as_arr2 = im_as_arr2.transpose(2, 0, 1)
+    # Normalize the channels
+    for channel, _ in enumerate(im_as_arr):
+        print(channel)
+        im_as_arr2[channel] /= 255
+        im_as_arr2[channel] -= mean[channel]
+        im_as_arr2[channel] /= std[channel]
+    im_as_ten = torch.from_numpy(im_as_arr2).float()
+
+
+    """
 
     pretrained_model=models.vgg19(pretrained=True)
 
-    """
     gcv2 = GradCam(pretrained_model, target_layer = 35)
-    m = gcv2.generate_cam(prep_im, 282)
-    save_class_activation_on_image(imv2,m, 'cat_boy')
+    m = gcv2.generate_cam(prep_im, image_class)
+    save_class_activation_on_image(cv2im, m, file_name)
+
+
+    VBP = VanillaBackprop(pretrained_model, prep_im, image_class)
+    vanilla_grads = VBP.run()
+    save_gradient_pictures(vanilla_grads,file_name + '_org_Vanilla_BP', True)
+
+
+    GBP = GuidedBackprop(pretrained_model, prep_im, image_class)
+    guided_grads = GBP.run()
+    save_gradient_pictures(guided_grads, file_name + '_org_Guided_BP', True)
+    save_gradient_pictures(guided_grads, file_name + '_enhanced_Guided_BP', False)
     """
-
-    VBP = VanillaBackprop(pretrained_model, prep_im, 282)
-    all_grads = VBP.run()
-    save_grad_black_background(all_grads, 'Vanilla_BP')
-    save_grad_original(all_grads, 'Vanilla_BP')
-    utils.save_image(torch.from_numpy(all_grads), 'van.jpg')
-
-    VBP = GuidedBackprop(pretrained_model, prep_im, 282)
-    all_grads = VBP.run()
-    save_grad_black_background(all_grads, 'Guided_BP')
-    save_grad_original(all_grads, 'Guided_BP')
-    utils.save_image(torch.from_numpy(all_grads), 'gbp.jpg')
-
-
 
 
     """
