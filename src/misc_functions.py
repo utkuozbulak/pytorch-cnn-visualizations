@@ -109,12 +109,8 @@ def get_positive_negative_saliency(gradient):
     returns:
         pos_saliency ( )
     """
-    print(gradient.shape)
-    gradient = gradient.transpose(1, 2, 0)
     pos_saliency = (np.maximum(0, gradient) / gradient.max())
     neg_saliency = (np.maximum(0, -gradient) / -gradient.min())
-    pos_saliency = pos_saliency.transpose(2, 0, 1)
-    neg_saliency = neg_saliency.transpose(2, 0, 1)
     return pos_saliency, neg_saliency
 
 
