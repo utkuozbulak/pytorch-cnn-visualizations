@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Created on Thu Oct 26 11:27:15 2017
 
@@ -7,7 +5,9 @@ Created on Thu Oct 26 11:27:15 2017
 """
 import numpy as np
 
-from misc_functions import get_params, convert_to_grayscale, save_gradient_images
+from misc_functions import (get_params,
+                            convert_to_grayscale,
+                            save_gradient_images)
 from gradcam import GradCam
 from guided_backprop import GuidedBackprop
 
@@ -27,7 +27,7 @@ def guided_grad_cam(grad_cam_mask, guided_backprop_mask):
 
 if __name__ == '__main__':
     # Get params
-    target_example = 0  # Shepherd
+    target_example = 0  # Snake
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
         get_params(target_example)
 

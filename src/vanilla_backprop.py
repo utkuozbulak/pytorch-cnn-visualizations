@@ -50,7 +50,7 @@ class VanillaBackprop():
 
 if __name__ == '__main__':
     # Get params
-    target_example = 0  # Shepherd
+    target_example = 0  # Snake
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
         get_params(target_example)
     # Vanilla backprop

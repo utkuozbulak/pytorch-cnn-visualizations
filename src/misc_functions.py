@@ -100,9 +100,40 @@ def preprocess_image(cv2im):
     return im_as_var
 
 
+def get_positive_negative_saliency(gradient):
+    """
+        Generates positive and negative saliency maps based on the gradient
+    Args:
+        gradient (numpy arr): Gradient of the operation to visualize
+
+    returns:
+        pos_saliency ( )
+    """
+    print(gradient.shape)
+    gradient = gradient.transpose(1, 2, 0)
+    pos_saliency = (np.maximum(0, gradient) / gradient.max())
+    neg_saliency = (np.maximum(0, -gradient) / -gradient.min())
+    pos_saliency = pos_saliency.transpose(2, 0, 1)
+    neg_saliency = neg_saliency.transpose(2, 0, 1)
+    return pos_saliency, neg_saliency
+
+
 def get_params(example_index):
+    """
+        Gets used variables for almost all visualizations, like the image, model etc.
+
+    Args:
+        example_index (int): Image id to use from examples
+
+    returns:
+        original_image (numpy arr): Original image read from the file
+        prep_img (numpy_arr): Processed image
+        target_class (int): Target class for the image
+        file_name_to_export (string): File name to export the visualizations
+        pretrained_model(Pytorch model): Model to use for the operations
+    """
     # Pick one of the examples
-    example_list = [['../input_images/dog_car.png', 235],
+    example_list = [['../input_images/snake.jpg', 56],
                     ['../input_images/cat_dog.png', 243],
                     ['../input_images/spider.png', 72]]
     selected_example = example_index

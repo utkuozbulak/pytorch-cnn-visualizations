@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Created on Thu Oct 26 11:23:47 2017
 
@@ -8,7 +6,10 @@ Created on Thu Oct 26 11:23:47 2017
 import torch
 from torch.nn import ReLU
 
-from misc_functions import get_params, convert_to_grayscale, save_gradient_images
+from misc_functions import (get_params,
+                            convert_to_grayscale,
+                            save_gradient_images,
+                            get_positive_negative_saliency)
 
 
 class GuidedBackprop():
@@ -65,9 +66,10 @@ class GuidedBackprop():
 
 
 if __name__ == '__main__':
-    target_example = 0  # Shepherd
+    target_example = 0  # Snake
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
         get_params(target_example)
+
     # Guided backprop
     GBP = GuidedBackprop(pretrained_model, prep_img, target_class)
     # Get gradients
@@ -78,4 +80,8 @@ if __name__ == '__main__':
     grayscale_guided_grads = convert_to_grayscale(guided_grads)
     # Save grayscale gradients
     save_gradient_images(grayscale_guided_grads, file_name_to_export + '_Guided_BP_gray')
+    # Positive and negative saliency maps
+    pos_sal, neg_sal = get_positive_negative_saliency(guided_grads)
+    save_gradient_images(pos_sal, file_name_to_export + '_pos_sal')
+    save_gradient_images(neg_sal, file_name_to_export + '_neg_sal')
     print('Guided backprop completed')
