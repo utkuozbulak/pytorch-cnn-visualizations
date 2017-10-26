@@ -28,7 +28,7 @@ Below, are some sample results for each operation.
 	<tbody>
     <tr>
 			<td>  </td>
-			<td align="center"> Target class: Shepherd (235) </td>
+			<td align="center"> Target class: King Snake (56) </td>
 			<td align="center"> Target class: Mastiff (243) </td>
 			<td align="center"> Target class: Spider (72)</td>
 		</tr>
@@ -98,7 +98,7 @@ Below, are some sample results for each operation.
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/spider_GGrad_Cam.jpg"> </td>
 		</tr>
     <tr>
-			<td width="19%" align="center"> Grayscale Guided Gradient-weighted Class Activation Map  <br />  <br /> (Guided-Grad-CAM)</td>
+			<td width="19%" align="center"> Guided Gradient-weighted Class Activation Map Saliency <br />  <br /> (Guided-Grad-CAM)</td>
 			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/snake_GGrad_Cam_gray.jpg"> </td>
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/cat_dog_GGrad_Cam_gray.jpg"> </td>
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/spider_GGrad_Cam_gray.jpg"> </td>
