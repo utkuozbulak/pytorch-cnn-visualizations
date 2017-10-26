@@ -1,14 +1,18 @@
-<p align="center"><img width="40%" src="https://raw.githubusercontent.com/utkuozbulak/pytorch-custom-dataset-examples/master/data/pytorch-logo-dark.png" /></p>
-
---------------------------------------------------------------------------------
 # Convolutional Neural Network Visualizations 
 
-This repo contains following CNN visualizations implemented in Pytorch: 
+This repo contains following CNN operations implemented in Pytorch: 
 
 * Vanilla Backpropagation
 * Guided Backpropagation [1]
 * Gradient-weighted [3] Class Activation Mapping [2] 
 * Guided Gradient-weighted Class Activation Mapping [3]
+
+Soon, it will also include following operations as well:
+
+* Image Specific Class Saliency Visualization (A generated image that maximizes a certain class) [4]
+* Inverted Image Representations [5]
+* Weakly supervised object segmentation [4]
+* Semantic Segmentation with Deconvolutions [6]
 
 The code uses pretrained VGG19 in the model zoo. It assumes that the layers in the model are separated into two sections; **features**, which contains the convolutional layers and **classifier**, that contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model that does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
 
@@ -96,3 +100,8 @@ Below, are some sample results for each operation.
 
 [3] R. R. Selvaraju, A. Das, R. Vedantam, M. Cogswell, D. Parikh, and D. Batra. *Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization*, https://arxiv.org/abs/1610.02391
 
+[4] K. Simonyan, A. Vedaldi, A. Zisserman. *Deep Inside Convolutional Networks: Visualisng Image Classification Models and Saliency Maps*, https://arxiv.org/abs/1312.6034
+
+[5] A. Mahendran, A. Vedaldi. *Understanding Deep Image Representations by Inverting Them*, https://arxiv.org/abs/1412.0035
+
+[6] H. Noh, S. Hong, B. Han,  *Learning Deconvolution Network for Semantic Segmentation* https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Noh_Learning_Deconvolution_Network_ICCV_2015_paper.pdf
