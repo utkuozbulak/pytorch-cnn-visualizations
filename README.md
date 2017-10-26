@@ -34,9 +34,9 @@ Below, are some sample results for each operation.
 		</tr>
 		<tr>
 			<td width="19%" align="center"> Original Image </td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/examples/dog_car.png"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/examples/cat_dog.png"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/examples/spider.png"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/dog_car.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/cat_dog.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/spider.png"> </td>
 		</tr>
 		<tr>
 			<td width="19%" align="center"> Colored Vanilla Backpropagation </td>
