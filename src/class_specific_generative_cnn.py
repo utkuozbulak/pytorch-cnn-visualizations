@@ -4,41 +4,13 @@ Created on Thu Oct 26 14:19:44 2017
 @author: Utku Ozbulak - github.com/utkuozbulak
 """
 import os
-import copy
 import cv2
 import numpy as np
 
 from torch.optim import SGD
 from torchvision import models
 
-from misc_functions import preprocess_image
-
-
-def recreate_image(im_as_var, reverse_mean, reverse_std):
-    """
-        Recreates images from a torch variable, sort of reverse preprocessing
-
-    Args:
-        im_as_var (torch variable): Image to recreate
-        reverse_mean (list): Original mean list multiplied by -1
-        reverse_std (list): Original std list to the power -1 (1/org)
-
-    returns:
-        recreated_im (numpy arr): Recreated image in array
-    """
-
-    recreated_im = copy.copy(im_as_var.data.numpy()[0])
-    for c in range(3):
-        recreated_im[c] /= reverse_std[c]
-        recreated_im[c] -= reverse_mean[c]
-    recreated_im[recreated_im > 1] = 1
-    recreated_im[recreated_im < 0] = 0
-    recreated_im *= 255
-
-    recreated_im = np.uint8(recreated_im).transpose(1, 2, 0)
-    # Convert RBG to GBR
-    recreated_im = recreated_im[..., ::-1]
-    return recreated_im
+from misc_functions import preprocess_image, recreate_image
 
 
 class ClassSpecificImageGeneration():
@@ -49,6 +21,7 @@ class ClassSpecificImageGeneration():
         self.mean = [-0.485, -0.456, -0.406]
         self.std = [1/0.229, 1/0.224, 1/0.225]
         self.model = model
+        self.model.eval()
         self.target_class = target_class
         # Generate a random image
         self.created_image = np.uint8(np.random.uniform(0, 255, (224, 224, 3)))
@@ -61,7 +34,7 @@ class ClassSpecificImageGeneration():
         initial_learning_rate = 6
         for i in range(1, 200):
             # Process image, return variable
-            self.processed_image = preprocess_image(self.created_image)
+            self.processed_image = preprocess_image(self.created_image, True)
             # Define optimizer for the image
             optimizer = SGD([self.processed_image], lr=initial_learning_rate)
             # Forward
@@ -76,14 +49,14 @@ class ClassSpecificImageGeneration():
             # Update image
             optimizer.step()
             # Recreate image
-            self.created_image = recreate_image(self.processed_image, self.mean, self.std)
+            self.created_image = recreate_image(self.processed_image)
             # Save image
             cv2.imwrite('generated/iteration_'+str(i)+'.jpg', self.created_image)
         return self.processed_image
 
 
 if __name__ == '__main__':
-    target_example = 130  # Flamingo
+    target_class = 130  # Flamingo
     pretrained_model = models.alexnet(pretrained=True)
-    cig = ClassSpecificImageGeneration(pretrained_model, target_example)
+    cig = ClassSpecificImageGeneration(pretrained_model, target_class)
     cig.generate()

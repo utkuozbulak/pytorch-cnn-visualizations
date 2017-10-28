@@ -1,9 +1,10 @@
 """
-Created on Thu Oct 26 11:09:09 2017
+Created on Thu Oct 21 11:09:09 2017
 
 @author: Utku Ozbulak - github.com/utkuozbulak
 """
 import os
+import copy
 import cv2
 import numpy as np
 
@@ -71,7 +72,7 @@ def save_class_activation_on_image(org_img, activation_map, file_name):
     cv2.imwrite(path_to_file, np.uint8(255 * img_with_heatmap))
 
 
-def preprocess_image(cv2im):
+def preprocess_image(cv2im, var_requires_grad):
     """
         Processes image for CNNs
 
@@ -98,8 +99,34 @@ def preprocess_image(cv2im):
     # Add one more channel to the beginning. Tensor shape = 1,3,224,224
     im_as_ten.unsqueeze_(0)
     # Convert to Pytorch variable
-    im_as_var = Variable(im_as_ten, requires_grad=True)
+    im_as_var = Variable(im_as_ten, requires_grad=var_requires_grad)
     return im_as_var
+
+
+def recreate_image(im_as_var):
+    """
+        Recreates images from a torch variable, sort of reverse preprocessing
+
+    Args:
+        im_as_var (torch variable): Image to recreate
+
+    returns:
+        recreated_im (numpy arr): Recreated image in array
+    """
+    reverse_mean = [-0.485, -0.456, -0.406]
+    reverse_std = [1/0.229, 1/0.224, 1/0.225]
+    recreated_im = copy.copy(im_as_var.data.numpy()[0])
+    for c in range(3):
+        recreated_im[c] /= reverse_std[c]
+        recreated_im[c] -= reverse_mean[c]
+    recreated_im[recreated_im > 1] = 1
+    recreated_im[recreated_im < 0] = 0
+    recreated_im = np.round(recreated_im * 255)
+
+    recreated_im = np.uint8(recreated_im).transpose(1, 2, 0)
+    # Convert RBG to GBR
+    recreated_im = recreated_im[..., ::-1]
+    return recreated_im
 
 
 def get_positive_negative_saliency(gradient):
