@@ -25,7 +25,7 @@ I tried to comment on the code as much as possible, if you have any issues under
 Below, are some sample results for each operation.
 
 
-## Gradient Visualisation and Segmentation
+## Gradient Visualization and Segmentation
 <table border=0 >
 	<tbody>
     <tr>
@@ -148,9 +148,9 @@ This operation is actually very similar to generating class specific images, you
 
 <table border=0 width="50px" >
 	<tbody> 
-    <tr>		<td width="27%" align="center"> Predicted as Zebra (340) Confidence: 0.94 </td>
-			<td width="27%" align="center"> Predicted as Bow tie (457) Confidence: 0.95 </td>
-			<td width="27%" align="center"> Predicted as Castle (483) Confidence: 0.99 </td>
+    <tr>		<td width="27%" align="center"> Predicted as Zebra (340) <br/> Confidence: 0.94 </td>
+			<td width="27%" align="center"> Predicted as Bow tie (457) <br/> Confidence: 0.95 </td>
+			<td width="27%" align="center"> Predicted as Castle (483) <br/> Confidence: 0.99 </td>
 		</tr>
 		<tr>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_340.jpg"> </td>
