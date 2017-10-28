@@ -18,7 +18,7 @@ It will also include following operations in near future as well:
 
 The code uses pretrained VGG19, VGG16 and AlexNet in the model zoo. Some of the code assumes that the layers in the model are separated into two sections; **features**, which contains the convolutional layers and **classifier**, that contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model that does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
 
-All images are pre-processed with mean and std of the ImageNet dataset before being fed to the model.
+All images are pre-processed with mean and std of the ImageNet dataset before being fed to the model. None of the code uses GPU as these operations are quite fast (for single image) and I wanted to keep it as simple as possible.
 
 I tried to comment on the code as much as possible, if you have any issues understanding it or porting it, don't hesitate to reach out. 
 
@@ -124,7 +124,7 @@ This operation produces different outputs based on the model and the applied reg
 	</tbody>
 </table>
 
-The samples below show the produced image with no regularization, l1 and l2 regularizations on target class: _flamigo_ (130) to show the differences between regularization methods. These images are generated with a pretrained AlexNet. 
+The samples below show the produced image with no regularization, l1 and l2 regularizations on target class: **flamingo** (130) to show the differences between regularization methods. These images are generated with a pretrained AlexNet. 
 
 <table border=0 width="50px" >
 	<tbody> 
