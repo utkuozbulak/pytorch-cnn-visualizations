@@ -2,15 +2,16 @@
 
 This repo contains following CNN operations implemented in Pytorch: 
 
-* Vanilla Backpropagation
-* Guided Backpropagation [1]
-* Gradient-weighted [3] Class Activation Mapping [2] 
-* Guided Gradient-weighted Class Activation Mapping [3]
-* Class Specific Image Generation (A generated image that maximizes a certain class) [4]
+* Vanilla backpropagation
+* Guided backpropagation [1]
+* Gradient-weighted [3] class activation mapping [2] 
+* Guided gradient-weighted class activation mapping [3]
+* Class specific image generation (A generated image that maximizes a certain class) [4]
+* Adversarial (fooling) images (Unrecognizable images predicted as classes with high confidence) [7]
 
 It will also include following operations in near future as well:
 
-* Adversarial (Fooling) Images [7]
+* Adversarial (Fooling) images disguised as another image (Picture of ipod being predicted as horse) [7]
 * Inverted Image Representations [5]
 * Weakly supervised object segmentation [4]
 * Semantic Segmentation with Deconvolutions [6]
@@ -23,6 +24,8 @@ I tried to comment on the code as much as possible, if you have any issues under
 
 Below, are some sample results for each operation.
 
+
+## Gradient Visualisation and Segmentation
 <table border=0 >
 	<tbody>
     <tr>
@@ -106,7 +109,7 @@ Below, are some sample results for each operation.
 </table>
 
 ## Class Specific Image Generation
-This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with L2 regularization from VGG19.
+This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with L2 regularization from VGG19. Note that these images are generated with regular CNNs with optimizing the input (rather than the model weights) and not with GANs.
 
 <table border=0 width="50px" >
 	<tbody>
@@ -121,7 +124,7 @@ This operation produces different outputs based on the model and the applied reg
 	</tbody>
 </table>
 
-To observe the differnece in output with the applied regularizatin method, the samples below show the produced image with no regularization, l2 and l2 on target class _flamigo_ (130).
+The samples below show the produced image with no regularization, l1 and l2 regularizations on target class: _flamigo_ (130) to show the differences between regularization methods. These images are generated with a pretrained AlexNet. 
 
 <table border=0 width="50px" >
 	<tbody> 
@@ -137,7 +140,27 @@ To observe the differnece in output with the applied regularizatin method, the s
 	</tbody>
 </table>
 
-Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate are; blurring, clipping gradients that are below a treshold, random color swaps on some parts, random cropping the image.
+Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate to improve quality are; blurring, clipping gradients that are below a certain treshold, random color swaps on some parts, random cropping the image, forcing generated image to follow a path to force continuity.
+
+## Fooling Image Generation
+This operation is actually very similar to generating class specific images, you start with a random image and continously update the image with targeted backpropagation (on a certain class) and stop when you achieve target confidence for a particular class.
+
+
+<table border=0 width="50px" >
+	<tbody> 
+    <tr>		<td width="27%" align="center"> Predicted as Zebra (340) Confidence: 0.94 </td>
+			<td width="27%" align="center"> Predicted as Bow tie (457) Confidence: 0.95 </td>
+			<td width="27%" align="center"> Predicted as Castle (483) Confidence: 0.99 </td>
+		</tr>
+		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_340.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_457.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_483.jpg"> </td>
+		</tr>
+	</tbody>
+</table>
+
+
 
 ## Requirements:
 ```
@@ -146,6 +169,8 @@ torchvision >= 0.1.9
 numpy >= 1.13.0
 opencv >= 3.1.0
 ```
+
+
 
 
 [1] J. T. Springenberg, A. Dosovitskiy, T. Brox, and M. Riedmiller. *Striving for Simplicity: The All Convolutional Net*, https://arxiv.org/abs/1412.6806
