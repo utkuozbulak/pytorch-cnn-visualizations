@@ -143,7 +143,7 @@ The samples below show the produced image with no regularization, l1 and l2 regu
 Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate to improve quality are; blurring, clipping gradients that are below a certain treshold, random color swaps on some parts, random cropping the image, forcing generated image to follow a path to force continuity.
 
 ## Fooling Image Generation
-This operation is actually very similar to generating class specific images, you start with a random image and continously update the image with targeted backpropagation (on a certain class) and stop when you achieve target confidence for a particular class.
+This operation is quite similar to generating class specific images, you start with a random image and continously update the image with targeted backpropagation (for a certain class) and stop when you achieve target confidence for that class. All of the below images are generated from pretrained AlexNet to fool it.
 
 
 <table border=0 width="50px" >
