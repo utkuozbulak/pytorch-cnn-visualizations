@@ -110,7 +110,7 @@ This operation produces different outputs based on the model and the applied reg
 <table border=0 width="50px" >
 	<tbody>
     <tr>
-			<td width="27%" align="center"> Target class: King Snake (56) - (VGG19) </td>
+			<td width="27%" align="center"> Target class: Worm Snake (52) - (VGG19) </td>
 			<td width="27%" align="center"> Target class: Spider (72) - (VGG19) </td>
 		</tr>
 		<tr>
