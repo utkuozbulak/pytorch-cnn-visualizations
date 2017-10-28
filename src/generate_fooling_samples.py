@@ -35,7 +35,7 @@ class FoolingSampleGeneration():
     def generate(self):
         for i in range(1, 200):
             # Process image, return variable
-            self.processed_image = preprocess_image(self.created_image, True)
+            self.processed_image = preprocess_image(self.created_image)
             # Define optimizer for the image
             optimizer = SGD([self.processed_image], lr=6)
             # Forward
@@ -50,7 +50,7 @@ class FoolingSampleGeneration():
                 confirmation_image = cv2.imread('generated/fooling_sample_class_' +
                                                 str(self.target_class) + '.jpg', 1)
                 # Preprocess image
-                confirmation_processed_image = preprocess_image(confirmation_image, True)
+                confirmation_processed_image = preprocess_image(confirmation_image)
                 # Get prediction
                 confirmation_output = self.model(confirmation_processed_image)
                 # Get confidence

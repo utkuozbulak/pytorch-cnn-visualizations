@@ -72,7 +72,7 @@ def save_class_activation_on_image(org_img, activation_map, file_name):
     cv2.imwrite(path_to_file, np.uint8(255 * img_with_heatmap))
 
 
-def preprocess_image(cv2im, var_requires_grad):
+def preprocess_image(cv2im):
     """
         Processes image for CNNs
 
@@ -99,7 +99,7 @@ def preprocess_image(cv2im, var_requires_grad):
     # Add one more channel to the beginning. Tensor shape = 1,3,224,224
     im_as_ten.unsqueeze_(0)
     # Convert to Pytorch variable
-    im_as_var = Variable(im_as_ten, requires_grad=var_requires_grad)
+    im_as_var = Variable(im_as_ten, requires_grad=True)
     return im_as_var
 
 

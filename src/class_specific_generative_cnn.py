@@ -34,7 +34,7 @@ class ClassSpecificImageGeneration():
         initial_learning_rate = 6
         for i in range(1, 200):
             # Process image, return variable
-            self.processed_image = preprocess_image(self.created_image, True)
+            self.processed_image = preprocess_image(self.created_image)
             # Define optimizer for the image
             optimizer = SGD([self.processed_image], lr=initial_learning_rate)
             # Forward
