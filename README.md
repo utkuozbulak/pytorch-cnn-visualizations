@@ -163,7 +163,7 @@ This operation is quite similar to generating class specific images, we start wi
 
 
 ## Disguised Fooling Image Generation
-For this operation we start with an image (instead of randomly generated one) and perform the same gradient updates on the image for a specific class but with small learning rates so that the original image does not change too much. As it can be seen from samples, on some images it is almost impossible to recognize the difference between two images but on others it can clearly be observed that something is wrong with the image. All of the examples below were created from and tested on AlexNet to fool it.
+For this operation we start with an image and perform gradient updates on the image for a specific class but with smaller learning rates so that the original image does not change too much. As it can be seen from samples, on some images it is almost impossible to recognize the difference between two images but on others it can clearly be observed that something is wrong. All of the examples below were created from and tested on AlexNet to fool it.
 
 
 <table border=0 width="50px" >
