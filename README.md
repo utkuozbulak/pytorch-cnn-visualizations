@@ -19,7 +19,7 @@ It will also include following operations in near future as well:
 
 The code uses pretrained VGG19, VGG16 and AlexNet in the model zoo. Some of the code assumes that the layers in the model are separated into two sections; **features**, which contains the convolutional layers and **classifier**, that contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model that does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
 
-All images are pre-processed with mean and std of the ImageNet dataset before being fed to the model. None of the code uses GPU as these operations are quite fast (for single image) and I wanted to keep it as simple as possible.
+All images are pre-processed with mean and std of the ImageNet dataset before being fed to the model. None of the code uses GPU as these operations are quite fast (for a single image). You can make use of gpu with very little effort. The examples below include numbers in the brackets after the description, like *Mastiff (243)*, this number represents the class id in the ImageNet dataset.
 
 I tried to comment on the code as much as possible, if you have any issues understanding it or porting it, don't hesitate to reach out. 
 
