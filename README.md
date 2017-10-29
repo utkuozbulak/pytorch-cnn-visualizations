@@ -16,6 +16,7 @@ It will also include following operations in near future as well:
 * Inverted Image Representations [5]
 * Weakly supervised object segmentation [4]
 * Semantic Segmentation with Deconvolutions [6]
+* Smooth Grad [8]
 
 The code uses pretrained VGG19, VGG16 and AlexNet in the model zoo. Some of the code assumes that the layers in the model are separated into two sections; **features**, which contains the convolutional layers and **classifier**, that contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model that does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
 
@@ -216,3 +217,5 @@ opencv >= 3.1.0
 [6] H. Noh, S. Hong, B. Han,  *Learning Deconvolution Network for Semantic Segmentation* https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Noh_Learning_Deconvolution_Network_ICCV_2015_paper.pdf
 
 [7] A. Nguyen, J. Yosinski, J. Clune.  *Deep Neural Networks are Easily Fooled: High Confidence Predictions for Unrecognizable  Images* https://arxiv.org/abs/1412.1897
+
+[8] D. Smilkov, N. Thorat, N. Kim, F. Viégas, M. Wattenberg. *SmoothGrad: removing noise by adding noise* https://arxiv.org/abs/1706.03825
