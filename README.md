@@ -4,14 +4,15 @@ This repo contains following CNN operations implemented in Pytorch:
 
 * Vanilla backpropagation
 * Guided backpropagation [1]
+* Gradient saliency maps [4]
 * Gradient-weighted [3] class activation mapping [2] 
 * Guided gradient-weighted class activation mapping [3]
 * Class specific image generation (A generated image that maximizes a certain class) [4]
 * Adversarial (fooling) images (Unrecognizable images predicted as classes with high confidence) [7]
+* Adversarial (Fooling) images disguised as another image (Picture of ipod being predicted as horse) [7]
 
 It will also include following operations in near future as well:
 
-* Adversarial (Fooling) images disguised as another image (Picture of ipod being predicted as horse) [7]
 * Inverted Image Representations [5]
 * Weakly supervised object segmentation [4]
 * Semantic Segmentation with Deconvolutions [6]
