@@ -143,7 +143,7 @@ The samples below show the produced image with no regularization, l1 and l2 regu
 Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate to improve quality are; blurring, clipping gradients that are below a certain treshold, random color swaps on some parts, random cropping the image, forcing generated image to follow a path to force continuity.
 
 ## Fooling Image Generation
-This operation is quite similar to generating class specific images, you start with a random image and continously update the image with targeted backpropagation (for a certain class) and stop when you achieve target confidence for that class. All of the below images are generated from pretrained AlexNet to fool it.
+This operation is quite similar to generating class specific images, we start with a random image and continously update the image with targeted backpropagation (for a certain class) and stop when we achieve target confidence for that class. All of the below images are generated from pretrained AlexNet to fool it.
 
 
 <table border=0 width="50px" >
@@ -159,6 +159,35 @@ This operation is quite similar to generating class specific images, you start w
 		</tr>
 	</tbody>
 </table>
+
+
+## Disguised Fooling Image Generation
+For this operation we start with an image (instead of randomly generated one) and perform the same gradient updates on the image for a specific class but with small learning rates so that the original image does not change too much. As it can be seen from samples, on some images it is almost impossible to recognize the difference between two images but on others it can clearly be observed that something is wrong with the image. All of the examples below were created from and tested on AlexNet to fool it.
+
+
+<table border=0 width="50px" >
+	<tbody> 
+    <tr>		<td width="27%" align="center"> Predicted as Eel (390) <br/> Confidence: 0.96 </td>
+			<td width="27%" align="center"> Predicted as Apple (948) <br/> Confidence: 0.95 </td>
+			<td width="27%" align="center"> Predicted as Snowbird (13) <br/> Confidence: 0.99 </td>
+		</tr>
+		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/eel.JPEG"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/apple.JPEG"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/bird.JPEG"> </td>
+		</tr>
+    <tr>		<td width="27%" align="center"> Predicted as Banjo (420) <br/> Confidence: 0.99 </td>
+			<td width="27%" align="center"> Predicted as Abacus (457) <br/> Confidence: 0.99 </td>
+			<td width="27%" align="center"> Predicted as Dumbell (543) <br/> Confidence: 1 </td>
+		</tr>
+		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_420.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_398.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_543.jpg"> </td>
+		</tr>
+	</tbody>
+</table>
+
 
 
 
