@@ -178,9 +178,9 @@ For this operation we start with an image and perform gradient updates on the im
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/apple.JPEG"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/bird.JPEG"> </td>
 		</tr>
-    <tr>		<td width="27%" align="center"> Predicted as Banjo (420) <br/> Confidence: 0.99 </td>
-			<td width="27%" align="center"> Predicted as Abacus (457) <br/> Confidence: 0.99 </td>
-			<td width="27%" align="center"> Predicted as Dumbell (543) <br/> Confidence: 1 </td>
+		<tr>		<td width="27%" align="center"> Predicted as <strong>Banjo</strong> (420) <br/> Confidence: 0.99 </td>
+			<td width="27%" align="center"> Predicted as <strong>Abacus</strong> (457) <br/> Confidence: 0.99 </td>
+			<td width="27%" align="center"> Predicted as <strong>Dumbell</strong> (543) <br/> Confidence: 1 </td>
 		</tr>
 		<tr>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_420.jpg"> </td>
