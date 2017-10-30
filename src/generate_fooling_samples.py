@@ -34,7 +34,7 @@ class FoolingSampleGeneration():
 
     def generate(self):
         for i in range(1, 200):
-            # Process image, return variable
+            # Process image and return variable
             self.processed_image = preprocess_image(self.created_image)
             # Define optimizer for the image
             optimizer = SGD([self.processed_image], lr=6)
