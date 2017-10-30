@@ -4,21 +4,23 @@ This repo contains following CNN operations implemented in Pytorch:
 
 * Vanilla backpropagation
 * Guided backpropagation [1]
+* Gradient saliency maps [4]
 * Gradient-weighted [3] class activation mapping [2] 
 * Guided gradient-weighted class activation mapping [3]
 * Class specific image generation (A generated image that maximizes a certain class) [4]
-* Adversarial (fooling) images (Unrecognizable images predicted as classes with high confidence) [7]
+* Fooling images (Unrecognizable images predicted as classes with high confidence) [7]
+* Fooling images disguised as another image (Picture of ipod being predicted as horse) [7]
 
 It will also include following operations in near future as well:
 
-* Adversarial (Fooling) images disguised as another image (Picture of ipod being predicted as horse) [7]
 * Inverted Image Representations [5]
 * Weakly supervised object segmentation [4]
 * Semantic Segmentation with Deconvolutions [6]
+* Smooth Grad [8]
 
 The code uses pretrained VGG19, VGG16 and AlexNet in the model zoo. Some of the code assumes that the layers in the model are separated into two sections; **features**, which contains the convolutional layers and **classifier**, that contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model that does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
 
-All images are pre-processed with mean and std of the ImageNet dataset before being fed to the model. None of the code uses GPU as these operations are quite fast (for single image) and I wanted to keep it as simple as possible.
+All images are pre-processed with mean and std of the ImageNet dataset before being fed to the model. None of the code uses GPU as these operations are quite fast (for a single image). You can make use of gpu with very little effort. The examples below include numbers in the brackets after the description, like *Mastiff (243)*, this number represents the class id in the ImageNet dataset.
 
 I tried to comment on the code as much as possible, if you have any issues understanding it or porting it, don't hesitate to reach out. 
 
@@ -143,14 +145,14 @@ The samples below show the produced image with no regularization, l1 and l2 regu
 Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate to improve quality are; blurring, clipping gradients that are below a certain treshold, random color swaps on some parts, random cropping the image, forcing generated image to follow a path to force continuity.
 
 ## Fooling Image Generation
-This operation is quite similar to generating class specific images, you start with a random image and continously update the image with targeted backpropagation (for a certain class) and stop when you achieve target confidence for that class. All of the below images are generated from pretrained AlexNet to fool it.
+This operation is quite similar to generating class specific images, we start with a random image and continously update the image with targeted backpropagation (for a certain class) and stop when we achieve target confidence for that class. All of the below images are generated from pretrained AlexNet to fool it.
 
 
 <table border=0 width="50px" >
 	<tbody> 
-    <tr>		<td width="27%" align="center"> Predicted as Zebra (340) <br/> Confidence: 0.94 </td>
-			<td width="27%" align="center"> Predicted as Bow tie (457) <br/> Confidence: 0.95 </td>
-			<td width="27%" align="center"> Predicted as Castle (483) <br/> Confidence: 0.99 </td>
+    <tr>		<td width="27%" align="center"> Predicted as <strong>Zebra</strong> (340) <br/> Confidence: 0.94 </td>
+			<td width="27%" align="center"> Predicted as <strong>Bow tie</strong> (457) <br/> Confidence: 0.95 </td>
+			<td width="27%" align="center"> Predicted as <strong>Castle</strong> (483) <br/> Confidence: 0.99 </td>
 		</tr>
 		<tr>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_340.jpg"> </td>
@@ -159,6 +161,35 @@ This operation is quite similar to generating class specific images, you start w
 		</tr>
 	</tbody>
 </table>
+
+
+## Disguised Fooling Image Generation
+For this operation we start with an image and perform gradient updates on the image for a specific class but with smaller learning rates so that the original image does not change too much. As it can be seen from samples, on some images it is almost impossible to recognize the difference between two images but on others it can clearly be observed that something is wrong. All of the examples below were created from and tested on AlexNet to fool it.
+
+
+<table border=0 width="50px" >
+	<tbody> 
+		<tr>		<td width="27%" align="center"> Predicted as <strong>Eel</strong> (390) <br/> Confidence: 0.96 </td>
+			<td width="27%" align="center"> Predicted as <strong>Apple</strong> (948) <br/> Confidence: 0.95 </td>
+			<td width="27%" align="center"> Predicted as <strong>Snowbird</strong> (13) <br/> Confidence: 0.99 </td>
+		</tr>
+		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/eel.JPEG"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/apple.JPEG"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/bird.JPEG"> </td>
+		</tr>
+		<tr>		<td width="27%" align="center"> Predicted as <strong>Banjo</strong> (420) <br/> Confidence: 0.99 </td>
+			<td width="27%" align="center"> Predicted as <strong>Abacus</strong> (457) <br/> Confidence: 0.99 </td>
+			<td width="27%" align="center"> Predicted as <strong>Dumbell</strong> (543) <br/> Confidence: 1 </td>
+		</tr>
+		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_420.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_398.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_543.jpg"> </td>
+		</tr>
+	</tbody>
+</table>
+
 
 
 
@@ -186,3 +217,5 @@ opencv >= 3.1.0
 [6] H. Noh, S. Hong, B. Han,  *Learning Deconvolution Network for Semantic Segmentation* https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Noh_Learning_Deconvolution_Network_ICCV_2015_paper.pdf
 
 [7] A. Nguyen, J. Yosinski, J. Clune.  *Deep Neural Networks are Easily Fooled: High Confidence Predictions for Unrecognizable  Images* https://arxiv.org/abs/1412.1897
+
+[8] D. Smilkov, N. Thorat, N. Kim, F. Viégas, M. Wattenberg. *SmoothGrad: removing noise by adding noise* https://arxiv.org/abs/1706.03825
