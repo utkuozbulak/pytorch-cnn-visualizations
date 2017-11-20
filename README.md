@@ -110,35 +110,27 @@ Below, are some sample results for each operation.
 	</tbody>
 </table>
 
-## CNN Filter Visualization
+## CNN Filter Visualizations
+CNN layer can be visualized with selecting a layer and a specific filter and optimizing the input image with respect to output of that convolution operation. For this example, I used filters of a pre-trained **VGG16**. Visualizations of layers 2, 10, 17 and 24 are at below. Low level visualizations start with basic color and direction filters and increases towards more complex shapes as we move towards the final layer.
+
 ### Layer 2
 
 <table border=0 width="50px" >
 	<tbody> 
 		<tr>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l2_f9.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l2_f54.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l2_f21.jpg"> </td>
-		</tr>
-		<tr>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l2_f13.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l2_f1.jpg"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l2_f0.jpg"> </td>
 		</tr>
 	</tbody>
 </table>
 
 ### Layer 10
 
-<table border=0 width="50px" >
+<table border=0 >
 	<tbody> 
 		<tr>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l10_f10.jpg"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l10_f41.jpg"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l10_f52.jpg"> </td>
-		</tr>
-		<tr>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l10_f6.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l10_f69.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l10_f7.jpg"> </td>
 		</tr>
@@ -146,21 +138,30 @@ Below, are some sample results for each operation.
 </table>
 
 ### Layer 17
-
-<table border=0 width="50" >
+<table border=0 >
 	<tbody> 
 		<tr>
-			<td align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l17_f1.jpg" width="75%"> </td>
-			<td align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l17_f2.jpg" width="75%"> </td>
-			<td align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l17_f3.jpg" width="75%"> </td>
-		</tr>
-		<tr>
-			<td align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l17_f4.jpg" width="75%"> </td>
-			<td align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l17_f8.jpg" width="75%"> </td>
-			<td align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l17_f9.jpg" width="75%"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l17_f4.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l17_f8.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l17_f9.jpg"> </td>
 		</tr>
 	</tbody>
 </table>
+
+
+### Layer 24
+<table border=0 >
+	<tbody> 
+		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l24_f17.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l24_f22.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l24_f4.jpg"> </td>
+		</tr>
+	</tbody>
+</table>
+
+
+
 
 ## Class Specific Image Generation
 This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with L2 regularization from VGG19. Note that these images are generated with regular CNNs with optimizing the input (rather than the model weights) and not with GANs.
