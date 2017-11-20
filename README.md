@@ -111,33 +111,32 @@ Below, are some sample results for each operation.
 </table>
 
 ## CNN Filter Visualizations
-CNN layer can be visualized with selecting a layer and a specific filter and optimizing the input image with respect to output of that convolution operation. For this example, I used filters of a pre-trained **VGG16**. Visualizations of layers 2, 10, 17 and 24 are at below. Low level visualizations start with basic color and direction filters and increases towards more complex shapes as we move towards the final layer.
+CNN layers can be visualized with selecting a specific filter of a layer and optimizing the input image with respect to output of that convolution operation. For this example, I used a pre-trained **VGG16**. Visualizations of layers 2, 10, 17 and 24 are at below. Visualizations of layers start with basic color and direction filters at lower levels. As we approach towards the final layer the complexity of the filters also increase.
 
-### Layer 2
-
+### Layer: 2 - Filters: 1, 21, 54
 <table border=0 width="50px" >
 	<tbody> 
 		<tr>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l2_f54.jpg"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l2_f21.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l2_f1.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l2_f21.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l2_f54.jpg"> </td>
 		</tr>
 	</tbody>
 </table>
 
-### Layer 10
-
+### Layer: 10 - Filters: 7, 10, 69
 <table border=0 >
 	<tbody> 
 		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l10_f7.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l10_f10.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l10_f69.jpg"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l10_f7.jpg"> </td>
 		</tr>
 	</tbody>
 </table>
 
-### Layer 17
+### Layer: 17 - Filters: 4, 8, 9
+
 <table border=0 >
 	<tbody> 
 		<tr>
@@ -149,13 +148,13 @@ CNN layer can be visualized with selecting a layer and a specific filter and opt
 </table>
 
 
-### Layer 24
+### Layer 24 - Filters: 4, 17, 22
 <table border=0 >
 	<tbody> 
 		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l24_f4.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l24_f17.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l24_f22.jpg"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l24_f4.jpg"> </td>
 		</tr>
 	</tbody>
 </table>
