@@ -113,7 +113,6 @@ Below, are some sample results for each operation.
 ## CNN Filter Visualizations
 CNN filters can be visualized when we optimize the input image with respect to output of the specific convolution operation. For this example I used a pre-trained **VGG16**. Visualizations of layers start with basic color and direction filters at lower levels. As we approach towards the final layer the complexity of the filters also increases.
 
-### Layer: 2
 <table border=0 width="50px" >
 	<tbody> 
 		<tr>
