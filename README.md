@@ -111,7 +111,7 @@ Below, are some sample results for each operation.
 </table>
 
 ## CNN Filter Visualizations
-CNN layers can be visualized with selecting a specific filter of a layer and optimizing the input image with respect to output of that convolution operation. For this example, I used a pre-trained **VGG16**. Visualizations of layers 2, 10, 17 and 24 are at below. Visualizations of layers start with basic color and direction filters at lower levels. As we approach towards the final layer the complexity of the filters also increase.
+CNN filters can be visualized when we optimize the input image with respect to output of the specific convolution operation. For this example I used a pre-trained **VGG16**. Visualizations of layers start with basic color and direction filters at lower levels. As we approach towards the final layer the complexity of the filters also increases.
 
 ### Layer: 2 - Filters: 1, 21, 54
 <table border=0 width="50px" >
@@ -148,7 +148,7 @@ CNN layers can be visualized with selecting a specific filter of a layer and opt
 </table>
 
 
-### Layer 24 - Filters: 4, 17, 22
+### Layer: 24 - Filters: 4, 17, 22
 <table border=0 >
 	<tbody> 
 		<tr>
