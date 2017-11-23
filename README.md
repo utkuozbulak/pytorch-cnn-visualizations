@@ -14,6 +14,7 @@ This repo contains following CNN operations implemented in Pytorch:
 
 It will also include following operations in near future as well:
 
+* Deep Dream [10]
 * Inverted Image Representations [5]
 * Weakly supervised object segmentation [4]
 * Semantic Segmentation with Deconvolutions [6]
@@ -254,3 +255,5 @@ opencv >= 3.1.0
 [8] D. Smilkov, N. Thorat, N. Kim, F. Viégas, M. Wattenberg. *SmoothGrad: removing noise by adding noise* https://arxiv.org/abs/1706.03825
 
 [9] MD. Zeiler, R. Fergus. *Visualizing and Understanding Convolutional Networks* https://arxiv.org/abs/1311.2901
+
+[10] A. Mordvintsev, C. Olah, M. Tyka. *Inceptionism: Going Deeper into Neural Networks* https://research.googleblog.com/2015/06/inceptionism-going-deeper-into-neural.html
