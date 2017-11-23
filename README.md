@@ -160,7 +160,7 @@ Deep dream is technically the same operation as layer visualization the only dif
 			<td width="70%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dd_l34_f94_iter250.jpg"> </td>
 		</tr>
 		<tr>
-			<td width="19%" align="center">VGG19 <br /> Layer: 34  <br /> (Final Conv. Layer) Filter: 94</td>
+			<td width="19%" align="center">VGG19 <br /> Layer: 34  <br /> (Final Conv. Layer) Filter: 103</td>
 			<td width="70%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dd_l34_f103_iter250.jpg"> </td>
 		</tr>
 	</tbody>
