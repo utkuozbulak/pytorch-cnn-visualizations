@@ -259,7 +259,7 @@ opencv >= 3.1.0
 ```
 
 
-
+## References:
 
 [1] J. T. Springenberg, A. Dosovitskiy, T. Brox, and M. Riedmiller. *Striving for Simplicity: The All Convolutional Net*, https://arxiv.org/abs/1412.6806
 
