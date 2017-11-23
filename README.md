@@ -7,12 +7,14 @@ This repo contains following CNN operations implemented in Pytorch:
 * Gradient saliency maps [4]
 * Gradient-weighted [3] class activation mapping [2] 
 * Guided gradient-weighted class activation mapping [3]
+* CNN filter visualization [9]
 * Class specific image generation (A generated image that maximizes a certain class) [4]
 * Fooling images (Unrecognizable images predicted as classes with high confidence) [7]
 * Fooling images disguised as another image (Picture of ipod being predicted as horse) [7]
 
 It will also include following operations in near future as well:
 
+* Deep Dream [10]
 * Inverted Image Representations [5]
 * Weakly supervised object segmentation [4]
 * Semantic Segmentation with Deconvolutions [6]
@@ -110,7 +112,7 @@ Below, are some sample results for each operation.
 	</tbody>
 </table>
 
-## CNN Filter Visualizations
+## Convolutional Neural Network Filter Visualization
 CNN filters can be visualized when we optimize the input image with respect to output of the specific convolution operation. For this example I used a pre-trained **VGG16**. Visualizations of layers start with basic color and direction filters at lower levels. As we approach towards the final layer the complexity of the filters also increases.
 
 <table border=0 width="50px" >
@@ -251,3 +253,7 @@ opencv >= 3.1.0
 [7] A. Nguyen, J. Yosinski, J. Clune.  *Deep Neural Networks are Easily Fooled: High Confidence Predictions for Unrecognizable  Images* https://arxiv.org/abs/1412.1897
 
 [8] D. Smilkov, N. Thorat, N. Kim, F. Viégas, M. Wattenberg. *SmoothGrad: removing noise by adding noise* https://arxiv.org/abs/1706.03825
+
+[9] MD. Zeiler, R. Fergus. *Visualizing and Understanding Convolutional Networks* https://arxiv.org/abs/1311.2901
+
+[10] A. Mordvintsev, C. Olah, M. Tyka. *Inceptionism: Going Deeper into Neural Networks* https://research.googleblog.com/2015/06/inceptionism-going-deeper-into-neural.html
