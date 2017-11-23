@@ -72,13 +72,13 @@ def save_class_activation_on_image(org_img, activation_map, file_name):
     cv2.imwrite(path_to_file, np.uint8(255 * img_with_heatmap))
 
 
-def preprocess_image(cv2im):
+def preprocess_image(cv2im, resize_im=True):
     """
         Processes image for CNNs
 
     Args:
         PIL_img (PIL_img): Image to process
-
+        resize_im (bool): Resize to 224 or not
     returns:
         im_as_var (Pytorch variable): Variable that contains processed float tensor
     """
@@ -86,7 +86,9 @@ def preprocess_image(cv2im):
     mean = [0.485, 0.456, 0.406]
     std = [0.229, 0.224, 0.225]
     # Resize image
-    im_as_arr = np.float32(cv2.resize(cv2im, (224, 224)))
+    if resize_im:
+        cv2im = cv2.resize(cv2im, (224, 224))
+    im_as_arr = np.float32(cv2im)
     im_as_arr = np.ascontiguousarray(im_as_arr[..., ::-1])
     im_as_arr = im_as_arr.transpose(2, 0, 1)  # Convert array to D,W,H
     # Normalize the channels

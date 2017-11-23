@@ -95,9 +95,9 @@ if __name__ == '__main__':
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
         get_params(target_example)
     # Grad cam
-    gcv2 = GradCam(pretrained_model, target_layer=35)
+    grad_cam = GradCam(pretrained_model, target_layer=35)
     # Generate cam mask
-    cam = gcv2.generate_cam(prep_img, target_class)
+    cam = grad_cam.generate_cam(prep_img, target_class)
     # Save mask
     save_class_activation_on_image(original_image, cam, file_name_to_export)
     print('Grad cam completed')
