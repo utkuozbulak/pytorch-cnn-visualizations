@@ -8,13 +8,14 @@ This repo contains following CNN operations implemented in Pytorch:
 * Gradient-weighted [3] class activation mapping [2] 
 * Guided gradient-weighted class activation mapping [3]
 * CNN filter visualization [9]
+* Deep Dream [10]
 * Class specific image generation (A generated image that maximizes a certain class) [4]
 * Fooling images (Unrecognizable images predicted as classes with high confidence) [7]
 * Fooling images disguised as another image (Picture of ipod being predicted as horse) [7]
 
 It will also include following operations in near future as well:
 
-* Deep Dream [10]
+
 * Inverted Image Representations [5]
 * Weakly supervised object segmentation [4]
 * Semantic Segmentation with Deconvolutions [6]
@@ -113,7 +114,7 @@ Below, are some sample results for each operation.
 </table>
 
 ## Convolutional Neural Network Filter Visualization
-CNN filters can be visualized when we optimize the input image with respect to output of the specific convolution operation. For this example I used a pre-trained **VGG16**. Visualizations of layers start with basic color and direction filters at lower levels. As we approach towards the final layer the complexity of the filters also increases.
+CNN filters can be visualized when we optimize the input image with respect to output of the specific convolution operation. For this example I used a pre-trained **VGG16**. Visualizations of layers start with basic color and direction filters at lower levels. As we approach towards the final layer the complexity of the filters also increases. If you employ techniques like blurring, gradient clipping etc. you will probably produce better images.
 
 <table border=0 width="50px" >
 	<tbody> 
@@ -143,6 +144,28 @@ CNN filters can be visualized when we optimize the input image with respect to o
 		</tr>
 	</tbody>
 </table>
+
+
+## Deep Dream
+Deep dream is technically the same operation as layer visualization the only difference is that you don't start with a random image but use another picture. The samples below were created with VGG19, the produced result is entirely up to the filter so it is kind of hit or miss. The more complex models produce mode high level features, meaning that If you replace VGG19 with an Inception variant you will get more noticable shapes when you target higher conv layers. Like layer visualization, if you employ additional techniques like gradient clipping, blurring etc. you might get better visualizations.
+
+<table border=0 width="50px" >
+	<tbody>
+		<tr>
+			<td width="19%" align="center">Original Image</td>
+			<td width="70%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/dd_tree.jpg"> </td>
+		</tr>
+		<tr>
+			<td width="19%" align="center">VGG19 <br /> Layer: 34  <br /> (Final Conv. Layer) Filter: 94</td>
+			<td width="70%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dd_l34_f94_iter250.jpg"> </td>
+		</tr>
+		<tr>
+			<td width="19%" align="center">VGG19 <br /> Layer: 34  <br /> (Final Conv. Layer) Filter: 103</td>
+			<td width="70%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/dd_l34_f103_iter250.jpg"> </td>
+		</tr>
+	</tbody>
+</table>
+
 
 ## Class Specific Image Generation
 This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with L2 regularization from VGG19. Note that these images are generated with regular CNNs with optimizing the input (rather than the model weights) and not with GANs.
@@ -236,7 +259,7 @@ opencv >= 3.1.0
 ```
 
 
-
+## References:
 
 [1] J. T. Springenberg, A. Dosovitskiy, T. Brox, and M. Riedmiller. *Striving for Simplicity: The All Convolutional Net*, https://arxiv.org/abs/1412.6806
 
