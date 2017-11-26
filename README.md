@@ -147,7 +147,7 @@ CNN filters can be visualized when we optimize the input image with respect to o
 
 
 ## Deep Dream
-Deep dream is technically the same operation as layer visualization the only difference is that you don't start with a random image but use another picture. The samples below were created with VGG19, the produced result is entirely up to the filter so it is kind of hit or miss. The more complex models produce mode high level features, meaning that If you replace VGG19 with an Inception variant you will get more noticable shapes when you target higher conv layers. Like layer visualization, if you employ additonal techniques like gradient clipping, blurring etc. you might get better visualizations.
+Deep dream is technically the same operation as layer visualization the only difference is that you don't start with a random image but use another picture. The samples below were created with VGG19, the produced result is entirely up to the filter so it is kind of hit or miss. The more complex models produce mode high level features, meaning that If you replace VGG19 with an Inception variant you will get more noticable shapes when you target higher conv layers. Like layer visualization, if you employ additional techniques like gradient clipping, blurring etc. you might get better visualizations.
 
 <table border=0 width="50px" >
 	<tbody>
