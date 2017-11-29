@@ -2,9 +2,9 @@
 
 This repo contains following CNN operations implemented in Pytorch: 
 
-* Vanilla backpropagation
-* Guided backpropagation [1]
-* Gradient saliency maps [4]
+* Gradient visualization with vanilla backpropagation
+* Gradient visualization with guided backpropagation [1]
+* Gradient visualization with saliency maps [4]
 * Gradient-weighted [3] class activation mapping [2] 
 * Guided gradient-weighted class activation mapping [3]
 * CNN filter visualization [9]
