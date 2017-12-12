@@ -59,7 +59,7 @@ class DisguisedFoolingSampleGeneration():
                     break
             # Target specific class
             class_loss = -output[0, self.target_class]
-            print('Iteration:', str(i), 'Target confidence', "{0:.5f}".format(target_confidence))
+            print('Iteration:', str(i), 'Target confidence', "{0:.4f}".format(target_confidence))
             # Zero grads
             self.model.zero_grad()
             # Backward
