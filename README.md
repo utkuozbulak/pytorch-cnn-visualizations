@@ -220,7 +220,7 @@ This operation is quite similar to generating class specific images, we start wi
 </table>
 
 
-## Disguised Fooling Image Generation
+## Disguised Fooling (Adversarial) Image Generation
 For this operation we start with an image and perform gradient updates on the image for a specific class but with smaller learning rates so that the original image does not change too much. As it can be seen from samples, on some images it is almost impossible to recognize the difference between two images but on others it can clearly be observed that something is wrong. All of the examples below were created from and tested on AlexNet to fool it.
 
 
