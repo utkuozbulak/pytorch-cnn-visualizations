@@ -29,8 +29,8 @@ class DeepDream():
         # Hook the layers to get result of the convolution
         self.hook_layer()
         # Create the folder to export images if not exists
-        if not os.path.exists('generated'):
-            os.makedirs('generated')
+        if not os.path.exists('../generated'):
+            os.makedirs('../generated')
 
     def hook_layer(self):
         def hook_function(module, grad_in, grad_out):
@@ -68,16 +68,23 @@ class DeepDream():
             self.created_image = recreate_image(self.processed_image)
             # Save image every 20 iteration
             if i % 20 == 0:
-                cv2.imwrite('generated/layer_vis_l' + str(self.selected_layer) +
+                cv2.imwrite('../generated/ddream_l' + str(self.selected_layer) +
                             '_f' + str(self.selected_filter) + '_iter'+str(i)+'.jpg',
                             self.created_image)
 
 
 if __name__ == '__main__':
+    ### THIS OPERATION IS MEMORY HUNGRY! ###
+    # Because of the selected image is very large
+    # If it gives out of memory error or locks the computer
+    # Try it with a smaller image
     cnn_layer = 34
     filter_pos = 94
+
     im_path = '../input_images/dd_tree.jpg'
     # Fully connected layer is not needed
     pretrained_model = models.vgg19(pretrained=True).features
     dd = DeepDream(pretrained_model, cnn_layer, filter_pos, im_path)
+    # This operation can also be done without Pytorch hooks
+    # See layer visualisation for the implementation without hooks
     dd.dream()

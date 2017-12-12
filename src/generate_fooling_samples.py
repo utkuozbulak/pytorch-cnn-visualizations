@@ -26,11 +26,9 @@ class FoolingSampleGeneration():
         self.minimum_confidence = minimum_confidence
         # Generate a random image
         self.created_image = np.uint8(np.random.uniform(0, 255, (224, 224, 3)))
-        cv2.imwrite('generated/fooling_sample_class_' + str(self.target_class) + '.jpg',
-                    self.created_image)
         # Create the folder to export images if not exists
-        if not os.path.exists('generated'):
-            os.makedirs('generated')
+        if not os.path.exists('../generated'):
+            os.makedirs('../generated')
 
     def generate(self):
         for i in range(1, 200):
@@ -47,7 +45,7 @@ class FoolingSampleGeneration():
                 # this is needed because the format of preprocessed image is float and when
                 # it is written back to file it is converted to uint8, so there is a chance that
                 # there are some losses while writing
-                confirmation_image = cv2.imread('generated/fooling_sample_class_' +
+                confirmation_image = cv2.imread('../generated/fooling_sample_class_' +
                                                 str(self.target_class) + '.jpg', 1)
                 # Preprocess image
                 confirmation_processed_image = preprocess_image(confirmation_image)
@@ -62,7 +60,7 @@ class FoolingSampleGeneration():
                     break
             # Target specific class
             class_loss = -output[0, self.target_class]
-            print('Iteration:', str(i), 'Loss', "{0:.2f}".format(class_loss.data.numpy()[0]))
+            print('Iteration:', str(i), 'Target Confidence', "{0:.5f}".format(target_confidence))
             # Zero grads
             self.model.zero_grad()
             # Backward
@@ -72,7 +70,7 @@ class FoolingSampleGeneration():
             # Recreate image
             self.created_image = recreate_image(self.processed_image)
             # Save image
-            cv2.imwrite('generated/fooling_sample_class_' + str(self.target_class) + '.jpg',
+            cv2.imwrite('../generated/fooling_sample_class_' + str(self.target_class) + '.jpg',
                         self.created_image)
         return self.processed_image
 

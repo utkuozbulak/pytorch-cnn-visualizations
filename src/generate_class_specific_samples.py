@@ -25,14 +25,13 @@ class ClassSpecificImageGeneration():
         self.target_class = target_class
         # Generate a random image
         self.created_image = np.uint8(np.random.uniform(0, 255, (224, 224, 3)))
-        cv2.imwrite('generated/initial_image.jpg', self.created_image)
         # Create the folder to export images if not exists
-        if not os.path.exists('generated'):
-            os.makedirs('generated')
+        if not os.path.exists('../generated'):
+            os.makedirs('../generated')
 
     def generate(self):
         initial_learning_rate = 6
-        for i in range(1, 200):
+        for i in range(1, 150):
             # Process image and return variable
             self.processed_image = preprocess_image(self.created_image)
             # Define optimizer for the image
@@ -51,12 +50,12 @@ class ClassSpecificImageGeneration():
             # Recreate image
             self.created_image = recreate_image(self.processed_image)
             # Save image
-            cv2.imwrite('generated/iteration_'+str(i)+'.jpg', self.created_image)
+            cv2.imwrite('../generated/c_specific_iteration_'+str(i)+'.jpg', self.created_image)
         return self.processed_image
 
 
 if __name__ == '__main__':
     target_class = 130  # Flamingo
     pretrained_model = models.alexnet(pretrained=True)
-    cig = ClassSpecificImageGeneration(pretrained_model, target_class)
-    cig.generate()
+    csig = ClassSpecificImageGeneration(pretrained_model, target_class)
+    csig.generate()

@@ -26,8 +26,8 @@ class DisguisedFoolingSampleGeneration():
         # Generate a random image
         self.initial_image = initial_image
         # Create the folder to export images if not exists
-        if not os.path.exists('generated'):
-            os.makedirs('generated')
+        if not os.path.exists('../generated'):
+            os.makedirs('../generated')
 
     def generate(self):
         for i in range(1, 500):
@@ -44,7 +44,7 @@ class DisguisedFoolingSampleGeneration():
                 # this is needed because the format of preprocessed image is float and when
                 # it is written back to file it is converted to uint8, so there is a chance that
                 # there are some losses while writing
-                confirmation_image = cv2.imread('generated/fooling_sample_class_' +
+                confirmation_image = cv2.imread('../generated/fooling_sample_class_' +
                                                 str(self.target_class) + '.jpg', 1)
                 # Preprocess image
                 confirmation_processed_image = preprocess_image(confirmation_image)
@@ -54,12 +54,12 @@ class DisguisedFoolingSampleGeneration():
                 softmax_confirmation = \
                     functional.softmax(confirmation_output)[0][self.target_class].data.numpy()[0]
                 if softmax_confirmation > self.minimum_confidence:
-                    print('Generated fooling image with', "{0:.2f}".format(softmax_confirmation),
+                    print('Generated disguised fooling image with', "{0:.2f}".format(softmax_confirmation),
                           'confidence at', str(i) + 'th iteration.')
                     break
             # Target specific class
             class_loss = -output[0, self.target_class]
-            print('Iteration:', str(i), 'Loss', "{0:.2f}".format(class_loss.data.numpy()[0]))
+            print('Iteration:', str(i), 'Target confidence', "{0:.5f}".format(target_confidence))
             # Zero grads
             self.model.zero_grad()
             # Backward
@@ -69,7 +69,7 @@ class DisguisedFoolingSampleGeneration():
             # Recreate image
             self.initial_image = recreate_image(self.processed_image)
             # Save image
-            cv2.imwrite('generated/fooling_sample_class_' + str(self.target_class) + '.jpg',
+            cv2.imwrite('../generated/disguised_sample_class_' + str(self.target_class) + '.jpg',
                         self.initial_image)
         return confirmation_image
 
