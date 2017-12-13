@@ -168,7 +168,7 @@ Deep dream is technically the same operation as layer visualization the only dif
 
 
 ## Class Specific Image Generation
-This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with L2 regularization from VGG19. Note that these images are generated with regular CNNs with optimizing the input (rather than the model weights) and not with GANs.
+This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with VGG19 incorporated with Gaussian blur every other iteration. Note that these images are generated with regular CNNs with optimizing the input (rather than the model weights) and not with GANs.
 
 <table border=0 width="50px" >
 	<tbody>
