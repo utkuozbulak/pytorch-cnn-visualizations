@@ -1,6 +1,6 @@
 # Convolutional Neural Network Visualizations 
 
-This repo contains following CNN operations implemented in Pytorch: 
+This repo contains following CNN visualization techniques implemented in Pytorch: 
 
 * Gradient visualization with vanilla backpropagation
 * Gradient visualization with guided backpropagation [1]
@@ -10,8 +10,12 @@ This repo contains following CNN operations implemented in Pytorch:
 * CNN filter visualization [9]
 * Deep Dream [10]
 * Class specific image generation (A generated image that maximizes a certain class) [4]
+
+
+ **Adversarial example generation** techniques  have been moved to [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks).
 * Fooling images (Unrecognizable images predicted as classes with high confidence) [7]
 * Fooling images disguised as another image (Picture of ipod being predicted as horse) [7]
+* Fast Gradient Sign [11]
 
 It will also include following operations in near future as well:
 
@@ -202,51 +206,10 @@ The samples below show the produced image with no regularization, l1 and l2 regu
 Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate to improve quality are; blurring, clipping gradients that are below a certain treshold, random color swaps on some parts, random cropping the image, forcing generated image to follow a path to force continuity.
 
 ## Fooling Image Generation
-This operation is quite similar to generating class specific images, we start with a random image and continously update the image with targeted backpropagation (for a certain class) and stop when we achieve target confidence for that class. All of the below images are generated from pretrained AlexNet to fool it.
-
-
-<table border=0 width="50px" >
-	<tbody> 
-    <tr>		<td width="27%" align="center"> Predicted as <strong>Zebra</strong> (340) <br/> Confidence: 0.94 </td>
-			<td width="27%" align="center"> Predicted as <strong>Bow tie</strong> (457) <br/> Confidence: 0.95 </td>
-			<td width="27%" align="center"> Predicted as <strong>Castle</strong> (483) <br/> Confidence: 0.99 </td>
-		</tr>
-		<tr>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_340.jpg"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_457.jpg"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_483.jpg"> </td>
-		</tr>
-	</tbody>
-</table>
-
+ Adversarial example generation techniques  have been moved to [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks).
 
 ## Disguised Fooling (Adversarial) Image Generation
-For this operation we start with an image and perform gradient updates on the image for a specific class but with smaller learning rates so that the original image does not change too much. As it can be seen from samples, on some images it is almost impossible to recognize the difference between two images but on others it can clearly be observed that something is wrong. All of the examples below were created from and tested on AlexNet to fool it.
-
-
-<table border=0 width="50px" >
-	<tbody> 
-		<tr>		<td width="27%" align="center"> Predicted as <strong>Eel</strong> (390) <br/> Confidence: 0.96 </td>
-			<td width="27%" align="center"> Predicted as <strong>Apple</strong> (948) <br/> Confidence: 0.95 </td>
-			<td width="27%" align="center"> Predicted as <strong>Snowbird</strong> (13) <br/> Confidence: 0.99 </td>
-		</tr>
-		<tr>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/eel.JPEG"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/apple.JPEG"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/bird.JPEG"> </td>
-		</tr>
-		<tr>		<td width="27%" align="center"> Predicted as <strong>Banjo</strong> (420) <br/> Confidence: 0.99 </td>
-			<td width="27%" align="center"> Predicted as <strong>Abacus</strong> (457) <br/> Confidence: 0.99 </td>
-			<td width="27%" align="center"> Predicted as <strong>Dumbell</strong> (543) <br/> Confidence: 1 </td>
-		</tr>
-		<tr>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_420.jpg"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_398.jpg"> </td>
-			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/fooling_sample_class_543.jpg"> </td>
-		</tr>
-	</tbody>
-</table>
-
+ Adversarial example generation techniques  have been moved to [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks).
 
 
 
@@ -280,3 +243,6 @@ opencv >= 3.1.0
 [9] D. Erhan, Y. Bengio, A. Courville, P. *Vincent. Visualizing Higher-Layer Features of a Deep Network* https://www.researchgate.net/publication/265022827_Visualizing_Higher-Layer_Features_of_a_Deep_Network
 
 [10] A. Mordvintsev, C. Olah, M. Tyka. *Inceptionism: Going Deeper into Neural Networks* https://research.googleblog.com/2015/06/inceptionism-going-deeper-into-neural.html
+
+[11] I. J. Goodfellow, J. Shlens, C. Szegedy. *Explaining and Harnessing Adversarial Examples* https://arxiv.org/abs/1412.6572
+
