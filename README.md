@@ -13,9 +13,10 @@ This repo contains following CNN visualization techniques implemented in Pytorch
 
 
  **Adversarial example generation** techniques  have been moved to [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks).
-* Fooling images (Unrecognizable images predicted as classes with high confidence) [7]
-* Fooling images disguised as another image (Picture of ipod being predicted as horse) [7]
-* Fast Gradient Sign [11]
+ 
+	* Fooling images (Unrecognizable images predicted as classes with high confidence) [7]
+	* Fooling images disguised as another image (Picture of ipod being predicted as horse) [7]
+	* Fast Gradient Sign [11]
 
 It will also include following operations in near future as well:
 
