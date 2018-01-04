@@ -14,10 +14,10 @@ This repo contains following CNN visualization techniques implemented in Pytorch
 
  **Adversarial example generation** techniques  have been moved to [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks).
  
-	* Fast Gradient Sign, Untargeted [11]
-	* Fast Gradient Sign, Targeted [11]
-	* Gradient Ascent, Adversarial Images [7]
-	* Gradient Ascent, Fooling Images (Unrecognizable images predicted as classes with high confidence) [7]
+	- Fast Gradient Sign, Untargeted [11]
+	- Fast Gradient Sign, Targeted [11]
+	- Gradient Ascent, Adversarial Images [7]
+	- Gradient Ascent, Fooling Images (Unrecognizable images predicted as classes with high confidence) [7]
 
 It will also include following operations in near future as well:
 
@@ -207,10 +207,10 @@ The samples below show the produced image with no regularization, l1 and l2 regu
 
 Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate to improve quality are; blurring, clipping gradients that are below a certain treshold, random color swaps on some parts, random cropping the image, forcing generated image to follow a path to force continuity.
 
-## Fooling Image Generation
+## Adversarial Example Generation with Fast Gradient Sign
  Adversarial example generation techniques  have been moved to [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks).
 
-## Disguised Fooling (Adversarial) Image Generation
+## Adversarial Example Generation with Gradient Ascent
  Adversarial example generation techniques  have been moved to [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks).
 
 
