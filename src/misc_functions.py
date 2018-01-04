@@ -39,6 +39,8 @@ def save_gradient_images(gradient, file_name):
         gradient (np arr): Numpy array of the gradient with shape (3, 224, 224)
         file_name (str): File name to be exported
     """
+    if not os.path.exists('../results'):
+        os.makedirs('../results')
     gradient = gradient - gradient.min()
     gradient /= gradient.max()
     gradient = np.uint8(gradient * 255).transpose(1, 2, 0)
@@ -57,6 +59,8 @@ def save_class_activation_on_image(org_img, activation_map, file_name):
         activation_map (numpy arr): activation map (grayscale) 0-255
         file_name (str): File name of the exported image
     """
+    if not os.path.exists('../results'):
+        os.makedirs('../results')
     # Grayscale activation map
     path_to_file = os.path.join('../results', file_name+'_Cam_Grayscale.jpg')
     cv2.imwrite(path_to_file, activation_map)
