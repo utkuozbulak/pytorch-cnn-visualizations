@@ -166,10 +166,7 @@ def get_params(example_index):
     # Pick one of the examples
     example_list = [['../input_images/snake.jpg', 56],
                     ['../input_images/cat_dog.png', 243],
-                    ['../input_images/spider.png', 72],
-                    ['../input_images/apple.JPEG', 948],
-                    ['../input_images/eel.JPEG', 390],
-                    ['../input_images/bird.JPEG', 13]]
+                    ['../input_images/spider.png', 72]]
     selected_example = example_index
     img_path = example_list[selected_example][0]
     target_class = example_list[selected_example][1]
@@ -179,7 +176,7 @@ def get_params(example_index):
     # Process image
     prep_img = preprocess_image(original_image)
     # Define model
-    pretrained_model = models.vgg19(pretrained=True)
+    pretrained_model = models.alexnet(pretrained=True)
     return (original_image,
             prep_img,
             target_class,
