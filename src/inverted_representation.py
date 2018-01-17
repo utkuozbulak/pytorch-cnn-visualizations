@@ -105,7 +105,7 @@ class InvertedRepresentation():
                 print('Iteration:', str(i), 'Loss:', loss.data.numpy()[0])
                 x = recreate_image(opt_img)
                 cv2.imwrite('../generated/Inv_Image_Layer_' + str(target_layer) +
-                            '_Iteration_' + str(i) + '.png', x)
+                            '_Iteration_' + str(i) + '.jpg', x)
             # Reduce learning rate every 40 iterations
             if i % 40 == 0:
                 for param_group in optimizer.param_groups:
