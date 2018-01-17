@@ -6,32 +6,32 @@ This repo contains following CNN visualization techniques implemented in Pytorch
 * Gradient visualization with guided backpropagation [1]
 * Gradient visualization with saliency maps [4]
 * Gradient-weighted [3] class activation mapping [2] 
-* Guided gradient-weighted class activation mapping [3]
+* Guided, gradient-weighted class activation mapping [3]
 * CNN filter visualization [9]
-* Deep Dream [10]
-* Class specific image generation (A generated image that maximizes a certain class) [4]
+* Deep dream [10]
+* Class specific image generation [4]
+* Inverted image representations [5]
 
-
- **Adversarial example generation** techniques  have been moved to [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks).
+ I decided to move following **Adversarial example generation** techniques [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks) to separate the distinction between visualization and adversarial stuff.
  
 	- Fast Gradient Sign, Untargeted [11]
 	- Fast Gradient Sign, Targeted [11]
 	- Gradient Ascent, Adversarial Images [7]
 	- Gradient Ascent, Fooling Images (Unrecognizable images predicted as classes with high confidence) [7]
 
-It will also include following operations in near future as well:
+I also plan to include following techniques when I have some time:
 
-
-* Inverted Image Representations [5]
 * Weakly supervised object segmentation [4]
 * Semantic Segmentation with Deconvolutions [6]
 * Smooth Grad [8]
 
-The code uses pretrained VGG19, VGG16 and AlexNet in the model zoo. Some of the code assumes that the layers in the model are separated into two sections; **features**, which contains the convolutional layers and **classifier**, that contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model that does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
+Depending on the technique, the code uses pretrained **VGG** or **AlexNet** from the model zoo. Some of the code also assumes that the layers in the model are separated into two sections; **features**, which contains the convolutional layers and **classifier**, that contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model that does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
 
-All images are pre-processed with mean and std of the ImageNet dataset before being fed to the model. None of the code uses GPU as these operations are quite fast (for a single image). You can make use of gpu with very little effort. The examples below include numbers in the brackets after the description, like *Mastiff (243)*, this number represents the class id in the ImageNet dataset.
+Every technique has its own python file (e.g. *gradcam.py*) which I hope will make things easier to understand. *misc_functions.py* contains functions like image processing and image recreation which is shared by the implemented techniques.
 
-I tried to comment on the code as much as possible, if you have any issues understanding it or porting it, don't hesitate to reach out. 
+All images are pre-processed with mean and std of the ImageNet dataset before being fed to the model. None of the code uses GPU as these operations are quite fast for a single image (except for deep dream because of the example image that is used for it is huge). You can make use of gpu with very little effort. The example pictures below include numbers in the brackets after the description, like *Mastiff (243)*, this number represents the class id in the ImageNet dataset.
+
+I tried to comment on the code as much as possible, if you have any issues understanding it or porting it, don't hesitate to send an email or create an issue.
 
 Below, are some sample results for each operation.
 
@@ -120,7 +120,7 @@ Below, are some sample results for each operation.
 </table>
 
 ## Convolutional Neural Network Filter Visualization
-CNN filters can be visualized when we optimize the input image with respect to output of the specific convolution operation. For this example I used a pre-trained **VGG16**. Visualizations of layers start with basic color and direction filters at lower levels. As we approach towards the final layer the complexity of the filters also increases. If you employ techniques like blurring, gradient clipping etc. you will probably produce better images.
+CNN filters can be visualized when we optimize the input image with respect to output of the specific convolution operation. For this example I used a pre-trained **VGG16**. Visualizations of layers start with basic color and direction filters at lower levels. As we approach towards the final layer the complexity of the filters also increase. If you employ external techniques like blurring, gradient clipping etc. you will probably produce better images.
 
 <table border=0 width="50px" >
 	<tbody> 
@@ -152,8 +152,41 @@ CNN filters can be visualized when we optimize the input image with respect to o
 </table>
 
 
+## Inverted Image Representations
+I think this technique is the most complex technique in this repository in terms of understanding what the code does. It is mainly because of complex regularization. If you truly want to understand how this is implemented I suggest you read the second and third page of the paper [5], specifically, the regularization part. Here, the aim is to generate original image after nth layer. The further we go into the model, the harder it becomes. The results in the paper are incredibly good (see Figure 6) but here, the result quickly becomes messy as we iterate through the layers. This is because the authors of the paper tuned the parameters for each layer individually. You can tune the parameters just like the to ones that are given in the paper to optimize results for each layer. The inverted examples from several layers of **AlexNet** with the previous *Snake* picture are below.
+
+
+<table border=0 width="50px" >
+	<tbody> 
+    <tr>		<td width="27%" align="center"> Layer 0: <strong>Conv2d</strong> </td>
+			<td width="27%" align="center"> Layer 2: <strong>MaxPool2d</strong> </td>
+			<td width="27%" align="center"> Layer 4: <strong>ReLU</strong> </td>
+		</tr>
+		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/inverted_images/Layer_0_Inverted.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/inverted_images/Layer_2_Inverted.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/inverted_images/Layer_4_Inverted.jpg"> </td>
+		</tr>
+	</tbody>
+</table>
+<table border=0 width="50px" >
+	<tbody> 
+    <tr>		<td width="27%" align="center"> Layer 7: <strong>ReLU</strong> </td>
+			<td width="27%" align="center"> Layer 9: <strong>ReLU</strong> </td>
+			<td width="27%" align="center"> Layer 12: <strong>MaxPool2d</strong> </td>
+		</tr>
+		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/inverted_images/Layer_7_Inverted.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/inverted_images/Layer_9_Inverted.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/inverted_images/Layer_12_Inverted.jpg"> </td>
+		</tr>
+	</tbody>
+</table>
+
+
+
 ## Deep Dream
-Deep dream is technically the same operation as layer visualization the only difference is that you don't start with a random image but use another picture. The samples below were created with VGG19, the produced result is entirely up to the filter so it is kind of hit or miss. The more complex models produce mode high level features, meaning that If you replace VGG19 with an Inception variant you will get more noticable shapes when you target higher conv layers. Like layer visualization, if you employ additional techniques like gradient clipping, blurring etc. you might get better visualizations.
+Deep dream is technically the same operation as layer visualization the only difference is that you don't start with a random image but use a real picture. The samples below were created with **VGG19**, the produced result is entirely up to the filter so it is kind of hit or miss. The more complex models produce mode high level features. If you replace **VGG19** with an **Inception** variant you will get more noticable shapes when you target higher conv layers. Like layer visualization, if you employ additional techniques like gradient clipping, blurring etc. you might get better visualizations.
 
 <table border=0 width="50px" >
 	<tbody>
@@ -174,7 +207,7 @@ Deep dream is technically the same operation as layer visualization the only dif
 
 
 ## Class Specific Image Generation
-This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with VGG19 incorporated with Gaussian blur every other iteration. Note that these images are generated with regular CNNs with optimizing the input (rather than the model weights) and not with GANs.
+This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with **VGG19** incorporated with Gaussian blur every other iteration. The quality of generated images also depend on the model, **AlexNet** generally has green(ish) artifacts but VGGs produce (kid of) better images. Note that these images are generated with regular CNNs with optimizing the input and **not with GANs**.
 
 <table border=0 width="50px" >
 	<tbody>
