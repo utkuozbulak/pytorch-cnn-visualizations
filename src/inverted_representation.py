@@ -15,6 +15,8 @@ class InvertedRepresentation():
     def __init__(self, model):
         self.model = model
         self.model.eval()
+        if not os.path.exists('../generated'):
+            os.makedirs('../generated')
 
     def alpha_norm(self, input_matrix, alpha):
         """
@@ -91,24 +93,23 @@ class InvertedRepresentation():
             # Calculate alpha regularization
             reg_alpha = alpha_reg_lambda * self.alpha_norm(opt_img, alpha_reg_alpha)
             # Calculate total variation regularization
-            reg_total_variation = tv_reg_lambda * self.total_variation_norm(opt_img, tv_reg_beta)
+            reg_total_variation = tv_reg_lambda * self.total_variation_norm(opt_img,
+                                                                            tv_reg_beta)
             # Sum all to optimize
             loss = euc_loss + reg_alpha + reg_total_variation
-            print('Iteration:', str(i), 'Loss:', loss.data.numpy()[0])
             # Step
             loss.backward()
             optimizer.step()
             # Generate image every 5 iterations
             if i % 5 == 0:
+                print('Iteration:', str(i), 'Loss:', loss.data.numpy()[0])
                 x = recreate_image(opt_img)
-                cv2.imwrite('../generated/Layer_' + str(target_layer) +
-                            '_Inverted_Image_Iteration:' + str(i) + '.png', x)
+                cv2.imwrite('../generated/Inv_Image_Layer_' + str(target_layer) +
+                            '_Iteration_' + str(i) + '.png', x)
             # Reduce learning rate every 40 iterations
             if i % 40 == 0:
                 for param_group in optimizer.param_groups:
                     param_group['lr'] *= 1/10
-
-        return 1
 
 
 if __name__ == '__main__':
@@ -118,10 +119,8 @@ if __name__ == '__main__':
         get_params(target_example)
 
     inverted_representation = InvertedRepresentation(pretrained_model)
-    image_size = 224 # width - height
-    target_layer = 1
+    image_size = 224  # width & height
+    target_layer = 12
     inverted_representation.generate_inverted_image_specific_layer(prep_img,
                                                                    image_size,
                                                                    target_layer)
-
-
