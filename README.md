@@ -1,6 +1,6 @@
 # Convolutional Neural Network Visualizations 
 
-## Tecniques
+## Implemented Techniques
 This repo contains following CNN visualization techniques implemented in Pytorch: 
 
 * Gradient visualization with vanilla backpropagation
