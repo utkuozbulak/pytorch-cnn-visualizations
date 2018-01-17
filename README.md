@@ -1,5 +1,6 @@
 # Convolutional Neural Network Visualizations 
 
+## Tecniques
 This repo contains following CNN visualization techniques implemented in Pytorch: 
 
 * Gradient visualization with vanilla backpropagation
@@ -12,7 +13,7 @@ This repo contains following CNN visualization techniques implemented in Pytorch
 * Class specific image generation [4]
 * Inverted image representations [5]
 
- I decided to move following **Adversarial example generation** techniques [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks) to separate the distinction between visualization and adversarial stuff.
+ I decided to move following **Adversarial example generation** techniques [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks) to separate visualizations from adversarial stuff.
  
 	- Fast Gradient Sign, Untargeted [11]
 	- Fast Gradient Sign, Targeted [11]
@@ -24,6 +25,9 @@ I also plan to include following techniques when I have some time:
 * Weakly supervised object segmentation [4]
 * Semantic Segmentation with Deconvolutions [6]
 * Smooth Grad [8]
+
+
+## General Info
 
 Depending on the technique, the code uses pretrained **VGG** or **AlexNet** from the model zoo. Some of the code also assumes that the layers in the model are separated into two sections; **features**, which contains the convolutional layers and **classifier**, that contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model that does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
 
