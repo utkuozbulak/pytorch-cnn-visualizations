@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 import torch
 
-from misc_functions import get_params, save_class_activation_on_image
+from src.misc_functions import get_params, save_class_activation_on_image
 
 
 class CamExtractor():

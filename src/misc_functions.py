@@ -39,12 +39,12 @@ def save_gradient_images(gradient, file_name):
         gradient (np arr): Numpy array of the gradient with shape (3, 224, 224)
         file_name (str): File name to be exported
     """
-    if not os.path.exists('../results'):
-        os.makedirs('../results')
+    if not os.path.exists('results'):
+        os.makedirs('results')
     gradient = gradient - gradient.min()
     gradient /= gradient.max()
     gradient = np.uint8(gradient * 255).transpose(1, 2, 0)
-    path_to_file = os.path.join('../results', file_name + '.jpg')
+    path_to_file = os.path.join('results', file_name + '.jpg')
     # Convert RBG to GBR
     gradient = gradient[..., ::-1]
     cv2.imwrite(path_to_file, gradient)
@@ -59,20 +59,20 @@ def save_class_activation_on_image(org_img, activation_map, file_name):
         activation_map (numpy arr): activation map (grayscale) 0-255
         file_name (str): File name of the exported image
     """
-    if not os.path.exists('../results'):
-        os.makedirs('../results')
+    if not os.path.exists('results'):
+        os.makedirs('results')
     # Grayscale activation map
-    path_to_file = os.path.join('../results', file_name+'_Cam_Grayscale.jpg')
+    path_to_file = os.path.join('results', file_name+'_Cam_Grayscale.jpg')
     cv2.imwrite(path_to_file, activation_map)
     # Heatmap of activation map
     activation_heatmap = cv2.applyColorMap(activation_map, cv2.COLORMAP_HSV)
-    path_to_file = os.path.join('../results', file_name+'_Cam_Heatmap.jpg')
+    path_to_file = os.path.join('results', file_name+'_Cam_Heatmap.jpg')
     cv2.imwrite(path_to_file, activation_heatmap)
     # Heatmap on picture
     org_img = cv2.resize(org_img, (224, 224))
     img_with_heatmap = np.float32(activation_heatmap) + np.float32(org_img)
     img_with_heatmap = img_with_heatmap / np.max(img_with_heatmap)
-    path_to_file = os.path.join('../results', file_name+'_Cam_On_Image.jpg')
+    path_to_file = os.path.join('results', file_name+'_Cam_On_Image.jpg')
     cv2.imwrite(path_to_file, np.uint8(255 * img_with_heatmap))
 
 
@@ -164,9 +164,9 @@ def get_params(example_index):
         pretrained_model(Pytorch model): Model to use for the operations
     """
     # Pick one of the examples
-    example_list = [['../input_images/snake.jpg', 56],
-                    ['../input_images/cat_dog.png', 243],
-                    ['../input_images/spider.png', 72]]
+    example_list = [['input_images/snake.jpg', 56],
+                    ['input_images/cat_dog.png', 243],
+                    ['input_images/spider.png', 72]]
     selected_example = example_index
     img_path = example_list[selected_example][0]
     target_class = example_list[selected_example][1]

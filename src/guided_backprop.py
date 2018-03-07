@@ -6,7 +6,7 @@ Created on Thu Oct 26 11:23:47 2017
 import torch
 from torch.nn import ReLU
 
-from misc_functions import (get_params,
+from src.misc_functions import (get_params,
                             convert_to_grayscale,
                             save_gradient_images,
                             get_positive_negative_saliency)

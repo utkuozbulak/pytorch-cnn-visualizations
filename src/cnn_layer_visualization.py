@@ -11,7 +11,7 @@ import torch
 from torch.optim import SGD
 from torchvision import models
 
-from misc_functions import preprocess_image, recreate_image
+from src.misc_functions import preprocess_image, recreate_image
 
 
 class CNNLayerVisualization():
@@ -28,8 +28,8 @@ class CNNLayerVisualization():
         # Generate a random image
         self.created_image = np.uint8(np.random.uniform(150, 180, (224, 224, 3)))
         # Create the folder to export images if not exists
-        if not os.path.exists('../generated'):
-            os.makedirs('../generated')
+        if not os.path.exists('generated'):
+            os.makedirs('generated')
 
     def hook_layer(self):
         def hook_function(module, grad_in, grad_out):
@@ -72,7 +72,7 @@ class CNNLayerVisualization():
             self.created_image = recreate_image(self.processed_image)
             # Save image
             if i % 5 == 0:
-                cv2.imwrite('../generated/layer_vis_l' + str(self.selected_layer) +
+                cv2.imwrite('generated/layer_vis_l' + str(self.selected_layer) +
                             '_f' + str(self.selected_filter) + '_iter'+str(i)+'.jpg',
                             self.created_image)
 
@@ -111,7 +111,7 @@ class CNNLayerVisualization():
             self.created_image = recreate_image(self.processed_image)
             # Save image
             if i % 5 == 0:
-                cv2.imwrite('../generated/layer_vis_l' + str(self.selected_layer) +
+                cv2.imwrite('generated/layer_vis_l' + str(self.selected_layer) +
                             '_f' + str(self.selected_filter) + '_iter'+str(i)+'.jpg',
                             self.created_image)
 
