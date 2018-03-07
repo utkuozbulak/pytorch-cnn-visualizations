@@ -10,7 +10,7 @@ import numpy as np
 from torch.optim import SGD
 from torchvision import models
 
-from misc_functions import preprocess_image, recreate_image
+from src.misc_functions import preprocess_image, recreate_image
 
 
 class ClassSpecificImageGeneration():
