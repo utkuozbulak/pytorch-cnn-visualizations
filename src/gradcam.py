@@ -95,7 +95,7 @@ if __name__ == '__main__':
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
         get_params(target_example)
     # Grad cam
-    grad_cam = GradCam(pretrained_model, target_layer=35)
+    grad_cam = GradCam(pretrained_model, target_layer=11)
     # Generate cam mask
     cam = grad_cam.generate_cam(prep_img, target_class)
     # Save mask
