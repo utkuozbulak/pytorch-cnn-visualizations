@@ -56,16 +56,16 @@ class GradCam():
         # Define extractor
         self.extractor = CamExtractor(self.model, target_layer)
 
-    def generate_cam(self, input_image, target_index=None):
+    def generate_cam(self, input_image, target_class=None):
         # Full forward pass
         # conv_output is the output of convolutions at specified layer
         # model_output is the final output of the model (1, 1000)
         conv_output, model_output = self.extractor.forward_pass(input_image)
-        if target_index is None:
-            target_index = np.argmax(model_output.data.numpy())
+        if target_class is None:
+            target_class = np.argmax(model_output.data.numpy())
         # Target for backprop
         one_hot_output = torch.FloatTensor(1, model_output.size()[-1]).zero_()
-        one_hot_output[0][target_index] = 1
+        one_hot_output[0][target_class] = 1
         # Zero grads
         self.model.features.zero_grad()
         self.model.classifier.zero_grad()
@@ -91,7 +91,7 @@ class GradCam():
 
 if __name__ == '__main__':
     # Get params
-    target_example = 0  # Snake
+    target_example = 2  # Snake
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
         get_params(target_example)
     # Grad cam

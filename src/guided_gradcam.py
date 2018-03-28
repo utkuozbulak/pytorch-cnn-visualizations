@@ -32,15 +32,15 @@ if __name__ == '__main__':
         get_params(target_example)
 
     # Grad cam
-    gcv2 = GradCam(pretrained_model, target_layer=35)
+    gcv2 = GradCam(pretrained_model, target_layer=11)
     # Generate cam mask
     cam = gcv2.generate_cam(prep_img, target_class)
     print('Grad cam completed')
 
     # Guided backprop
-    GBP = GuidedBackprop(pretrained_model, prep_img, target_class)
+    GBP = GuidedBackprop(pretrained_model)
     # Get gradients
-    guided_grads = GBP.generate_gradients()
+    guided_grads = GBP.generate_gradients(prep_img, target_class)
     print('Guided backpropagation completed')
 
     # Guided Grad cam

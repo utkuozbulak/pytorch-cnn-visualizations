@@ -12,10 +12,8 @@ class VanillaBackprop():
     """
         Produces gradients generated with vanilla back propagation from the image
     """
-    def __init__(self, model, processed_im, target_class):
+    def __init__(self, model):
         self.model = model
-        self.input_image = processed_im
-        self.target_class = target_class
         self.gradients = None
         # Put model in evaluation mode
         self.model.eval()
@@ -30,14 +28,14 @@ class VanillaBackprop():
         first_layer = list(self.model.features._modules.items())[0][1]
         first_layer.register_backward_hook(hook_function)
 
-    def generate_gradients(self):
+    def generate_gradients(self, input_image, target_class):
         # Forward
-        model_output = self.model(self.input_image)
+        model_output = self.model(input_image)
         # Zero grads
         self.model.zero_grad()
         # Target for backprop
         one_hot_output = torch.FloatTensor(1, model_output.size()[-1]).zero_()
-        one_hot_output[0][self.target_class] = 1
+        one_hot_output[0][target_class] = 1
         # Backward pass
         model_output.backward(gradient=one_hot_output)
         # Convert Pytorch variable to numpy array
@@ -52,9 +50,9 @@ if __name__ == '__main__':
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
         get_params(target_example)
     # Vanilla backprop
-    VBP = VanillaBackprop(pretrained_model, prep_img, target_class)
+    VBP = VanillaBackprop(pretrained_model)
     # Generate gradients
-    vanilla_grads = VBP.generate_gradients()
+    vanilla_grads = VBP.generate_gradients(prep_img, target_class)
     # Save colored gradients
     save_gradient_images(vanilla_grads, file_name_to_export + '_Vanilla_BP_color')
     # Convert to grayscale
