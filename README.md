@@ -8,12 +8,13 @@ This repo contains following CNN visualization techniques implemented in Pytorch
 * Gradient visualization with saliency maps [4]
 * Gradient-weighted [3] class activation mapping [2] 
 * Guided, gradient-weighted class activation mapping [3]
+* Smooth grad [8]
 * CNN filter visualization [9]
+* Inverted image representations [5]
 * Deep dream [10]
 * Class specific image generation [4]
-* Inverted image representations [5]
 
- I decided to move following **Adversarial example generation** techniques [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks) to separate visualizations from adversarial stuff.
+ I moved following **Adversarial example generation** techniques [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks) to separate visualizations from adversarial stuff.
  
 	- Fast Gradient Sign, Untargeted [11]
 	- Fast Gradient Sign, Targeted [11]
@@ -24,12 +25,10 @@ I also plan to include following techniques when I have some time:
 
 * Weakly supervised object segmentation [4]
 * Semantic Segmentation with Deconvolutions [6]
-* Smooth Grad [8]
 
+## General Information
 
-## General Info
-
-Depending on the technique, the code uses pretrained **VGG** or **AlexNet** from the model zoo. Some of the code also assumes that the layers in the model are separated into two sections; **features**, which contains the convolutional layers and **classifier**, that contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model that does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
+Depending on the technique, the code uses pretrained **AlexNet** or **VGG** from the model zoo. Some of the code also assumes that the layers in the model are separated into two sections; **features**, which contains the convolutional layers and **classifier**, that contains the fully connected layer (after flatting out convolutions). If you want to port this code to use it on your model that does not have such separation, you just need to do some editing on parts where it calls *model.features* and *model.classifier*.
 
 Every technique has its own python file (e.g. *gradcam.py*) which I hope will make things easier to understand. *misc_functions.py* contains functions like image processing and image recreation which is shared by the implemented techniques.
 
@@ -40,7 +39,7 @@ I tried to comment on the code as much as possible, if you have any issues under
 Below, are some sample results for each operation.
 
 
-## Gradient Visualization and Segmentation
+## Gradient Visualization
 <table border=0 >
 	<tbody>
     <tr>
@@ -119,6 +118,33 @@ Below, are some sample results for each operation.
 			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_GGrad_Cam_gray.jpg"> </td>
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_GGrad_Cam_gray.jpg"> </td>
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_GGrad_Cam_gray.jpg"> </td>
+		</tr>
+	</tbody>
+</table>
+
+## Smooth Grad
+Smooth grad is adding some Gaussian noise to the original image and calculating gradients multiple times and averaging the results. There are two examples at the bottom which use _vanilla_ and _guided_ backpropagation to calculate the gradients. Number of images (_n_) to average over is selected as 50. _σ_ multiplier is shown at the bottom of the images.
+
+<table border=0 width="50px" >
+	<tbody> 
+    <tr>		<td width="50%" align="center" colspan="3"><strong>Backprop:</strong> Vanilla <strong>Samples:</strong> 50</td>
+		</tr>
+		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/vanilla/snake_.gif"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/vanilla/dog_.gif"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/vanilla/spider_.gif"> </td>
+		</tr>
+	</tbody>
+</table>
+
+<table border=0 width="50px" >
+	<tbody> 
+		<tr>		<td width="50%" align="center" colspan="3"><strong>Backprop:</strong> Guided <strong>Samples:</strong> 50</td>
+		</tr>
+		<tr>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/gbp/snake_.gif"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/gbp/dog_.gif"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/gbp/spider_.gif"> </td>
 		</tr>
 	</tbody>
 </table>
