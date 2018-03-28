@@ -3,16 +3,16 @@
 ## Implemented Techniques
 This repo contains following CNN visualization techniques implemented in Pytorch: 
 
-* Gradient visualization with vanilla backpropagation
-* Gradient visualization with guided backpropagation [1]
-* Gradient visualization with saliency maps [4]
-* Gradient-weighted [3] class activation mapping [2] 
-* Guided, gradient-weighted class activation mapping [3]
-* Smooth grad [8]
-* CNN filter visualization [9]
-* Inverted image representations [5]
-* Deep dream [10]
-* Class specific image generation [4]
+* [Gradient visualization with vanilla backpropagation](#gradient-visualization)
+* [Gradient visualization with guided backpropagation](#gradient-visualization) [1]
+* [Gradient visualization with saliency maps](#gradient-visualization) [4]
+* [Gradient-weighted [3] class activation mapping](#gradient-visualization) [2] 
+* [Guided, gradient-weighted class activation mapping](#gradient-visualization) [3]
+* [Smooth grad](#smooth-grad) [8]
+* [CNN filter visualization](#convolutional-neural-network-filter-visualization) [9]
+* [Inverted image representations](#inverted-image-representations) [5]
+* [Deep dream](#deep-dream) [10]
+* [Class specific image generation](#class-specific-image-generation) [4]
 
  I moved following **Adversarial example generation** techniques [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks) to separate visualizations from adversarial stuff.
  
@@ -123,7 +123,7 @@ Below, are some sample results for each operation.
 </table>
 
 ## Smooth Grad
-Smooth grad is adding some Gaussian noise to the original image and calculating gradients multiple times and averaging the results. There are two examples at the bottom which use _vanilla_ and _guided_ backpropagation to calculate the gradients. Number of images (_n_) to average over is selected as 50. _σ_ multiplier is shown at the bottom of the images.
+Smooth grad is adding some Gaussian noise to the original image and calculating gradients multiple times and averaging the results [8]. There are two examples at the bottom which use _vanilla_ and _guided_ backpropagation to calculate the gradients. Number of images (_n_) to average over is selected as 50. _σ_ is shown at the bottom of the images.
 
 <table border=0 width="50px" >
 	<tbody> 
