@@ -127,7 +127,7 @@ Smooth grad is adding some Gaussian noise to the original image and calculating 
 
 <table border=0 width="50px" >
 	<tbody> 
-    <tr>		<td width="50%" align="center" colspan="3"><strong>Backprop:</strong> Vanilla <strong>Samples:</strong> 50</td>
+    <tr>		<td width="99%" align="center" colspan="3"><strong>Backprop:</strong> Vanilla <strong>Samples:</strong> 50</td>
 		</tr>
 		<tr>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/vanilla/snake_.gif"> </td>
