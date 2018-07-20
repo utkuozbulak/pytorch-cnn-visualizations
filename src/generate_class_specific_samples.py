@@ -40,7 +40,7 @@ class ClassSpecificImageGeneration():
             output = self.model(self.processed_image)
             # Target specific class
             class_loss = -output[0, self.target_class]
-            print('Iteration:', str(i), 'Loss', "{0:.2f}".format(class_loss.data.numpy()[0]))
+            print('Iteration:', str(i), 'Loss', "{0:.2f}".format(class_loss.data.numpy()))
             # Zero grads
             self.model.zero_grad()
             # Backward

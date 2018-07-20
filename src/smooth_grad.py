@@ -30,7 +30,7 @@ def generate_smooth_grad(Backprop, prep_img, target_class, param_n, param_sigma_
     smooth_grad = np.zeros(prep_img.size()[1:])
 
     mean = 0
-    sigma = param_sigma_multiplier / (torch.max(prep_img) - torch.min(prep_img)).data[0]
+    sigma = param_sigma_multiplier / (torch.max(prep_img) - torch.min(prep_img)).item()
     for x in range(param_n):
         # Generate noise
         noise = Variable(prep_img.data.new(prep_img.size()).normal_(mean, sigma**2))

@@ -59,7 +59,7 @@ class DeepDream():
             # Loss function is the mean of the output of the selected layer/filter
             # We try to minimize the mean of the output of that specific filter
             loss = -torch.mean(self.conv_output)
-            print('Iteration:', str(i), 'Loss:', "{0:.2f}".format(loss.data.numpy()[0]))
+            print('Iteration:', str(i), 'Loss:', "{0:.2f}".format(loss.data.numpy()))
             # Backward
             loss.backward()
             # Update image
@@ -74,7 +74,7 @@ class DeepDream():
 
 
 if __name__ == '__main__':
-    ### THIS OPERATION IS MEMORY HUNGRY! ###
+    # THIS OPERATION IS MEMORY HUNGRY! #
     # Because of the selected image is very large
     # If it gives out of memory error or locks the computer
     # Try it with a smaller image
