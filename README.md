@@ -280,7 +280,7 @@ Produced samples can further be optimized to resemble the desired target class, 
 
 ## Requirements:
 ```
-torch >= 0.2.0.post4
+torch >= 0.4.0
 torchvision >= 0.1.9
 numpy >= 1.13.0
 opencv >= 3.1.0
