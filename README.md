@@ -125,7 +125,7 @@ Below, are some sample results for each operation.
 ## Smooth Grad
 Smooth grad is adding some Gaussian noise to the original image and calculating gradients multiple times and averaging the results [8]. There are two examples at the bottom which use _vanilla_ and _guided_ backpropagation to calculate the gradients. Number of images (_n_) to average over is selected as 50. _σ_ is shown at the bottom of the images.
 
-<table border=0 width="99%" >
+<table border=0>
 	<tbody> 
     <tr>		<td width="99%" align="center" colspan="3"><strong>Backprop:</strong> Vanilla <strong>Samples:</strong> 50</td>
 		</tr>
@@ -137,7 +137,7 @@ Smooth grad is adding some Gaussian noise to the original image and calculating 
 	</tbody>
 </table>
 
-<table border=0 width="99%" >
+<table border=0 >
 	<tbody> 
 		<tr>		<td width="99%" align="center" colspan="3"><strong>Backprop:</strong> Guided <strong>Samples:</strong> 50</td>
 		</tr>
