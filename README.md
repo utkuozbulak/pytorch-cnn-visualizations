@@ -1,5 +1,7 @@
 # Convolutional Neural Network Visualizations 
 
+**Note**: I am now working on removing cv2 dependencies and moving the repository towards PIL. A few things might be broken, I would appreciate if you could let me know if something does not work.
+
 ## Implemented Techniques
 This repo contains following CNN visualization techniques implemented in Pytorch: 
 
