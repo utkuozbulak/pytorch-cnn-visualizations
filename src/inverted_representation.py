@@ -9,7 +9,7 @@ from torch.autograd import Variable
 from torch.optim import SGD
 import os
 
-from misc_functions import get_params, recreate_image
+from misc_functions import get_example_params, recreate_image
 
 
 class InvertedRepresentation():
@@ -117,7 +117,7 @@ if __name__ == '__main__':
     # Get params
     target_example = 0  # Snake
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
-        get_params(target_example)
+        get_example_params(target_example)
 
     inverted_representation = InvertedRepresentation(pretrained_model)
     image_size = 224  # width & height

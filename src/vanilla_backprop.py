@@ -5,7 +5,7 @@ Created on Thu Oct 26 11:19:58 2017
 """
 import torch
 
-from misc_functions import get_params, convert_to_grayscale, save_gradient_images
+from misc_functions import get_example_params, convert_to_grayscale, save_gradient_images
 
 
 class VanillaBackprop():
@@ -46,9 +46,9 @@ class VanillaBackprop():
 
 if __name__ == '__main__':
     # Get params
-    target_example = 0  # Snake
+    target_example = 1  # Snake
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
-        get_params(target_example)
+        get_example_params(target_example)
     # Vanilla backprop
     VBP = VanillaBackprop(pretrained_model)
     # Generate gradients

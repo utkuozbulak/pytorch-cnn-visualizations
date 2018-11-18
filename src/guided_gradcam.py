@@ -5,7 +5,7 @@ Created on Thu Oct 23 11:27:15 2017
 """
 import numpy as np
 
-from misc_functions import (get_params,
+from misc_functions import (get_example_params,
                             convert_to_grayscale,
                             save_gradient_images)
 from gradcam import GradCam
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     # Get params
     target_example = 0  # Snake
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
-        get_params(target_example)
+        get_example_params(target_example)
 
     # Grad cam
     gcv2 = GradCam(pretrained_model, target_layer=11)

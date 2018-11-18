@@ -8,7 +8,7 @@ import numpy as np
 from torch.autograd import Variable
 import torch
 
-from misc_functions import (get_params,
+from misc_functions import (get_example_params,
                             convert_to_grayscale,
                             save_gradient_images)
 from vanilla_backprop import VanillaBackprop
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     # Get params
     target_example = 0  # Snake
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
-        get_params(target_example)
+        get_example_params(target_example)
 
     VBP = VanillaBackprop(pretrained_model)
     # GBP = GuidedBackprop(pretrained_model)  # if you want to use GBP dont forget to

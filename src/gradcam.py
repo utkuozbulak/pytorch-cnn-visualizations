@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 import torch
 
-from misc_functions import get_params, save_class_activation_on_image
+from misc_functions import get_example_params, save_class_activation_images
 
 
 class CamExtractor():
@@ -93,11 +93,11 @@ if __name__ == '__main__':
     # Get params
     target_example = 2  # Snake
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
-        get_params(target_example)
+        get_example_params(target_example)
     # Grad cam
     grad_cam = GradCam(pretrained_model, target_layer=11)
     # Generate cam mask
     cam = grad_cam.generate_cam(prep_img, target_class)
     # Save mask
-    save_class_activation_on_image(original_image, cam, file_name_to_export)
+    save_class_activation_images(original_image, cam, file_name_to_export)
     print('Grad cam completed')
