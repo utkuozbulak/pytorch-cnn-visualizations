@@ -1,6 +1,6 @@
 # Convolutional Neural Network Visualizations 
 
-**Note**: I am now working on removing cv2 dependencies and moving the repository towards PIL. A few things might be broken, I would appreciate if you could let me know if something does not work.
+**Note**: I removed cv2 dependencies and moved the repository towards PIL. A few things might be broken (although I tested all methods), I would appreciate if you could create an issue if something does not work.
 
 ## Implemented Techniques
 This repo contains following CNN visualization techniques implemented in Pytorch: 
@@ -127,11 +127,13 @@ Below, are some sample results for each operation.
 ## Smooth Grad
 Smooth grad is adding some Gaussian noise to the original image and calculating gradients multiple times and averaging the results [8]. There are two examples at the bottom which use _vanilla_ and _guided_ backpropagation to calculate the gradients. Number of images (_n_) to average over is selected as 50. _σ_ is shown at the bottom of the images.
 
-<table border=0>
+<table border=0 width="50px" >
 	<tbody> 
-    <tr>		<td width="99%" align="center" colspan="3"><strong>Backprop:</strong> Vanilla <strong>Samples:</strong> 50</td>
+    <tr>		<td width="27%" align="center"> </td>
+			<td width="27%" align="center"> <strong>Vanilla Backprop</strong> </td>
+			<td width="27%" align="center"> </td>
 		</tr>
-		<tr>
+<tr>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/vanilla/snake_.gif"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/vanilla/dog_.gif"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/vanilla/spider_.gif"> </td>
@@ -139,11 +141,14 @@ Smooth grad is adding some Gaussian noise to the original image and calculating 
 	</tbody>
 </table>
 
-<table border=0 >
+
+<table border=0 width="50px" >
 	<tbody> 
-		<tr>		<td width="99%" align="center" colspan="3"><strong>Backprop:</strong> Guided <strong>Samples:</strong> 50</td>
+    <tr>		<td width="27%" align="center"> </td>
+			<td width="27%" align="center"> <strong>Guided Backprop</strong> </td>
+			<td width="27%" align="center"> </td>
 		</tr>
-		<tr>
+<tr>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/gbp/snake_.gif"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/gbp/dog_.gif"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/gbp/spider_.gif"> </td>
@@ -285,7 +290,8 @@ Produced samples can further be optimized to resemble the desired target class, 
 torch >= 0.4.0
 torchvision >= 0.1.9
 numpy >= 1.13.0
-opencv >= 3.1.0
+matplotlib >= 1.5
+PIL >= 1.1.7
 ```
 
 
