@@ -3,13 +3,12 @@ Created on Wed Jan 17 08:05:11 2018
 
 @author: Utku Ozbulak - github.com/utkuozbulak
 """
-import cv2
 import torch
 from torch.autograd import Variable
 from torch.optim import SGD
 import os
 
-from misc_functions import get_example_params, recreate_image
+from misc_functions import get_example_params, recreate_image, save_image
 
 
 class InvertedRepresentation():
@@ -104,9 +103,11 @@ class InvertedRepresentation():
             # Generate image every 5 iterations
             if i % 5 == 0:
                 print('Iteration:', str(i), 'Loss:', loss.data.numpy())
-                x = recreate_image(opt_img)
-                cv2.imwrite('../generated/Inv_Image_Layer_' + str(target_layer) +
-                            '_Iteration_' + str(i) + '.jpg', x)
+                recreated_im = recreate_image(opt_img)
+                im_path = '../generated/Inv_Image_Layer_' + str(target_layer) + \
+                    '_Iteration_' + str(i) + '.jpg'
+                save_image(recreated_im, im_path)
+
             # Reduce learning rate every 40 iterations
             if i % 40 == 0:
                 for param_group in optimizer.param_groups:
@@ -121,7 +122,7 @@ if __name__ == '__main__':
 
     inverted_representation = InvertedRepresentation(pretrained_model)
     image_size = 224  # width & height
-    target_layer = 12
+    target_layer = 4
     inverted_representation.generate_inverted_image_specific_layer(prep_img,
                                                                    image_size,
                                                                    target_layer)

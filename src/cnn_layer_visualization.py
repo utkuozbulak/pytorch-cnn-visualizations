@@ -4,14 +4,13 @@ Created on Sat Nov 18 23:12:08 2017
 @author: Utku Ozbulak - github.com/utkuozbulak
 """
 import os
-import cv2
 import numpy as np
 
 import torch
 from torch.optim import Adam
 from torchvision import models
 
-from misc_functions import preprocess_image, recreate_image
+from misc_functions import preprocess_image, recreate_image, save_image
 
 
 class CNNLayerVisualization():
@@ -43,7 +42,7 @@ class CNNLayerVisualization():
         # Hook the selected layer
         self.hook_layer()
         # Process image and return variable
-        self.processed_image = preprocess_image(self.created_image)
+        self.processed_image = preprocess_image(self.created_image, False)
         # Define optimizer for the image
         optimizer = Adam([self.processed_image], lr=0.1, weight_decay=1e-6)
         for i in range(1, 31):
@@ -71,9 +70,9 @@ class CNNLayerVisualization():
             self.created_image = recreate_image(self.processed_image)
             # Save image
             if i % 5 == 0:
-                cv2.imwrite('../generated/layer_vis_l' + str(self.selected_layer) +
-                            '_f' + str(self.selected_filter) + '_iter'+str(i)+'.jpg',
-                            self.created_image)
+                im_path = '../generated/layer_vis_l' + str(self.selected_layer) + \
+                    '_f' + str(self.selected_filter) + '_iter' + str(i) + '.jpg'
+                save_image(self.created_image, im_path)
 
     def visualise_layer_without_hooks(self):
         # Process image and return variable
@@ -109,9 +108,9 @@ class CNNLayerVisualization():
             self.created_image = recreate_image(self.processed_image)
             # Save image
             if i % 5 == 0:
-                cv2.imwrite('../generated/layer_vis_l' + str(self.selected_layer) +
-                            '_f' + str(self.selected_filter) + '_iter'+str(i)+'.jpg',
-                            self.created_image)
+                im_path = '../generated/layer_vis_l' + str(self.selected_layer) + \
+                    '_f' + str(self.selected_filter) + '_iter' + str(i) + '.jpg'
+                save_image(self.created_image, im_path)
 
 
 if __name__ == '__main__':

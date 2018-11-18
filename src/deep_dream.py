@@ -4,13 +4,13 @@ Created on Mon Nov 21 21:57:29 2017
 @author: Utku Ozbulak - github.com/utkuozbulak
 """
 import os
-import cv2
+from PIL import Image
 
 import torch
 from torch.optim import SGD
 from torchvision import models
 
-from misc_functions import preprocess_image, recreate_image
+from misc_functions import preprocess_image, recreate_image, save_image
 
 
 class DeepDream():
@@ -25,7 +25,7 @@ class DeepDream():
         self.selected_filter = selected_filter
         self.conv_output = 0
         # Generate a random image
-        self.created_image = cv2.imread(im_path, 1)
+        self.created_image = Image.open(im_path).convert('RGB')
         # Hook the layers to get result of the convolution
         self.hook_layer()
         # Create the folder to export images if not exists
@@ -42,7 +42,7 @@ class DeepDream():
 
     def dream(self):
         # Process image and return variable
-        self.processed_image = preprocess_image(self.created_image, False)
+        self.processed_image = preprocess_image(self.created_image, True)
         # Define optimizer for the image
         # Earlier layers need higher learning rates to visualize whereas layer layers need less
         optimizer = SGD([self.processed_image], lr=12,  weight_decay=1e-4)
@@ -67,10 +67,11 @@ class DeepDream():
             # Recreate image
             self.created_image = recreate_image(self.processed_image)
             # Save image every 20 iteration
-            if i % 20 == 0:
-                cv2.imwrite('../generated/ddream_l' + str(self.selected_layer) +
-                            '_f' + str(self.selected_filter) + '_iter'+str(i)+'.jpg',
-                            self.created_image)
+            if i % 10 == 0:
+                print(self.created_image.shape)
+                im_path = '../generated/ddream_l' + str(self.selected_layer) + \
+                    '_f' + str(self.selected_filter) + '_iter' + str(i) + '.jpg'
+                save_image(self.created_image, im_path)
 
 
 if __name__ == '__main__':

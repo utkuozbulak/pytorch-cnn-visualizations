@@ -114,7 +114,8 @@ def save_image(im, path):
             # additional format in the .save()
             im = np.repeat(im, 3, axis=0)
             # Convert to values to range 1-255 and W,H, D
-        im = im.transpose(1, 2, 0) * 255
+        if im.shape[0] == 3:
+            im = im.transpose(1, 2, 0) * 255
         im = Image.fromarray(im.astype(np.uint8))
     im.save(path)
 
@@ -154,10 +155,8 @@ def preprocess_image(pil_im, resize_im=True):
 def recreate_image(im_as_var):
     """
         Recreates images from a torch variable, sort of reverse preprocessing
-
     Args:
         im_as_var (torch variable): Image to recreate
-
     returns:
         recreated_im (numpy arr): Recreated image in array
     """
@@ -169,6 +168,9 @@ def recreate_image(im_as_var):
         recreated_im[c] -= reverse_mean[c]
     recreated_im[recreated_im > 1] = 1
     recreated_im[recreated_im < 0] = 0
+    recreated_im = np.round(recreated_im * 255)
+
+    recreated_im = np.uint8(recreated_im).transpose(1, 2, 0)
     return recreated_im
 
 
