@@ -3,7 +3,7 @@ Created on Thu Oct 26 11:06:51 2017
 
 @author: Utku Ozbulak - github.com/utkuozbulak
 """
-import cv2
+from PIL import Image
 import numpy as np
 import torch
 
@@ -82,16 +82,22 @@ class GradCam():
         # Multiply each weight with its conv output and then, sum
         for i, w in enumerate(weights):
             cam += w * target[i, :, :]
-        cam = cv2.resize(cam, (224, 224))
         cam = np.maximum(cam, 0)
         cam = (cam - np.min(cam)) / (np.max(cam) - np.min(cam))  # Normalize between 0-1
         cam = np.uint8(cam * 255)  # Scale between 0-255 to visualize
+        cam = np.uint8(Image.fromarray(cam).resize((input_image.shape[2],
+                       input_image.shape[3]), Image.ANTIALIAS))
+        # ^ I am extremely unhappy with this line. Originally resizing was done in cv2 which
+        # supports resizing numpy matrices, however, when I moved the repository to PIL, this
+        # option is out of the window. So, in order to use resizing with ANTIALIAS feature of PIL,
+        # I briefly convert matrix to PIL image and then back.
+        # If there is a more beautiful way, send a PR.
         return cam
 
 
 if __name__ == '__main__':
     # Get params
-    target_example = 2  # Snake
+    target_example = 0  # Snake
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
         get_example_params(target_example)
     # Grad cam
