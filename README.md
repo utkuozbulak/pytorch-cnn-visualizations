@@ -188,6 +188,22 @@ CNN filters can be visualized when we optimize the input image with respect to o
 	</tbody>
 </table>
 
+Another way to visualize CNN layers is to to visualize activations for a specific input on a specific layer and filter. This was done in [1] Figure 3. Below example is obtained from layers/filters of VGG16 for the first image using guided backpropagation. The code for this opeations is in *layer_activation_with_guided_backprop.py*. The method is quite similar to guided backpropagation but instead of guiding the signal from the last layer and a specific target, it guides the signal from a specific layer and filter. 
+
+<table border=0 width="50px" >
+	<tbody> 
+    <tr>		<td width="27%" align="center"> Input Image </td>
+			<td width="27%" align="center"> Layer Vis. (Filter=0)</td>
+			<td width="27%" align="center"> Filter Vis. (Layer=29)</td>
+		</tr>
+<tr>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/spider.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/spider_layer_graph.gif"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/spider_filter_graph.gif"> </td>
+		</tr>
+	</tbody>
+</table>
+
 
 ## Inverted Image Representations
 I think this technique is the most complex technique in this repository in terms of understanding what the code does. It is mainly because of complex regularization. If you truly want to understand how this is implemented I suggest you read the second and third page of the paper [5], specifically, the regularization part. Here, the aim is to generate original image after nth layer. The further we go into the model, the harder it becomes. The results in the paper are incredibly good (see Figure 6) but here, the result quickly becomes messy as we iterate through the layers. This is because the authors of the paper tuned the parameters for each layer individually. You can tune the parameters just like the to ones that are given in the paper to optimize results for each layer. The inverted examples from several layers of **AlexNet** with the previous *Snake* picture are below.
