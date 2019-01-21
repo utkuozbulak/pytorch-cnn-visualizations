@@ -24,8 +24,6 @@ class CNNLayerVisualization():
         self.selected_layer = selected_layer
         self.selected_filter = selected_filter
         self.conv_output = 0
-        # Generate a random image
-        self.created_image = np.uint8(np.random.uniform(150, 180, (224, 224, 3)))
         # Create the folder to export images if not exists
         if not os.path.exists('../generated'):
             os.makedirs('../generated')
@@ -34,21 +32,22 @@ class CNNLayerVisualization():
         def hook_function(module, grad_in, grad_out):
             # Gets the conv output of the selected filter (from selected layer)
             self.conv_output = grad_out[0, self.selected_filter]
-
         # Hook the selected layer
         self.model[self.selected_layer].register_forward_hook(hook_function)
 
     def visualise_layer_with_hooks(self):
         # Hook the selected layer
         self.hook_layer()
+        # Generate a random image
+        random_image = np.uint8(np.random.uniform(150, 180, (224, 224, 3)))
         # Process image and return variable
-        self.processed_image = preprocess_image(self.created_image, False)
+        processed_image = preprocess_image(random_image, False)
         # Define optimizer for the image
-        optimizer = Adam([self.processed_image], lr=0.1, weight_decay=1e-6)
+        optimizer = Adam([processed_image], lr=0.1, weight_decay=1e-6)
         for i in range(1, 31):
             optimizer.zero_grad()
             # Assign create image to a variable to move forward in the model
-            x = self.processed_image
+            x = processed_image
             for index, layer in enumerate(self.model):
                 # Forward pass layer by layer
                 # x is not used after this point because it is only needed to trigger
@@ -67,7 +66,7 @@ class CNNLayerVisualization():
             # Update image
             optimizer.step()
             # Recreate image
-            self.created_image = recreate_image(self.processed_image)
+            self.created_image = recreate_image(processed_image)
             # Save image
             if i % 5 == 0:
                 im_path = '../generated/layer_vis_l' + str(self.selected_layer) + \
@@ -76,13 +75,16 @@ class CNNLayerVisualization():
 
     def visualise_layer_without_hooks(self):
         # Process image and return variable
-        self.processed_image = preprocess_image(self.created_image)
+        # Generate a random image
+        random_image = np.uint8(np.random.uniform(150, 180, (224, 224, 3)))
+        # Process image and return variable
+        processed_image = preprocess_image(random_image, False)
         # Define optimizer for the image
-        optimizer = Adam([self.processed_image], lr=0.1, weight_decay=1e-6)
+        optimizer = Adam([processed_image], lr=0.1, weight_decay=1e-6)
         for i in range(1, 31):
             optimizer.zero_grad()
             # Assign create image to a variable to move forward in the model
-            x = self.processed_image
+            x = processed_image
             for index, layer in enumerate(self.model):
                 # Forward pass layer by layer
                 x = layer(x)
@@ -105,7 +107,7 @@ class CNNLayerVisualization():
             # Update image
             optimizer.step()
             # Recreate image
-            self.created_image = recreate_image(self.processed_image)
+            self.created_image = recreate_image(processed_image)
             # Save image
             if i % 5 == 0:
                 im_path = '../generated/layer_vis_l' + str(self.selected_layer) + \
