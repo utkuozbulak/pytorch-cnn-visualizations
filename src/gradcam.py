@@ -79,12 +79,15 @@ class GradCam():
         weights = np.mean(guided_gradients, axis=(1, 2))  # Take averages for each gradient
         # Create empty numpy array for cam
         cam = np.ones(target.shape[1:], dtype=np.float32)
-        # Multiply each weight with its conv output and then, sum
-        for i, w in enumerate(weights):
-            cam += w * target[i, :, :]
-        cam = np.maximum(cam, 0)
-        cam = (cam - np.min(cam)) / (np.max(cam) - np.min(cam))  # Normalize between 0-1
-        cam = np.uint8(cam * 255)  # Scale between 0-255 to visualize
+        # Occationally all weights can be equal or less than zero. This will cause a divide 
+        # by zero in normalization.
+        if not (np.max(weights) == np.min(weights) or np.max(weights) <= 0.0):
+            # Multiply each weight with its conv output and then, sum
+            for i, w in enumerate(weights):
+                cam += w * target[i, :, :]
+            cam = np.maximum(cam, 0)
+            cam = (cam - np.min(cam)) / (np.max(cam) - np.min(cam))  # Normalize between 0-1
+            cam = np.uint8(cam * 255)  # Scale between 0-255 to visualize
         cam = np.uint8(Image.fromarray(cam).resize((input_image.shape[2],
                        input_image.shape[3]), Image.ANTIALIAS))
         # ^ I am extremely unhappy with this line. Originally resizing was done in cv2 which
