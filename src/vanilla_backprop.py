@@ -30,6 +30,8 @@ class VanillaBackprop():
 
     def generate_gradients(self, input_image, target_class):
         # Forward
+        # Calculate gradients up to the input image
+        input_image.requires_grad = True
         model_output = self.model(input_image)
         # Zero grads
         self.model.zero_grad()

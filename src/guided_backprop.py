@@ -63,6 +63,8 @@ class GuidedBackprop():
 
     def generate_gradients(self, input_image, target_class):
         # Forward pass
+        # Calculate gradients up to the input image
+        input_image.requires_grad = True
         model_output = self.model(input_image)
         # Zero gradients
         self.model.zero_grad()
