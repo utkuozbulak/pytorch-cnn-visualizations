@@ -86,12 +86,13 @@ class GradCam():
         cam = (cam - np.min(cam)) / (np.max(cam) - np.min(cam))  # Normalize between 0-1
         cam = np.uint8(cam * 255)  # Scale between 0-255 to visualize
         cam = np.uint8(Image.fromarray(cam).resize((input_image.shape[2],
-                       input_image.shape[3]), Image.ANTIALIAS))
+                       input_image.shape[3]), Image.ANTIALIAS))/255
         # ^ I am extremely unhappy with this line. Originally resizing was done in cv2 which
-        # supports resizing numpy matrices, however, when I moved the repository to PIL, this
-        # option is out of the window. So, in order to use resizing with ANTIALIAS feature of PIL,
+        # supports resizing numpy matrices with antialiasing, however,
+        # when I moved the repository to PIL, this option was out of the window.
+        # So, in order to use resizing with ANTIALIAS feature of PIL,
         # I briefly convert matrix to PIL image and then back.
-        # If there is a more beautiful way, send a PR.
+        # If there is a more beautiful way, do not hesitate to send a PR.
         return cam
 
 
