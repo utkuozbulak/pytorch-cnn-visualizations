@@ -1,9 +1,10 @@
 # Convolutional Neural Network Visualizations 
 
+This repository contains a number of convolutional neural network visualization techniques implemented in PyTorch.
+
 **Note**: I removed cv2 dependencies and moved the repository towards PIL. A few things might be broken (although I tested all methods), I would appreciate if you could create an issue if something does not work.
 
 ## Implemented Techniques
-This repo contains following CNN visualization techniques implemented in Pytorch: 
 
 * [Gradient visualization with vanilla backpropagation](#gradient-visualization)
 * [Gradient visualization with guided backpropagation](#gradient-visualization) [1]
@@ -132,40 +133,20 @@ Another technique that is proposed is simply multiplying the gradients with the 
 
 <table border=0 width="50px" >
 	<tbody> 
-    <tr>		<td width="27%" align="center"> </td>
-			<td width="27%" align="center"> <strong>Vanilla Backprop X Image</strong> </td>
-			<td width="27%" align="center"> </td>
-		</tr>
-<tr>
+		<tr>
+			<td width="19%" align="center"> Vanilla Grad <br /> <i>X</i> <br /> Image</td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_Vanilla_grad_times_image_gray.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_Vanilla_grad_times_image_gray.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_Vanilla_grad_times_image_gray.jpg"> </td>
 		</tr>
-	</tbody>
-</table>
-
-
-<table border=0 width="50px" >
-	<tbody> 
-    <tr>		<td width="27%" align="center"> </td>
-			<td width="27%" align="center"> <strong>Guided Backprop X Image</strong> </td>
-			<td width="27%" align="center"> </td>
-		</tr>
-<tr>
+		<tr>
+			<td width="19%" align="center"> Guided Grad <br /> <i>X</i> <br /> Image</td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_Guided_grad_times_image_gray.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_Guided_grad_times_image_gray.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_Guided_grad_times_image_gray.jpg"> </td>
 		</tr>
-	</tbody>
-</table>
-
-<table border=0 width="50px" >
-	<tbody> 
-    <tr>		<td width="27%" align="center"> </td>
-			<td width="27%" align="center"> <strong>Integrated Grads X Image</strong> </td>
-			<td width="27%" align="center"> </td>
-		</tr>
-<tr>
+		<tr>
+			<td width="19%" align="center"> Integrated Grad <br /> <i>X</i> <br /> Image</td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_Integrated_grad_times_image_gray.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_Integrated_grad_times_image_gray.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_Integrated_grad_times_image_gray.jpg"> </td>
