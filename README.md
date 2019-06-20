@@ -38,6 +38,20 @@ I tried to comment on the code as much as possible, if you have any issues under
 
 Below, are some sample results for each operation.
 
+## Citation
+
+If you find the code in this repository useful for your research consider citing it.
+
+	@misc{uozbulak_pytorch_vis_2019,
+	  author = {Utku Ozbulak},
+	  title = {PyTorch CNN Visualizations},
+	  year = {2019},
+	  publisher = {GitHub},
+	  journal = {GitHub repository},
+	  howpublished = {\url{https://github.com/utkuozbulak/pytorch-cnn-visualizations}},
+	  commit = {3460e7f014f52f4099c1a4864e1534de9cc901e7}
+	}
+
 
 ## Gradient Visualization
 <table border=0 >
