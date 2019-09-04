@@ -9,7 +9,7 @@ This repository contains a number of convolutional neural network visualization 
 * [Gradient visualization with vanilla backpropagation](#gradient-visualization)
 * [Gradient visualization with guided backpropagation](#gradient-visualization) [1]
 * [Gradient visualization with saliency maps](#gradient-visualization) [4]
-* [Gradient-weighted class activation mapping](#gradient-visualization) [2] 
+* [Gradient-weighted class activation mapping](#gradient-visualization) [3] (Generalization of [2]) 
 * [Guided, gradient-weighted class activation mapping](#gradient-visualization) [3]
 * [Smooth grad](#smooth-grad) [8]
 * [CNN filter visualization](#convolutional-neural-network-filter-visualization) [9]
