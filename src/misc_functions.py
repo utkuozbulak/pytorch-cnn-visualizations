@@ -153,7 +153,7 @@ def preprocess_image(pil_im, resize_im=True):
     std = [0.229, 0.224, 0.225]
     # Resize image
     if resize_im:
-        pil_im.thumbnail((512, 512))
+        pil_im.thumbnail((224, 224))
     im_as_arr = np.float32(pil_im)
     im_as_arr = im_as_arr.transpose(2, 0, 1)  # Convert array to D,W,H
     # Normalize the channels
