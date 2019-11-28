@@ -19,7 +19,7 @@ class Visualisation(object):
     def generate_gradients(self, input_image, target_class):
         raise NotImplementedError
 
-class Vanilla(Visualisation): 
+class VanillaBackprop(Visualisation): 
     def __init__(self, *args, **kwargs):
         super(Vanilla, self).__init__(*args, **kwargs)
         self.model.eval()
@@ -41,7 +41,7 @@ class Vanilla(Visualisation):
         gradients_as_arr = self.gradients.data.numpy()[0]
         return gradients_as_arr
     
-class Guided(Visualisation):
+class GuidedBackprop(Visualisation):
     def __init__(self, *args, **kwargs):
         super(Guided, self).__init__(*args, **kwargs)
         self.forward_relu_outputs = []
@@ -93,7 +93,7 @@ class Guided(Visualisation):
         gradients_as_arr = self.gradients.data.numpy()[0]
         return gradients_as_arr
 
-class GuidedLayerSpecific(Guided):
+class GuidedLayerSpecificBackprop(Guided):
     def generate_gradients(self, input_image, target_class, cnn_layer, filter_pos):
         self.model.zero_grad()
         # Forward pass
