@@ -93,6 +93,10 @@ class GradCam():
         # So, in order to use resizing with ANTIALIAS feature of PIL,
         # I briefly convert matrix to PIL image and then back.
         # If there is a more beautiful way, do not hesitate to send a PR.
+
+        # You can also use the code below instead of the code line above, suggested by @ ptschandl
+        # from scipy.ndimage.interpolation import zoom
+        # cam = zoom(cam, np.array(input_image[0].shape[1:])/np.array(cam.shape))
         return cam
 
 
