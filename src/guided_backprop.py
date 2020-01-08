@@ -23,14 +23,11 @@ class GuidedBackprop():
         # Put model in evaluation mode
         self.model.eval()
         self.update_relus()
-        self.hook_layers()
 
-    def hook_layers(self):
-        def hook_function(module, grad_in, grad_out):
-            self.gradients = grad_in[0]
-        # Register hook to the first layer
-        first_layer = list(self.model.features._modules.items())[0][1]
-        first_layer.register_backward_hook(hook_function)
+    def hook_input(self, input_tensor):
+        def hook_function(grad_in):
+            self.gradients = grad_in
+        input_tensor.register_hook(hook_function)
 
     def update_relus(self):
         """
@@ -62,6 +59,9 @@ class GuidedBackprop():
                 module.register_forward_hook(relu_forward_hook_function)
 
     def generate_gradients(self, input_image, target_class):
+        # Register input hook
+        input_image.requires_grad = True
+        self.hook_input(input_image)
         # Forward pass
         model_output = self.model(input_image)
         # Zero gradients
