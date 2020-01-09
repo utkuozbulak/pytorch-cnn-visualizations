@@ -59,8 +59,8 @@ class GuidedBackprop():
                 module.register_forward_hook(relu_forward_hook_function)
 
     def generate_gradients(self, input_image, target_class):
-        # Register input hook
-        input_image.requires_grad = True
+        # Create a copy of input_image and register input hook
+        input_image = input_image.clone().detach().requires_grad_(True)
         self.hook_input(input_image)
         # Forward pass
         model_output = self.model(input_image)
