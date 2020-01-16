@@ -4,6 +4,8 @@ This repository contains a number of convolutional neural network visualization 
 
 **Note**: I removed cv2 dependencies and moved the repository towards PIL. A few things might be broken (although I tested all methods), I would appreciate if you could create an issue if something does not work.
 
+**Note**: The code in this repository was tested with torch version 0.4.1 and some of the functions may not work as intended in later versions. Although it shouldn't be too much of an effort to make it work, I have no plans at the moment to make the code in this repository compatible with the latest version because I'm still using 0.4.1.
+
 ## Implemented Techniques
 
 * [Gradient visualization with vanilla backpropagation](#gradient-visualization)
