@@ -15,7 +15,7 @@ This repository contains a number of convolutional neural network visualization 
 * [CNN filter visualization](#convolutional-neural-network-filter-visualization) [9]
 * [Inverted image representations](#inverted-image-representations) [5]
 * [Deep dream](#deep-dream) [10]
-* [Class specific image generation](#class-specific-image-generation) [4]
+* [Class specific image generation](#class-specific-image-generation) [4] [14]
 * [Grad times image](#grad-times-image) [12]
 * [Integrated gradients](#gradient-visualization) [13]
 
@@ -305,7 +305,7 @@ Deep dream is technically the same operation as layer visualization the only dif
 
 
 ## Class Specific Image Generation
-This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with **VGG19** incorporated with Gaussian blur every other iteration. The quality of generated images also depend on the model, **AlexNet** generally has green(ish) artifacts but VGGs produce (kid of) better images. Note that these images are generated with regular CNNs with optimizing the input and **not with GANs**.
+This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with **VGG19** incorporated with Gaussian blur every other iteration (see [14] for details). The quality of generated images also depend on the model, **AlexNet** generally has green(ish) artifacts but VGGs produce (kid of) better images. Note that these images are generated with regular CNNs with optimizing the input and **not with GANs**.
 
 <table border=0 width="50px" >
 	<tbody>
@@ -340,7 +340,7 @@ Produced samples can further be optimized to resemble the desired target class, 
 
 ## Requirements:
 ```
-torch >= 0.4.0
+torch == 0.4.1
 torchvision >= 0.1.9
 numpy >= 1.13.0
 matplotlib >= 1.5
@@ -374,4 +374,6 @@ PIL >= 1.1.7
 [12] A. Shrikumar, P. Greenside, A. Shcherbina, A. Kundaje. *Not Just a Black Box: Learning Important Features Through Propagating Activation Differences* https://arxiv.org/abs/1605.01713
 
 [13] M. Sundararajan, A. Taly, Q. Yan. *Axiomatic Attribution for Deep Networks* https://arxiv.org/abs/1703.01365
+
+[14] J. Yosinski, J. Clune, A. Nguyen, T. Fuchs, Hod Lipson, *Understanding Neural Networks Through Deep Visualization* http://yosinski.com/media/papers/Yosinski__2015__ICML_DL__Understanding_Neural_Networks_Through_Deep_Visualization__.pdf
 
