@@ -48,7 +48,8 @@ class ClassSpecificImageGeneration():
             output = self.model(self.processed_image)
             # Target specific class
             class_loss = -output[0, self.target_class]
-            print('Iteration:', str(i), 'Loss', "{0:.2f}".format(class_loss.data.numpy()))
+
+            if i % 50 == 0: print('Iteration:', str(i), 'Loss', "{0:.2f}".format(class_loss.data.numpy()))
             # Zero grads
             self.model.zero_grad()
             # Backward
@@ -59,7 +60,7 @@ class ClassSpecificImageGeneration():
             self.created_image = recreate_image(self.processed_image)
             if i % 10 == 0:
                 # Save image
-                im_path = '../generated/c_specific_iteration_'+str(i)+'.jpg'
+                im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.numpy()}.jpg'
                 save_image(self.created_image, im_path)
         return self.processed_image
 
