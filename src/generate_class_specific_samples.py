@@ -66,6 +66,15 @@ class ClassSpecificImageGeneration():
             #save final image
         im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.numpy()}.jpg'
         save_image(self.created_image, im_path)
+
+        with open(f'../generated/class_{self.target_class}/run_details.txt', 'w') as f:
+            f.write(f'Blur freq: {blur_freq}\n')
+            f.write(f'Blur radius: {blur_rad}\n')
+            f.write(f'Weight decay: {wd}\n')
+            f.write(f'Iterations: {iterations}\n')
+            f.write(f'Clip value: {clipping_value}\n')
+
+        os.rename(f'../generated/class_{self.target_class}', f'../generated/class_{self.target_class}_blurfreq_{blur_freq}_blurrad_{blur_rad}_wd{wd}')
         return self.processed_image
 
 
