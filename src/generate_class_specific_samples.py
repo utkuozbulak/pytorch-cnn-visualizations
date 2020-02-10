@@ -30,6 +30,19 @@ class ClassSpecificImageGeneration():
             os.makedirs(f'../generated/class_{self.target_class}')
 
     def generate(self, iterations=150, blur_freq=6, blur_rad=0.8, wd = 0.05, clipping_value = 0.1):
+        """Generates class specific image with enhancements to improve image quality. 
+        See https://arxiv.org/abs/1506.06579 for details on each argument's effect on output quality. 
+        
+        Keyword Arguments:
+            iterations {int} -- Total iterations for gradient ascent (default: {150})
+            blur_freq {int} -- Frequency of Gaussian blur effect, in iterations (default: {6})
+            blur_rad {float} -- Radius for gaussian blur, passed to PIL.ImageFilter.GaussianBlur() (default: {0.8})
+            wd {float} -- Weight decay value for Stochastic Gradient Ascent (default: {0.05})
+            clipping_value {None or float} -- Value for gradient clipping (default: {0.1})
+        
+        Returns:
+            [type] -- [description]
+        """
         initial_learning_rate = 6
         for i in range(1, iterations):
             # Process image and return variable
@@ -73,10 +86,10 @@ class ClassSpecificImageGeneration():
         save_image(self.created_image, im_path)
 
         with open(f'../generated/class_{self.target_class}/run_details.txt', 'w') as f:
+            f.write(f'Iterations: {iterations}\n')
             f.write(f'Blur freq: {blur_freq}\n')
             f.write(f'Blur radius: {blur_rad}\n')
             f.write(f'Weight decay: {wd}\n')
-            f.write(f'Iterations: {iterations}\n')
             f.write(f'Clip value: {clipping_value}\n')
 
         os.rename(f'../generated/class_{self.target_class}', f'../generated/class_{self.target_class}_blurfreq_{blur_freq}_blurrad_{blur_rad}_wd{wd}')
