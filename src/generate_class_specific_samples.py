@@ -25,8 +25,8 @@ class ClassSpecificImageGeneration():
         # Generate a random image
         self.created_image = np.uint8(np.random.uniform(0, 255, (224, 224, 3)))
         # Create the folder to export images if not exists
-        if not os.path.exists('../generated'):
-            os.makedirs('../generated')
+        if not os.path.exists(f'../generated/class_{self.target_class}'):
+            os.makedirs(f'../generated/class_{self.target_class}')
 
     def generate(self):
         initial_learning_rate = 6
