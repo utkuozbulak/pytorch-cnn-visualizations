@@ -29,10 +29,14 @@ class ClassSpecificImageGeneration():
         if not os.path.exists(f'../generated/class_{self.target_class}'):
             os.makedirs(f'../generated/class_{self.target_class}')
 
-    def generate(self, iterations=150, blur_freq=6, blur_rad=0.8, wd = 0.05, clipping_value = 0.1):
+    def generate(self, iterations=150, blur_freq=4, blur_rad=1, wd = 0.0001, clipping_value = 0.1):
         """Generates class specific image with enhancements to improve image quality. 
         See https://arxiv.org/abs/1506.06579 for details on each argument's effect on output quality. 
         
+
+        Play around with combinations of arguments. Besides the defaults, this combination has produced good images:
+        blur_freq=6, blur_rad=0.8, wd = 0.05
+
         Keyword Arguments:
             iterations {int} -- Total iterations for gradient ascent (default: {150})
             blur_freq {int} -- Frequency of Gaussian blur effect, in iterations (default: {6})
@@ -41,7 +45,7 @@ class ClassSpecificImageGeneration():
             clipping_value {None or float} -- Value for gradient clipping (default: {0.1})
         
         Returns:
-            [type] -- [description]
+            np.ndarray -- Final maximally activated class image
         """
         initial_learning_rate = 6
         for i in range(1, iterations):
