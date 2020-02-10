@@ -143,7 +143,7 @@ def preprocess_image(pil_im, resize_im=True, blur_rad = None):
         Processes image for CNNs
 
     Args:
-        PIL_img (PIL_img): Image to process
+        PIL_img (PIL_img): PIL Image or numpy array to process
         resize_im (bool): Resize to 224 or not
     returns:
         im_as_var (torch variable): Variable that contains processed float tensor
