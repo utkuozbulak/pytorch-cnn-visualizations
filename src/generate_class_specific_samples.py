@@ -6,6 +6,7 @@ Created on Thu Oct 26 14:19:44 2017
 import os
 import numpy as np
 
+import torch
 from torch.optim import SGD
 from torchvision import models
 
@@ -35,7 +36,7 @@ class ClassSpecificImageGeneration():
 
             #implement gaussian blurring every ith iteration 
             #to improve output
-             if i % blur_freq == 0:
+            if i % blur_freq == 0:
                 self.processed_image = preprocess_image(
                     self.created_image, False, blur_rad)
             else:
@@ -54,6 +55,10 @@ class ClassSpecificImageGeneration():
             self.model.zero_grad()
             # Backward
             class_loss.backward()
+
+            clipping_value = .1  # arbitrary number of your choosing
+            torch.nn.utils.clip_grad_norm(
+                self.model.parameters(), clipping_value)
             # Update image
             optimizer.step()
             # Recreate image
@@ -63,7 +68,7 @@ class ClassSpecificImageGeneration():
                 im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.numpy()}.jpg'
                 save_image(self.created_image, im_path)
 
-            #save final image
+        #save final image
         im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.numpy()}.jpg'
         save_image(self.created_image, im_path)
 
