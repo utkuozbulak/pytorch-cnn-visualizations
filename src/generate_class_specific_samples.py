@@ -62,6 +62,10 @@ class ClassSpecificImageGeneration():
                 # Save image
                 im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.numpy()}.jpg'
                 save_image(self.created_image, im_path)
+
+            #save final image
+        im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.numpy()}.jpg'
+        save_image(self.created_image, im_path)
         return self.processed_image
 
 
