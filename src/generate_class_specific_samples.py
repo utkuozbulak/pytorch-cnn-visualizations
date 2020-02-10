@@ -29,7 +29,7 @@ class ClassSpecificImageGeneration():
         if not os.path.exists(f'../generated/class_{self.target_class}'):
             os.makedirs(f'../generated/class_{self.target_class}')
 
-    def generate(self, iterations=150, blur_freq=6, blur_rad=0.8, wd = 0.05):
+    def generate(self, iterations=150, blur_freq=6, blur_rad=0.8, wd = 0.05, clipping_value = 0.1):
         initial_learning_rate = 6
         for i in range(1, iterations):
             # Process image and return variable
@@ -56,8 +56,8 @@ class ClassSpecificImageGeneration():
             # Backward
             class_loss.backward()
 
-            clipping_value = .1  # arbitrary number of your choosing
-            torch.nn.utils.clip_grad_norm(
+            if clipping_value:
+                torch.nn.utils.clip_grad_norm(
                 self.model.parameters(), clipping_value)
             # Update image
             optimizer.step()
