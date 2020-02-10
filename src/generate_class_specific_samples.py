@@ -28,11 +28,19 @@ class ClassSpecificImageGeneration():
         if not os.path.exists(f'../generated/class_{self.target_class}'):
             os.makedirs(f'../generated/class_{self.target_class}')
 
-    def generate(self):
+    def generate(self, iterations=150, blur_freq=6, blur_rad=0.8):
         initial_learning_rate = 6
-        for i in range(1, 150):
+        for i in range(1, iterations):
             # Process image and return variable
-            self.processed_image = preprocess_image(self.created_image, False)
+
+            #implement gaussian blurring every ith iteration 
+            #to improve output
+             if i % blur_freq == 0:
+                self.processed_image = preprocess_image(
+                    self.created_image, False, blur_rad)
+            else:
+                self.processed_image = preprocess_image(self.created_image, False)
+
             # Define optimizer for the image
             optimizer = SGD([self.processed_image], lr=initial_learning_rate)
             # Forward
