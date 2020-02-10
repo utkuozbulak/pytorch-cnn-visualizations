@@ -58,7 +58,7 @@ class ClassSpecificImageGeneration():
             optimizer.step()
             # Recreate image
             self.created_image = recreate_image(self.processed_image)
-            if i % 10 == 0:
+            if i in np.linspace(0,iterations, 10, dtype=int):
                 # Save image
                 im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.numpy()}.jpg'
                 save_image(self.created_image, im_path)
