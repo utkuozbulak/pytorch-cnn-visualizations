@@ -63,7 +63,9 @@ class ClassSpecificImageGeneration():
             # Target specific class
             class_loss = -output[0, self.target_class]
 
-            if i % 50 == 0: print('Iteration:', str(i), 'Loss', "{0:.2f}".format(class_loss.data.numpy()))
+            if i in np.linspace(0, iterations, 10, dtype=int):
+                print('Iteration:', str(i), 'Loss',
+                      "{0:.2f}".format(class_loss.data.numpy()))
             # Zero grads
             self.model.zero_grad()
             # Backward
