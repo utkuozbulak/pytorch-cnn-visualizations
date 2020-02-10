@@ -6,7 +6,7 @@ Created on Thu Oct 21 11:09:09 2017
 import os
 import copy
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 import matplotlib.cm as mpl_color_map
 
 import torch
@@ -138,7 +138,7 @@ def save_image(im, path):
     im.save(path)
 
 
-def preprocess_image(pil_im, resize_im=True):
+def preprocess_image(pil_im, resize_im=True, blur_rad = None):
     """
         Processes image for CNNs
 
@@ -151,9 +151,22 @@ def preprocess_image(pil_im, resize_im=True):
     # mean and std list for channels (Imagenet)
     mean = [0.485, 0.456, 0.406]
     std = [0.229, 0.224, 0.225]
+
+    #ensure or transform incoming image to PIL image
+    if type(pil_im) != Image.Image:
+        try:
+            pil_im = Image.fromarray(pil_im)
+        except Exception as e:
+            print("could not transform PIL_img to a PIL Image object. Please check input.")
+
     # Resize image
     if resize_im:
         pil_im.thumbnail((224, 224))
+
+    #add gaussin blur to image
+    if blur_rad:
+        pil_im = pil_im.filter(ImageFilter.GaussianBlur(blur_rad))
+
     im_as_arr = np.float32(pil_im)
     im_as_arr = im_as_arr.transpose(2, 0, 1)  # Convert array to D,W,H
     # Normalize the channels
