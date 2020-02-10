@@ -28,7 +28,7 @@ class ClassSpecificImageGeneration():
         if not os.path.exists(f'../generated/class_{self.target_class}'):
             os.makedirs(f'../generated/class_{self.target_class}')
 
-    def generate(self, iterations=150, blur_freq=6, blur_rad=0.8):
+    def generate(self, iterations=150, blur_freq=6, blur_rad=0.8, wd = 0.05):
         initial_learning_rate = 6
         for i in range(1, iterations):
             # Process image and return variable
@@ -41,8 +41,9 @@ class ClassSpecificImageGeneration():
             else:
                 self.processed_image = preprocess_image(self.created_image, False)
 
-            # Define optimizer for the image
-            optimizer = SGD([self.processed_image], lr=initial_learning_rate)
+            # Define optimizer for the image - use weight decay to add regularization
+            # in SGD, wd = 2 * L2 regularization (https://bbabenko.github.io/weight-decay/)
+            optimizer = SGD([self.processed_image], lr=initial_learning_rate, weight_decay=wd)
             # Forward
             output = self.model(self.processed_image)
             # Target specific class
