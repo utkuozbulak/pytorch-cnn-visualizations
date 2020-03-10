@@ -159,7 +159,10 @@ def preprocess_and_blur_image(pil_im, resize_im=True, blur_rad=None):
     # Add one more channel to the beginning. Tensor shape = 1,3,224,224
     im_as_ten.unsqueeze_(0)
     # Convert to Pytorch variable
-    im_as_var = Variable(im_as_ten, requires_grad=True)
+    if use_cuda:
+        im_as_var = Variable(im_as_ten.cuda(), requires_grad=True)
+    else:
+        im_as_var = Variable(im_as_ten, requires_grad=True)
     return im_as_var
 
 if __name__ == '__main__':
