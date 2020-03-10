@@ -13,6 +13,7 @@ from torchvision import models
 
 from misc_functions import recreate_image, save_image
 
+use_cuda = torch.cuda.is_available()
 
 class RegularizedClassSpecificImageGeneration():
     """
@@ -22,7 +23,7 @@ class RegularizedClassSpecificImageGeneration():
     def __init__(self, model, target_class):
         self.mean = [-0.485, -0.456, -0.406]
         self.std = [1/0.229, 1/0.224, 1/0.225]
-        self.model = model
+        self.model = model.cuda() if use_cuda else model
         self.model.eval()
         self.target_class = target_class
         # Generate a random image
@@ -62,6 +63,9 @@ class RegularizedClassSpecificImageGeneration():
                 self.processed_image = preprocess_and_blur_image(
                     self.created_image, False)
 
+            if use_cuda:
+                self.processed_image = self.processed_image.cuda()
+
             # Define optimizer for the image - use weight decay to add regularization
             # in SGD, wd = 2 * L2 regularization (https://bbabenko.github.io/weight-decay/)
             optimizer = SGD([self.processed_image],
@@ -73,7 +77,7 @@ class RegularizedClassSpecificImageGeneration():
 
             if i in np.linspace(0, iterations, 10, dtype=int):
                 print('Iteration:', str(i), 'Loss',
-                      "{0:.2f}".format(class_loss.data.numpy()))
+                      "{0:.2f}".format(class_loss.data.cpu().numpy()))
             # Zero grads
             self.model.zero_grad()
             # Backward
@@ -85,14 +89,15 @@ class RegularizedClassSpecificImageGeneration():
             # Update image
             optimizer.step()
             # Recreate image
-            self.created_image = recreate_image(self.processed_image)
+            self.created_image = recreate_image(self.processed_image.cpu())
+
             if i in np.linspace(0, iterations, 10, dtype=int):
                 # Save image
-                im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.numpy()}.jpg'
+                im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.cpu().numpy()}.jpg'
                 save_image(self.created_image, im_path)
 
         #save final image
-        im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.numpy()}.jpg'
+        im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.cpu().numpy()}.jpg'
         save_image(self.created_image, im_path)
 
         #write file with regularization details
