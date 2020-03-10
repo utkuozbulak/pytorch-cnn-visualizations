@@ -29,20 +29,11 @@ class ClassSpecificImageGeneration():
         if not os.path.exists(f'../generated/class_{self.target_class}'):
             os.makedirs(f'../generated/class_{self.target_class}')
 
-    def generate(self, iterations=150, blur_freq=4, blur_rad=1, wd = 0.0001, clipping_value = 0.1):
-        """Generates class specific image with enhancements to improve image quality. 
-        See https://arxiv.org/abs/1506.06579 for details on each argument's effect on output quality. 
-        
-
-        Play around with combinations of arguments. Besides the defaults, this combination has produced good images:
-        blur_freq=6, blur_rad=0.8, wd = 0.05
+    def generate(self, iterations=150)
+        """Generates class specific image
 
         Keyword Arguments:
             iterations {int} -- Total iterations for gradient ascent (default: {150})
-            blur_freq {int} -- Frequency of Gaussian blur effect, in iterations (default: {6})
-            blur_rad {float} -- Radius for gaussian blur, passed to PIL.ImageFilter.GaussianBlur() (default: {0.8})
-            wd {float} -- Weight decay value for Stochastic Gradient Ascent (default: {0.05})
-            clipping_value {None or float} -- Value for gradient clipping (default: {0.1})
         
         Returns:
             np.ndarray -- Final maximally activated class image
@@ -50,18 +41,11 @@ class ClassSpecificImageGeneration():
         initial_learning_rate = 6
         for i in range(1, iterations):
             # Process image and return variable
-
-            #implement gaussian blurring every ith iteration 
-            #to improve output
-            if i % blur_freq == 0:
-                self.processed_image = preprocess_image(
-                    self.created_image, False, blur_rad)
-            else:
-                self.processed_image = preprocess_image(self.created_image, False)
+            self.processed_image = preprocess_image(self.created_image, False)
 
             # Define optimizer for the image - use weight decay to add regularization
             # in SGD, wd = 2 * L2 regularization (https://bbabenko.github.io/weight-decay/)
-            optimizer = SGD([self.processed_image], lr=initial_learning_rate, weight_decay=wd)
+            optimizer = SGD([self.processed_image], lr=initial_learning_rate)
             # Forward
             output = self.model(self.processed_image)
             # Target specific class
@@ -91,14 +75,6 @@ class ClassSpecificImageGeneration():
         im_path = f'../generated/class_{self.target_class}/c_{self.target_class}_iter_{i}_loss_{class_loss.data.numpy()}.jpg'
         save_image(self.created_image, im_path)
 
-        with open(f'../generated/class_{self.target_class}/run_details.txt', 'w') as f:
-            f.write(f'Iterations: {iterations}\n')
-            f.write(f'Blur freq: {blur_freq}\n')
-            f.write(f'Blur radius: {blur_rad}\n')
-            f.write(f'Weight decay: {wd}\n')
-            f.write(f'Clip value: {clipping_value}\n')
-
-        os.rename(f'../generated/class_{self.target_class}', f'../generated/class_{self.target_class}_blurfreq_{blur_freq}_blurrad_{blur_rad}_wd{wd}')
         return self.processed_image
 
 
