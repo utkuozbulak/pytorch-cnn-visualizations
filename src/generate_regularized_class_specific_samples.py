@@ -11,7 +11,7 @@ import torch
 from torch.optim import SGD
 from torchvision import models
 
-from misc_functions import preprocess_image, recreate_image, save_image
+from misc_functions import recreate_image, save_image
 
 
 class RegularizedClassSpecificImageGeneration():
@@ -56,10 +56,10 @@ class RegularizedClassSpecificImageGeneration():
             #implement gaussian blurring every ith iteration
             #to improve output
             if i % blur_freq == 0:
-                self.processed_image = preprocess_image(
+                self.processed_image = preprocess_and_blur_image(
                     self.created_image, False, blur_rad)
             else:
-                self.processed_image = preprocess_image(
+                self.processed_image = preprocess_and_blur_image(
                     self.created_image, False)
 
             # Define optimizer for the image - use weight decay to add regularization
@@ -109,8 +109,54 @@ class RegularizedClassSpecificImageGeneration():
         return self.processed_image
 
 
+def preprocess_and_blur_image(pil_im, resize_im=True, blur_rad=None):
+    """
+        Processes image with optional Gaussian blur for CNNs
+
+    Args:
+        PIL_img (PIL_img): PIL Image or numpy array to process
+        resize_im (bool): Resize to 224 or not
+        blur_rad (int): Pixel radius for Gaussian blurring (default = None)
+    returns:
+        im_as_var (torch variable): Variable that contains processed float tensor
+    """
+    # mean and std list for channels (Imagenet)
+    mean = [0.485, 0.456, 0.406]
+    std = [0.229, 0.224, 0.225]
+
+    #ensure or transform incoming image to PIL image
+    if type(pil_im) != Image.Image:
+        try:
+            pil_im = Image.fromarray(pil_im)
+        except Exception as e:
+            print(
+                "could not transform PIL_img to a PIL Image object. Please check input.")
+
+    # Resize image
+    if resize_im:
+        pil_im.thumbnail((224, 224))
+
+    #add gaussin blur to image
+    if blur_rad:
+        pil_im = pil_im.filter(ImageFilter.GaussianBlur(blur_rad))
+
+    im_as_arr = np.float32(pil_im)
+    im_as_arr = im_as_arr.transpose(2, 0, 1)  # Convert array to D,W,H
+    # Normalize the channels
+    for channel, _ in enumerate(im_as_arr):
+        im_as_arr[channel] /= 255
+        im_as_arr[channel] -= mean[channel]
+        im_as_arr[channel] /= std[channel]
+    # Convert to float tensor
+    im_as_ten = torch.from_numpy(im_as_arr).float()
+    # Add one more channel to the beginning. Tensor shape = 1,3,224,224
+    im_as_ten.unsqueeze_(0)
+    # Convert to Pytorch variable
+    im_as_var = Variable(im_as_ten, requires_grad=True)
+    return im_as_var
+
 if __name__ == '__main__':
     target_class = 130  # Flamingo
     pretrained_model = models.alexnet(pretrained=True)
-    csig = ClassSpecificImageGeneration(pretrained_model, target_class)
+    csig = RegularizedClassSpecificImageGeneration(pretrained_model, target_class)
     csig.generate()
