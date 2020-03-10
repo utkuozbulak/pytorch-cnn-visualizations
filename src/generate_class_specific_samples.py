@@ -29,7 +29,7 @@ class ClassSpecificImageGeneration():
         if not os.path.exists(f'../generated/class_{self.target_class}'):
             os.makedirs(f'../generated/class_{self.target_class}')
 
-    def generate(self, iterations=150)
+    def generate(self, iterations=150):
         """Generates class specific image
 
         Keyword Arguments:
@@ -58,10 +58,6 @@ class ClassSpecificImageGeneration():
             self.model.zero_grad()
             # Backward
             class_loss.backward()
-
-            if clipping_value:
-                torch.nn.utils.clip_grad_norm(
-                self.model.parameters(), clipping_value)
             # Update image
             optimizer.step()
             # Recreate image
