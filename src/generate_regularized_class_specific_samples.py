@@ -6,9 +6,11 @@ Last tested with torchvision 0.5.0 with image and model on cpu
 """
 import os
 import numpy as np
+from PIL import Image, ImageFilter
 
 import torch
 from torch.optim import SGD
+from torch.autograd import Variable
 from torchvision import models
 
 from misc_functions import recreate_image, save_image
