@@ -153,7 +153,8 @@ def preprocess_image(pil_im, resize_im=True):
     std = [0.229, 0.224, 0.225]
     # Resize image
     if resize_im:
-        pil_im.thumbnail((224, 224))
+        #pil_im.thumbnail((224, 224))
+        pil_im = pil_im.resize((224,224), Image.ANTIALIAS)
     im_as_arr = np.float32(pil_im)
     im_as_arr = im_as_arr.transpose(2, 0, 1)  # Convert array to D,W,H
     # Normalize the channels
@@ -229,6 +230,8 @@ def get_example_params(example_index):
     file_name_to_export = img_path[img_path.rfind('/')+1:img_path.rfind('.')]
     # Read image
     original_image = Image.open(img_path).convert('RGB')
+    original_image = original_image.resize((224,224), Image.ANTIALIAS)
+
     # Process image
     prep_img = preprocess_image(original_image)
     # Define model
