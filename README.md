@@ -338,7 +338,9 @@ The samples below show the produced image with no regularization, l1 and l2 regu
 	</tbody>
 </table>
 
-Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate to improve quality are; blurring, clipping gradients that are below a certain treshold, random color swaps on some parts, random cropping the image, forcing generated image to follow a path to force continuity. Some of these techniques are implemented in *generate_regularized_class_specific_samples.py*.
+Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate to improve quality are; blurring, clipping gradients that are below a certain treshold, random color swaps on some parts, random cropping the image, forcing generated image to follow a path to force continuity.
+
+Some of these techniques are implemented in *generate_regularized_class_specific_samples.py* (courtesy of [alexstoken](https://github.com/alexstoken)).
 
 ## Requirements:
 ```
