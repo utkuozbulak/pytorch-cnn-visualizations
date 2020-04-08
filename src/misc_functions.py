@@ -161,7 +161,7 @@ def preprocess_image(pil_im, resize_im=True):
 
     # Resize image
     if resize_im:
-        pil_im.thumbnail((224, 224))
+        pil_im = pil_im.resize((224, 224), Image.ANTIALIAS)
 
     im_as_arr = np.float32(pil_im)
     im_as_arr = im_as_arr.transpose(2, 0, 1)  # Convert array to D,W,H
