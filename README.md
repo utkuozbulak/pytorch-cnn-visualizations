@@ -307,7 +307,7 @@ Deep dream is technically the same operation as layer visualization the only dif
 
 
 ## Class Specific Image Generation
-This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with **VGG19** incorporated with Gaussian blur every other iteration (see [14] for details). The quality of generated images also depend on the model, **AlexNet** generally has green(ish) artifacts but VGGs produce (kid of) better images. Note that these images are generated with regular CNNs with optimizing the input and **not with GANs**.
+This operation produces different outputs based on the model and the applied regularization method. Below, are some samples produced with **VGG19** incorporated with Gaussian blur every other iteration (see [14] for details). The quality of generated images also depend on the model, **AlexNet** generally has green(ish) artifacts but VGGs produce (kind of) better images. Note that these images are generated with regular CNNs with optimizing the input and **not with GANs**.
 
 <table border=0 width="50px" >
 	<tbody>
@@ -338,7 +338,7 @@ The samples below show the produced image with no regularization, l1 and l2 regu
 	</tbody>
 </table>
 
-Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate to improve quality are; blurring, clipping gradients that are below a certain treshold, random color swaps on some parts, random cropping the image, forcing generated image to follow a path to force continuity.
+Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate to improve quality are; blurring, clipping gradients that are below a certain treshold, random color swaps on some parts, random cropping the image, forcing generated image to follow a path to force continuity. Some of these techniques are implemented in *generate_regularized_class_specific_samples.py*.
 
 ## Requirements:
 ```
