@@ -13,6 +13,7 @@ This repository contains a number of convolutional neural network visualization 
 * [Gradient visualization with saliency maps](#gradient-visualization) [4]
 * [Gradient-weighted class activation mapping](#gradient-visualization) [3] (Generalization of [2]) 
 * [Guided, gradient-weighted class activation mapping](#gradient-visualization) [3]
+* [Score-weighted class activation mapping](#gradient-visualization) [15] (Gradient-free generalization of [2])
 * [Smooth grad](#smooth-grad) [8]
 * [CNN filter visualization](#convolutional-neural-network-filter-visualization) [9]
 * [Inverted image representations](#inverted-image-representations) [5]
@@ -381,3 +382,4 @@ PIL >= 1.1.7
 
 [14] J. Yosinski, J. Clune, A. Nguyen, T. Fuchs, Hod Lipson, *Understanding Neural Networks Through Deep Visualization* http://yosinski.com/media/papers/Yosinski__2015__ICML_DL__Understanding_Neural_Networks_Through_Deep_Visualization__.pdf
 
+[15] H. Wang, Z. Wang, M. Du, F. Yang, Z. Zhang, S. Ding, P. Mardziel, X. Hu. *Score-CAM: Score-Weighted Visual Explanations for Convolutional Neural Networks*, https://arxiv.org/abs/1910.01279
