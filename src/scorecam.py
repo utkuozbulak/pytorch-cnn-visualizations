@@ -74,7 +74,7 @@ class ScoreCam():
             # Scale between 0-1
             norm_saliency_map = (saliency_map - saliency_map.min()) / (saliency_map.max() - saliency_map.min())
             # Get the target score
-            w = F.softmax(self.extractor.forward_pass(input_image*norm_saliency_map)[1])[0][target_class]
+            w = F.softmax(self.extractor.forward_pass(input_image*norm_saliency_map)[1],dim=1)[0][target_class]
             cam += w.data.numpy() * target[i, :, :].data.numpy()
         cam = np.maximum(cam, 0)
         cam = (cam - np.min(cam)) / (np.max(cam) - np.min(cam))  # Normalize between 0-1
