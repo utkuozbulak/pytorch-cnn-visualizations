@@ -126,21 +126,21 @@ If you find the code in this repository useful for your research consider citing
 		</tr>
     <tr>
 			<td width="19%" align="center"> Score-weighted Class Activation Map <br />  <br /> (Score-CAM)</td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_ScoreCAM_Grayscale.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_ScoreCAM_Grayscale.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_ScoreCAM_Grayscale.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_ScoreCAM_Grayscale.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_ScoreCAM_Grayscale.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_ScoreCAM_Grayscale.png"> </td>
 		</tr>
     <tr>
 			<td width="19%" align="center"> Score-weighted Class Activation Heatmap <br />  <br /> (Score-CAM)</td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_ScoreCAM_Heatmap.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_ScoreCAM_Heatmap.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_ScoreCAM_Heatmap.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_ScoreCAM_Heatmap.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_ScoreCAM_Heatmap.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_ScoreCAM_Heatmap.png"> </td>
 		</tr>
     <tr>
 			<td width="19%" align="center"> Score-weighted Class Activation Heatmap on Image <br />  <br /> (Score-CAM)</td>
-			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_ScoreCAM_On_Image.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_ScoreCAM_On_Image.jpg"> </td>
-			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_ScoreCAM_On_Image.jpg"> </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_ScoreCAM_On_Image.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_ScoreCAM_On_Image.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_ScoreCAM_On_Image.png"> </td>
 		</tr>
     <tr>
 			<td width="19%" align="center"> Colored Guided Gradient-weighted Class Activation Map <br />  <br /> (Guided-Grad-CAM)</td>
