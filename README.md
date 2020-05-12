@@ -52,7 +52,7 @@ If you find the code in this repository useful for your research consider citing
 	  publisher = {GitHub},
 	  journal = {GitHub repository},
 	  howpublished = {\url{https://github.com/utkuozbulak/pytorch-cnn-visualizations}},
-	  commit = {3460e7f014f52f4099c1a4864e1534de9cc901e7}
+	  commit = {47c6cd2121b4d0bcbe76f63abe9e13c5fb1ea0ff}
 	}
 
 
