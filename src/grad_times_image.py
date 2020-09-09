@@ -20,7 +20,8 @@ if __name__ == '__main__':
     # Generate gradients
     vanilla_grads = VBP.generate_gradients(prep_img, target_class)
 
-    grad_times_image = vanilla_grads[0] * prep_img.detach().numpy()[0]
+    # Make sure dimensions add up!
+    grad_times_image = vanilla_grads * prep_img.detach().numpy()[0]
     # Convert to grayscale
     grayscale_vanilla_grads = convert_to_grayscale(grad_times_image)
     # Save grayscale gradients
