@@ -16,8 +16,9 @@ class GuidedBackprop():
     """
        Produces gradients generated with guided back propagation from the given image
     """
-    def __init__(self, model):
-        self.model = model
+    def __init__(self, model, device_id = "cpu"):
+        self.device = device_id
+        self.model = model.to(self.device)
         self.gradients = None
         self.forward_relu_outputs = []
         # Put model in evaluation mode
@@ -63,17 +64,17 @@ class GuidedBackprop():
 
     def generate_gradients(self, input_image, target_class):
         # Forward pass
-        model_output = self.model(input_image)
+        model_output = self.model(input_image.to(self.device))
         # Zero gradients
         self.model.zero_grad()
         # Target for backprop
         one_hot_output = torch.FloatTensor(1, model_output.size()[-1]).zero_()
         one_hot_output[0][target_class] = 1
         # Backward pass
-        model_output.backward(gradient=one_hot_output)
+        model_output.backward(gradient=one_hot_output.to(self.device))
         # Convert Pytorch variable to numpy array
         # [0] to get rid of the first channel (1,3,224,224)
-        gradients_as_arr = self.gradients.data.numpy()[0]
+        gradients_as_arr = self.gradients.data.cpu().numpy()[0]
         return gradients_as_arr
 
 

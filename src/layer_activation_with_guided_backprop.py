@@ -16,11 +16,14 @@ class GuidedBackprop():
     """
        Produces gradients generated with guided back propagation from the given image
     """
-    def __init__(self, model):
-        self.model = model
+    def __init__(self, model, cnn_layer, device_id= 'cpu'):
+        self.device = device_id
+        self.model = model.to(device)
         self.gradients = None
         self.forward_relu_outputs = []
         # Put model in evaluation mode
+        self.layer = cnn_layer
+        self.conv_output = None
         self.model.eval()
         self.update_relus()
         self.hook_layers()
@@ -28,9 +31,12 @@ class GuidedBackprop():
     def hook_layers(self):
         def hook_function(module, grad_in, grad_out):
             self.gradients = grad_in[0]
+        def hook_function_forward(module, input, output):
+            self.conv_output = output
         # Register hook to the first layer
         first_layer = list(self.model.features._modules.items())[0][1]
         first_layer.register_backward_hook(hook_function)
+        self.layer.register_forward_hook(hook_function_forward)
 
     def update_relus(self):
         """
@@ -64,22 +70,14 @@ class GuidedBackprop():
     def generate_gradients(self, input_image, target_class, cnn_layer, filter_pos):
         self.model.zero_grad()
         # Forward pass
-        x = input_image
-        for index, layer in enumerate(self.model.features):
-            # Forward pass layer by layer
-            # x is not used after this point because it is only needed to trigger
-            # the forward hook function
-            x = layer(x)
-            # Only need to forward until the selected layer is reached
-            if index == cnn_layer:
-                # (forward hook function triggered)
-                break
-        conv_output = torch.sum(torch.abs(x[0, filter_pos]))
+        x = input_image.to(self.device)
+        op = self.model(x)
+        conv_output = torch.sum(torch.abs(self.conv_output[0, filter_pos]))
         # Backward pass
         conv_output.backward()
         # Convert Pytorch variable to numpy array
         # [0] to get rid of the first channel (1,3,224,224)
-        gradients_as_arr = self.gradients.data.numpy()[0]
+        gradients_as_arr = self.gradients.data.cpu().numpy()[0]
         return gradients_as_arr
 
 
@@ -93,7 +91,7 @@ if __name__ == '__main__':
     # File export name
     file_name_to_export = file_name_to_export + '_layer' + str(cnn_layer) + '_filter' + str(filter_pos)
     # Guided backprop
-    GBP = GuidedBackprop(pretrained_model)
+    GBP = GuidedBackprop(pretrained_model, cnn_layer)
     # Get gradients
     guided_grads = GBP.generate_gradients(prep_img, target_class, cnn_layer, filter_pos)
     # Save colored gradients
