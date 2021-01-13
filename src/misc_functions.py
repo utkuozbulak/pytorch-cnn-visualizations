@@ -48,6 +48,7 @@ def save_gradient_images(gradient, file_name):
     # Save image
     path_to_file = os.path.join('../results', file_name + '.jpg')
     save_image(gradient, path_to_file)
+    return gradient
 
 
 def save_class_activation_images(org_img, activation_map, file_name):
@@ -72,6 +73,7 @@ def save_class_activation_images(org_img, activation_map, file_name):
     # SAve grayscale heatmap
     path_to_file = os.path.join('../results', file_name+'_Cam_Grayscale.png')
     save_image(activation_map, path_to_file)
+    return heatmap_on_image
 
 
 def apply_colormap_on_image(org_im, activation, colormap_name):
@@ -206,7 +208,7 @@ def get_positive_negative_saliency(gradient):
     return pos_saliency, neg_saliency
 
 
-def get_example_params(example_index):
+def get_example_params(example_index, pretrain=True, diffclass=False):
     """
         Gets used variables for almost all visualizations, like the image, model etc.
 
@@ -221,18 +223,30 @@ def get_example_params(example_index):
         pretrained_model(Pytorch model): Model to use for the operations
     """
     # Pick one of the examples
+    # example_list = (('../input_images/snake.jpg', 56),
+    #                 ('../input_images/cat_dog.png', 243),
+    #                 ('../input_images/spider.png', 72))
     example_list = (('../input_images/snake.jpg', 56),
                     ('../input_images/cat_dog.png', 243),
                     ('../input_images/spider.png', 72))
     img_path = example_list[example_index][0]
     target_class = example_list[example_index][1]
     file_name_to_export = img_path[img_path.rfind('/')+1:img_path.rfind('.')]
+    if pretrain:
+        file_name_to_export += '_pretrain'
+    else:
+        file_name_to_export += '_nopretrain'
+    if diffclass:
+        target_class = np.random.choice([2,300,900])
+        file_name_to_export += '_diffclass-%d'%target_class
+    else:
+        file_name_to_export += '_trueclass'
     # Read image
     original_image = Image.open(img_path).convert('RGB')
     # Process image
     prep_img = preprocess_image(original_image)
     # Define model
-    pretrained_model = models.alexnet(pretrained=True)
+    pretrained_model = models.alexnet(pretrained=pretrain)
     return (original_image,
             prep_img,
             target_class,

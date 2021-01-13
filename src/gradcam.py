@@ -7,7 +7,7 @@ from PIL import Image
 import numpy as np
 import torch
 
-from misc_functions import get_example_params, save_class_activation_images
+from src.misc_functions import get_example_params, save_class_activation_images
 
 
 class CamExtractor():
@@ -106,5 +106,6 @@ if __name__ == '__main__':
     # Generate cam mask
     cam = grad_cam.generate_cam(prep_img, target_class)
     # Save mask
-    save_class_activation_images(original_image, cam, file_name_to_export)
+    res = save_class_activation_images(original_image, cam, file_name_to_export)
+    res.show()
     print('Grad cam completed')

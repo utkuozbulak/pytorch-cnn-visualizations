@@ -6,7 +6,7 @@ Created on Wed Jun 19 17:06:48 2019
 import torch
 import numpy as np
 
-from misc_functions import get_example_params, convert_to_grayscale, save_gradient_images
+from src.misc_functions import get_example_params, convert_to_grayscale, save_gradient_images
 
 
 class IntegratedGradients():
@@ -78,4 +78,7 @@ if __name__ == '__main__':
     grayscale_integrated_grads = convert_to_grayscale(integrated_grads)
     # Save grayscale gradients
     save_gradient_images(grayscale_integrated_grads, file_name_to_export + '_Integrated_G_gray')
+    from PIL import Image
+    res = Image.fromarray(grayscale_integrated_grads)
+    res.show()
     print('Integrated gradients completed.')
