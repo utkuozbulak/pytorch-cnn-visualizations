@@ -35,21 +35,6 @@ I tried to comment on the code as much as possible, if you have any issues under
 
 Below, are some sample results for each operation.
 
-## Citation
-
-If you find the code in this repository useful for your research consider citing it.
-
-	@misc{uozbulak_pytorch_vis_2019,
-	  author = {Utku Ozbulak},
-	  title = {PyTorch CNN Visualizations},
-	  year = {2019},
-	  publisher = {GitHub},
-	  journal = {GitHub repository},
-	  howpublished = {\url{https://github.com/utkuozbulak/pytorch-cnn-visualizations}},
-	  commit = {47c6cd2121b4d0bcbe76f63abe9e13c5fb1ea0ff}
-	}
-
-
 ## Gradient Visualization
 <table border=0 >
 	<tbody>
@@ -403,6 +388,20 @@ matplotlib >= 1.5
 PIL >= 1.1.7
 ```
 
+## Citation
+
+If you find the code in this repository useful for your research consider citing it.
+
+	@misc{uozbulak_pytorch_vis_2021,
+	  author = {Utku Ozbulak},
+	  title = {PyTorch CNN Visualizations},
+	  year = {2019},
+	  publisher = {GitHub},
+	  journal = {GitHub repository},
+	  howpublished = {\url{https://github.com/utkuozbulak/pytorch-cnn-visualizations}},
+	  commit = {53561b601c895f7d7d5bcf5fbc935a87ff08979a}
+	}
+	
 ## References:
 
 [1] J. T. Springenberg, A. Dosovitskiy, T. Brox, and M. Riedmiller. *Striving for Simplicity: The All Convolutional Net*, https://arxiv.org/abs/1412.6806
