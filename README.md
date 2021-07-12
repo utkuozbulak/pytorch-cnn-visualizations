@@ -14,6 +14,7 @@ This repository contains a number of convolutional neural network visualization 
 * [Gradient-weighted class activation mapping](#gradient-visualization) [3] (Generalization of [2]) 
 * [Guided, gradient-weighted class activation mapping](#gradient-visualization) [3]
 * [Score-weighted class activation mapping](#gradient-visualization) [15] (Gradient-free generalization of [2])
+* [Element-wise gradient-weighted class activation mapping](#hierarchical-gradient-visualization) [16] (Visualization of any CNN layer) 
 * [Smooth grad](#smooth-grad) [8]
 * [CNN filter visualization](#convolutional-neural-network-filter-visualization) [9]
 * [Inverted image representations](#inverted-image-representations) [5]
@@ -162,6 +163,45 @@ If you find the code in this repository useful for your research consider citing
 		</tr>
 	</tbody>
 </table>
+
+## Hierarchical Gradient Visualization
+**Element-wise gradient-weighted class activation mapping**: LayerCAM [16] is a simple modification of Grad-CAM [3], which can generate reliable class activation maps from different layers. For this example I used a pre-trained **VGG16**. 
+
+<table border=0 width="50px" >
+	<tbody> 
+    <tr>
+			<td>  </td>
+			<td align="center"> Class Activation Map </td>
+			<td align="center"> Class Activation HeatMap </td>
+			<td align="center"> Class Activation HeatMap on Image</td>
+		</tr>
+		<tr>
+			<td width="19%" align="center"> LayerCAM <br /> (Layer 9)</td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool2_Grayscale.png"> </td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool2_Heatmap.png"> </td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool2_On_Image.png"> </td>
+		</tr>
+		<tr>
+			<td width="19%" align="center"> LayerCAM <br /> (Layer 16)</td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool3_Grayscale.png"> </td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool3_Heatmap.png"> </td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool3_On_Image.png"> </td>
+		</tr>
+		<tr>
+			<td width="19%" align="center"> LayerCAM <br /> (Layer 23)</td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool4_Grayscale.png"> </td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool4_Heatmap.png"> </td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool4_On_Image.png"> </td>
+		</tr>
+		<tr>
+			<td width="19%" align="center"> LayerCAM <br /> (Layer 30)</td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool5_Grayscale.png"> </td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool5_Heatmap.png"> </td>
+			<td width="27%" align="center"> <img src="results/hierarchical_gradient_visualization/snake_LayerCam_pool5_On_Image.png"> </td>
+		</tr>
+	</tbody>
+</table>
+
 
 ## Grad Times Image
 Another technique that is proposed is simply multiplying the gradients with the image itself. Results obtained with the usage of multiple gradient techniques are below.
@@ -401,3 +441,5 @@ PIL >= 1.1.7
 [14] J. Yosinski, J. Clune, A. Nguyen, T. Fuchs, Hod Lipson, *Understanding Neural Networks Through Deep Visualization* https://arxiv.org/abs/1506.06579
 
 [15] H. Wang, Z. Wang, M. Du, F. Yang, Z. Zhang, S. Ding, P. Mardziel, X. Hu. *Score-CAM: Score-Weighted Visual Explanations for Convolutional Neural Networks* https://arxiv.org/abs/1910.01279
+
+[16] P. Jiang, C. Zhang, Q. Hou, M. Cheng, Y. Wei. LayerCAM: *Exploring Hierarchical Class Activation Maps for Localization* http://mmcheng.net/mftp/Papers/21TIP_LayerCAM.pdf
