@@ -14,7 +14,7 @@ This repository contains a number of convolutional neural network visualization 
 * [Gradient-weighted class activation mapping](#gradient-visualization) [3] (Generalization of [2]) 
 * [Guided, gradient-weighted class activation mapping](#gradient-visualization) [3]
 * [Score-weighted class activation mapping](#gradient-visualization) [15] (Gradient-free generalization of [2])
-* [Element-wise gradient-weighted class activation mapping](#hierarchical-gradient-visualization) [16] (Visualization of any CNN layer) 
+* [Element-wise gradient-weighted class activation mapping](#hierarchical-gradient-visualization) [16]
 * [Smooth grad](#smooth-grad) [8]
 * [CNN filter visualization](#convolutional-neural-network-filter-visualization) [9]
 * [Inverted image representations](#inverted-image-representations) [5]
@@ -22,13 +22,6 @@ This repository contains a number of convolutional neural network visualization 
 * [Class specific image generation](#class-specific-image-generation) [4] [14]
 * [Grad times image](#grad-times-image) [12]
 * [Integrated gradients](#gradient-visualization) [13]
-
- I moved following **Adversarial example generation** techniques [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks) to separate visualizations from adversarial stuff.
- 
-	- Fast Gradient Sign, Untargeted [11]
-	- Fast Gradient Sign, Targeted [11]
-	- Gradient Ascent, Adversarial Images [7]
-	- Gradient Ascent, Fooling Images (Unrecognizable images predicted as classes with high confidence) [7]
 
 ## General Information
 
@@ -165,7 +158,7 @@ If you find the code in this repository useful for your research consider citing
 </table>
 
 ## Hierarchical Gradient Visualization
-**Element-wise gradient-weighted class activation mapping**: LayerCAM [16] is a simple modification of Grad-CAM [3], which can generate reliable class activation maps from different layers. For this example I used a pre-trained **VGG16**. 
+LayerCAM [16] is a simple modification of Grad-CAM [3], which can generate reliable class activation maps from different layers. For the examples provided below, a pre-trained **VGG16** was used.
 
 <table border=0 width="50px" >
 	<tbody> 
