@@ -79,6 +79,7 @@ class GradCam():
         weights = np.mean(guided_gradients, axis=(1, 2))  # Take averages for each gradient
         # Create empty numpy array for cam
         cam = np.ones(target.shape[1:], dtype=np.float32)
+        # Have a look at issue #11 to check why the above is np.ones and not np.zeros
         # Multiply each weight with its conv output and then, sum
         for i, w in enumerate(weights):
             cam += w * target[i, :, :]
