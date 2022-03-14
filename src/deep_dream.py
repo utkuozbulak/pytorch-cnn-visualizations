@@ -82,7 +82,7 @@ if __name__ == '__main__':
     cnn_layer = 34
     filter_pos = 94
 
-    im_path = '../input_images/dd_tree.jpg'
+    im_path = '../input_images/dd_tree.png'
     # Fully connected layer is not needed
     pretrained_model = models.vgg19(pretrained=True).features
     dd = DeepDream(pretrained_model, cnn_layer, filter_pos, im_path)

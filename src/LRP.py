@@ -24,9 +24,14 @@ class LRP():
         self.model = model
 
     def LRP_forward(self, layer, input_tensor, gamma=None, epsilon=None):
+        # This implementation uses both gamma and epsilon rule for all layers
+        # The original paper argues that it might be beneficial to sometimes use
+        # or not use gamma/epsilon rule depending on the layer location
+        # Have a look a the paper and adjust the code according to your needs
+
         # LRP-Gamma rule
         if gamma is None:
-            gamma = lambda value: value + 0.0 * copy.deepcopy(value.data.detach()).clamp(min=0)
+            gamma = lambda value: value + 0.05 * copy.deepcopy(value.data.detach()).clamp(min=0)
         # LRP-Epsilon rule
         if epsilon is None:
             eps = 1e-9
