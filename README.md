@@ -22,6 +22,7 @@ This repository contains a number of convolutional neural network visualization 
 * [Class specific image generation](#class-specific-image-generation) [4] [14]
 * [Grad times image](#grad-times-image) [12]
 * [Integrated gradients](#gradient-visualization) [13]
+* [Layerwise relevance propagation](#gradient-visualization) [17]
 
 ## General Information
 
@@ -138,6 +139,18 @@ Below, are some sample results for each operation.
 			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_Integrated_G_gray.jpg"> </td>
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_Integrated_G_gray.jpg"> </td>
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_Integrated_G_gray.jpg"> </td>
+		</tr>
+    <tr>
+			<td width="19%" align="center"> Layerwise Relevance <br /> (LRP) - Layer 7  </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/LRP_out_snake_7.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/LRP_out_dog_7.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/LRP_out_spider_7.png"> </td>
+		</tr>
+    <tr>
+			<td width="19%" align="center"> Layerwise Relevance <br /> (LRP) - Layer 1  </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/LRP_out_snake.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/LRP_out_dog.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/LRP_out_spider.png"> </td>
 		</tr>
 	</tbody>
 </table>
@@ -392,14 +405,14 @@ PIL >= 1.1.7
 
 If you find the code in this repository useful for your research consider citing it.
 
-	@misc{uozbulak_pytorch_vis_2021,
+	@misc{uozbulak_pytorch_vis_2022,
 	  author = {Utku Ozbulak},
 	  title = {PyTorch CNN Visualizations},
 	  year = {2019},
 	  publisher = {GitHub},
 	  journal = {GitHub repository},
 	  howpublished = {\url{https://github.com/utkuozbulak/pytorch-cnn-visualizations}},
-	  commit = {53561b601c895f7d7d5bcf5fbc935a87ff08979a}
+	  commit = {b7e60adaf64c9be97b480509285718603d1e9ba4}
 	}
 	
 ## References:
@@ -435,3 +448,6 @@ If you find the code in this repository useful for your research consider citing
 [15] H. Wang, Z. Wang, M. Du, F. Yang, Z. Zhang, S. Ding, P. Mardziel, X. Hu. *Score-CAM: Score-Weighted Visual Explanations for Convolutional Neural Networks* https://arxiv.org/abs/1910.01279
 
 [16] P. Jiang, C. Zhang, Q. Hou, M. Cheng, Y. Wei. LayerCAM: *Exploring Hierarchical Class Activation Maps for Localization* http://mmcheng.net/mftp/Papers/21TIP_LayerCAM.pdf
+
+[17] G. Montavon1, A. Binder, S. Lapuschkin, W. Samek, and K. Muller. *Layer-Wise Relevance Propagation: An Overview* https://www.researchgate.net/publication/335708351_Layer-Wise_Relevance_Propagation_An_Overview
+
