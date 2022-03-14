@@ -16,6 +16,9 @@ from misc_functions import apply_heatmap, get_example_params
 class LRP():
     """
         Layer-wise relevance propagation with gamma+epsilon rule
+
+        This code is largely based on the code shared in: https://git.tu-berlin.de/gmontavon/lrp-tutorial
+        Some stuff is removed, some stuff is cleaned, and some stuff is re-organized compared to that repository.
     """
     def __init__(self, model):
         self.model = model
@@ -105,7 +108,7 @@ class LRP():
 
 if __name__ == '__main__':
     # Get params
-    target_example = 0  # Spider
+    target_example = 2  # Spider
     (original_image, prep_img, target_class, file_name_to_export, pretrained_model) =\
         get_example_params(target_example)
 
