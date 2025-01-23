@@ -18,6 +18,17 @@ class CamExtractor():
         self.model = model
         self.target_layer = target_layer
         self.gradients = None
+        self.conv_output = None
+        self.forward_hook()
+
+    def hook_Func(self, module, input, output):
+        self.conv_output = output
+        self.conv_output.register_hook(self.save_gradient)
+
+    def forward_hook(self):
+        for module_pos, module in self.model._modules.items():
+            if module_pos == self.target_layer:
+                module.register_forward_hook(self.hook_Func)
 
     def save_gradient(self, grad):
         self.gradients = grad
@@ -26,13 +37,9 @@ class CamExtractor():
         """
             Does a forward pass on convolutions, hooks the function at given layer
         """
-        conv_output = None
-        for module_pos, module in self.model.features._modules.items():
-            x = module(x)  # Forward
-            if int(module_pos) == self.target_layer:
-                x.register_hook(self.save_gradient)
-                conv_output = x  # Save the convolution output on that layer
-        return conv_output, x
+        output = None
+        output = self.model(x)
+        return self.conv_output, output
 
     def forward_pass(self, x):
         """
@@ -50,8 +57,9 @@ class GradCam():
     """
         Produces class activation map
     """
-    def __init__(self, model, target_layer):
-        self.model = model
+    def __init__(self, model, target_layer,device_id='cpu'):
+        self.device = device_id
+        self.model = model.to(self.device)
         self.model.eval()
         # Define extractor
         self.extractor = CamExtractor(self.model, target_layer)
@@ -60,9 +68,9 @@ class GradCam():
         # Full forward pass
         # conv_output is the output of convolutions at specified layer
         # model_output is the final output of the model (1, 1000)
-        conv_output, model_output = self.extractor.forward_pass(input_image)
+        conv_output, model_output = self.extractor.forward_pass(input_image.to(self.device))
         if target_class is None:
-            target_class = np.argmax(model_output.data.numpy())
+            target_class = np.argmax(model_output.data.cpu().numpy())
         # Target for backprop
         one_hot_output = torch.FloatTensor(1, model_output.size()[-1]).zero_()
         one_hot_output[0][target_class] = 1
@@ -70,11 +78,11 @@ class GradCam():
         self.model.features.zero_grad()
         self.model.classifier.zero_grad()
         # Backward pass with specified target
-        model_output.backward(gradient=one_hot_output, retain_graph=True)
+        model_output.backward(gradient=one_hot_output.to(self.device), retain_graph=True)
         # Get hooked gradients
-        guided_gradients = self.extractor.gradients.data.numpy()[0]
+        guided_gradients = self.extractor.gradients.data.cpu().numpy()[0]
         # Get convolution outputs
-        target = conv_output.data.numpy()[0]
+        target = conv_output.data.cpu().numpy()[0]
         # Get weights from gradients
         weights = np.mean(guided_gradients, axis=(1, 2))  # Take averages for each gradient
         # Create empty numpy array for cam
